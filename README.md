@@ -2,11 +2,11 @@
 
 ## Desarrolladores
 
-José Lacueva
-Carla Aparicio
-Álvaro Alepuz
-Noelia Conches
-Alejandro Moret
+* José Lacueva
+* Carla Aparicio
+* Álvaro Alepuz
+* Noelia Conches
+* Alejandro Moret
 
 
 <!-- ABOUT THE PROJECT -->
