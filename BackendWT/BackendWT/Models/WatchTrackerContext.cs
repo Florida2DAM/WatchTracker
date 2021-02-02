@@ -9,7 +9,7 @@ namespace BackendWT.Models
     public class WatchTrackerContext : DbContext
     {
         public DbSet<User> Users { get; set; }
-        //public DbSet<UserMovies> UserMovies { get; set; }
+        public DbSet<UserMovies> UserMovies { get; set; }
 
         public WatchTrackerContext() { }
 
@@ -23,12 +23,13 @@ namespace BackendWT.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            ////modelBuilder.Entity<UserMovies>(entity => entity.HasKey(e => e.UserMoviesId));
-            //modelBuilder.Entity<UserMovies>().HasIndex(uMovies => new { uMovies.MovieId, uMovies.UserId }).IsUnique();//MultiIndex for unique columns (Movie - User)
+            //modelBuilder.Entity<UserMovies>(entity => entity.HasKey(e => e.UserMoviesId));
+            modelBuilder.Entity<UserMovies>().HasIndex(uMovies => new { uMovies.MovieId, uMovies.UserId }).IsUnique();//MultiIndex for unique columns (Movie - User)
             modelBuilder.Entity<User>().HasData(new User("jolame", "1234", "jolame@gmail.es", "Jose", "Lacueva", DateTime.Now, null));
             modelBuilder.Entity<User>().HasData(new User("alalma", "1234", "alvaro@gmail.com", "Alvaro", "Alepuz", DateTime.Now, null));
-            //modelBuilder.Entity<UserMovies>().HasData(new UserMovies(1, 1726, "Watched", DateTime.Now, 9, "jolame"));
-            //modelBuilder.Entity<UserMovies>().HasData(new UserMovies(2, 557, "Watching", DateTime.Now, 9, "alalma"));
+            modelBuilder.Entity<UserMovies>().HasData(new UserMovies(1, 1726, "Watched", DateTime.Now, 9, "jolame"));
+            modelBuilder.Entity<UserMovies>().HasData(new UserMovies(2, 557, "Watching", DateTime.Now, 10, "jolame"));
+            modelBuilder.Entity<UserMovies>().HasData(new UserMovies(3, 557, "Watching", DateTime.Now, 8, "alalma"));
 
         }
     }

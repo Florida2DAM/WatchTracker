@@ -249,12 +249,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20210202150422_m1.cs" />
-    <Compile Include="Migrations\20210202150422_m1.designer.cs">
-      <DependentUpon>20210202150422_m1.cs</DependentUpon>
+    <Compile Include="Migrations\20210202162342_m1.cs" />
+    <Compile Include="Migrations\20210202162342_m1.designer.cs">
+      <DependentUpon>20210202162342_m1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\WatchTrackerContextModelSnapshot.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserMovies.cs" />
     <Compile Include="Models\UsersRepository.cs" />
     <Compile Include="Models\WatchTrackerContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
