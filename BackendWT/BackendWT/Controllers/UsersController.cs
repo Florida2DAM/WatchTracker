@@ -17,6 +17,8 @@ namespace BackendWT.Controllers
         public bool CheckUsername(string userId) => new UsersRepository().CheckUsername(userId);
         [HttpGet]
         public bool CheckEmail(string email) => new UsersRepository().CheckEmail(email);
+        [HttpGet]
+        public bool CheckLogin(string userId, string password) => new UsersRepository().CheckLogin(userId, password);
 
         // POST: api/Users
         public bool Post([FromBody] User user) => new UsersRepository().SaveUser(user);

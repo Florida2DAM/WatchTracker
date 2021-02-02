@@ -18,6 +18,19 @@ namespace BackendWT.Models
         //    return users;
         //}
 
+        internal bool CheckLogin(string userId, string password)
+        {
+            User user;
+            using (WatchTrackerContext context = new WatchTrackerContext())
+            {
+                user = context.Users.Where(u => u.UserId == userId && u.Password == password).FirstOrDefault();
+            }
+            if (user == null)
+                return false;
+            else
+                return true;
+        }
+
         internal bool CheckUsername(string userId)
         {
             User user;
