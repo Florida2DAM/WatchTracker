@@ -243,7 +243,9 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Common\TMDBRequests.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -254,6 +256,9 @@
       <DependentUpon>20210202162342_m1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\WatchTrackerContextModelSnapshot.cs" />
+    <Compile Include="Models\Movie.cs" />
+    <Compile Include="Models\MovieDTO.cs" />
+    <Compile Include="Models\MoviesRepository.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserMovies.cs" />
     <Compile Include="Models\UsersRepository.cs" />
