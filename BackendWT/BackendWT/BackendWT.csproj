@@ -247,21 +247,25 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\UsersSubscriptionsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20210202162342_m1.cs" />
-    <Compile Include="Migrations\20210202162342_m1.designer.cs">
-      <DependentUpon>20210202162342_m1.cs</DependentUpon>
+    <Compile Include="Migrations\20210203162655_m1.cs" />
+    <Compile Include="Migrations\20210203162655_m1.designer.cs">
+      <DependentUpon>20210203162655_m1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\WatchTrackerContextModelSnapshot.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\MovieDTO.cs" />
     <Compile Include="Models\MoviesRepository.cs" />
+    <Compile Include="Models\Provider.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserMovies.cs" />
     <Compile Include="Models\UsersRepository.cs" />
+    <Compile Include="Models\UsersSubscriptionsRepository.cs" />
+    <Compile Include="Models\UserSubscriptions.cs" />
     <Compile Include="Models\WatchTrackerContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

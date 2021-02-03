@@ -10,6 +10,8 @@ namespace BackendWT.Models
     {
         public DbSet<User> Users { get; set; }
         public DbSet<UserMovies> UserMovies { get; set; }
+        public DbSet<Provider> Providers { get; set; }
+        public DbSet<UserSubscriptions> UserSubscriptions { get; set; }
 
         public WatchTrackerContext() { }
 
@@ -31,6 +33,19 @@ namespace BackendWT.Models
             modelBuilder.Entity<UserMovies>().HasData(new UserMovies(2, 557, "Watching", DateTime.Now, 10, "jolame"));
             modelBuilder.Entity<UserMovies>().HasData(new UserMovies(3, 557, "Watching", DateTime.Now, 8, "alalma"));
 
+            byte providerId = 1;
+            string[] providerNames = {
+                "Netflix", "Prime Video", "HBO", "Disney Plus", "Apple TV", "Crunchyroll",
+                "Movistar Plus", "Youtube Premium", "Filmin", "ATRESPlayer", "Mitele", "FuboTV"
+            };
+            foreach (var providerName in providerNames)
+            {
+                modelBuilder.Entity<Provider>().HasData(new Provider(providerId, providerName));
+                providerId++;
+            }
+
+            modelBuilder.Entity<UserSubscriptions>().HasData(
+                new UserSubscriptions(1, "Netflix", DateTime.Now.AddMonths(1), "Monthly", 9.95, "jolame", 1));
         }
     }
 }

@@ -17,6 +17,82 @@ namespace BackendWT.Migrations
                 .HasAnnotation("ProductVersion", "3.1.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("BackendWT.Models.Provider", b =>
+                {
+                    b.Property<byte>("ProviderId")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.Property<string>("ProviderName")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.HasKey("ProviderId");
+
+                    b.ToTable("Providers");
+
+                    b.HasData(
+                        new
+                        {
+                            ProviderId = (byte)1,
+                            ProviderName = "Netflix"
+                        },
+                        new
+                        {
+                            ProviderId = (byte)2,
+                            ProviderName = "Prime Video"
+                        },
+                        new
+                        {
+                            ProviderId = (byte)3,
+                            ProviderName = "HBO"
+                        },
+                        new
+                        {
+                            ProviderId = (byte)4,
+                            ProviderName = "Disney Plus"
+                        },
+                        new
+                        {
+                            ProviderId = (byte)5,
+                            ProviderName = "Apple TV"
+                        },
+                        new
+                        {
+                            ProviderId = (byte)6,
+                            ProviderName = "Crunchyroll"
+                        },
+                        new
+                        {
+                            ProviderId = (byte)7,
+                            ProviderName = "Movistar Plus"
+                        },
+                        new
+                        {
+                            ProviderId = (byte)8,
+                            ProviderName = "Youtube Premium"
+                        },
+                        new
+                        {
+                            ProviderId = (byte)9,
+                            ProviderName = "Filmin"
+                        },
+                        new
+                        {
+                            ProviderId = (byte)10,
+                            ProviderName = "ATRESPlayer"
+                        },
+                        new
+                        {
+                            ProviderId = (byte)11,
+                            ProviderName = "Mitele"
+                        },
+                        new
+                        {
+                            ProviderId = (byte)12,
+                            ProviderName = "FuboTV"
+                        });
+                });
+
             modelBuilder.Entity("BackendWT.Models.User", b =>
                 {
                     b.Property<string>("UserId")
@@ -52,7 +128,7 @@ namespace BackendWT.Migrations
                         new
                         {
                             UserId = "jolame",
-                            Birthday = new DateTime(2021, 2, 2, 17, 23, 42, 235, DateTimeKind.Local).AddTicks(4650),
+                            Birthday = new DateTime(2021, 2, 3, 17, 26, 54, 989, DateTimeKind.Local).AddTicks(3083),
                             Email = "jolame@gmail.es",
                             Name = "Jose",
                             Password = "1234",
@@ -61,7 +137,7 @@ namespace BackendWT.Migrations
                         new
                         {
                             UserId = "alalma",
-                            Birthday = new DateTime(2021, 2, 2, 17, 23, 42, 237, DateTimeKind.Local).AddTicks(4651),
+                            Birthday = new DateTime(2021, 2, 3, 17, 26, 55, 4, DateTimeKind.Local).AddTicks(9336),
                             Email = "alvaro@gmail.com",
                             Name = "Alvaro",
                             Password = "1234",
@@ -106,7 +182,7 @@ namespace BackendWT.Migrations
                         {
                             UserMoviesId = 1,
                             MovieId = 1726,
-                            UserDate = new DateTime(2021, 2, 2, 17, 23, 42, 237, DateTimeKind.Local).AddTicks(4651),
+                            UserDate = new DateTime(2021, 2, 3, 17, 26, 55, 4, DateTimeKind.Local).AddTicks(9336),
                             UserId = "jolame",
                             UserStatus = "Watched",
                             UserVote = 9
@@ -115,7 +191,7 @@ namespace BackendWT.Migrations
                         {
                             UserMoviesId = 2,
                             MovieId = 557,
-                            UserDate = new DateTime(2021, 2, 2, 17, 23, 42, 237, DateTimeKind.Local).AddTicks(4651),
+                            UserDate = new DateTime(2021, 2, 3, 17, 26, 55, 4, DateTimeKind.Local).AddTicks(9336),
                             UserId = "jolame",
                             UserStatus = "Watching",
                             UserVote = 10
@@ -124,15 +200,78 @@ namespace BackendWT.Migrations
                         {
                             UserMoviesId = 3,
                             MovieId = 557,
-                            UserDate = new DateTime(2021, 2, 2, 17, 23, 42, 237, DateTimeKind.Local).AddTicks(4651),
+                            UserDate = new DateTime(2021, 2, 3, 17, 26, 55, 4, DateTimeKind.Local).AddTicks(9336),
                             UserId = "alalma",
                             UserStatus = "Watching",
                             UserVote = 8
                         });
                 });
 
+            modelBuilder.Entity("BackendWT.Models.UserSubscriptions", b =>
+                {
+                    b.Property<int>("UserSubscriptionsId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("BillingPeriod")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("double");
+
+                    b.Property<byte>("ProviderId")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.Property<string>("ProviderName")
+                        .IsRequired()
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+
+                    b.HasKey("UserSubscriptionsId");
+
+                    b.HasIndex("ProviderId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserSubscriptions");
+
+                    b.HasData(
+                        new
+                        {
+                            UserSubscriptionsId = 1,
+                            BillingPeriod = "Monthly",
+                            PaymentDate = new DateTime(2021, 3, 3, 17, 26, 55, 4, DateTimeKind.Local).AddTicks(9336),
+                            Price = 9.9499999999999993,
+                            ProviderId = (byte)1,
+                            ProviderName = "Netflix",
+                            UserId = "jolame"
+                        });
+                });
+
             modelBuilder.Entity("BackendWT.Models.UserMovies", b =>
                 {
+                    b.HasOne("BackendWT.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BackendWT.Models.UserSubscriptions", b =>
+                {
+                    b.HasOne("BackendWT.Models.Provider", "Provider")
+                        .WithMany("UserSubscriptions")
+                        .HasForeignKey("ProviderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("BackendWT.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
