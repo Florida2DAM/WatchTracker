@@ -24,7 +24,7 @@ export default class Register extends React.Component {
     render() {
         return (
             <View style={{ height: '100%', width: '100%' }}>
-                <ImageBackground style={{ width: '100%', height: '100%', resizeMode: 'cover' }} source={require('../assets/img/ImagenBackground.jpeg')}>
+                <ImageBackground style={{ width: '100%', height: '100%', resizeMode: 'cover' }} resizeMode={'stretch'} source={require('./../assets/img/bg.jpg')}>
                     {/*Apply general opacity*/}
                     <View style={{ width: '100%', height: '100%', backgroundColor: 'black', opacity: 0.3, position: 'absolute' }} />
                     <View style={{ height: 100, width: '100%' }}>
