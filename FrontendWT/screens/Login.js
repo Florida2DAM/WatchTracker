@@ -7,16 +7,16 @@
  */
 
 import React from 'react';
-import { StyleSheet, ScrollView, View, Text, Image, ImageBackground } from 'react-native';
+import { StyleSheet, ScrollView, View, Text, Image, ImageBackground, ToastAndroid } from 'react-native';
 import {Button} from 'react-native-elements';
 import axios from 'axios';
 import MainScreensInput from './../components/specific/MainScreensInput';
+import Constants from './../common/Constants';
+import md5 from 'md5';
 
 class Login extends React.Component {
 
-    // BASE_URL = "http://192.168.0.16:45457/api/";
-
-    constructor(props) {
+    constructor(props, route) {
         super(props);
         this.state = {
             username: '',
@@ -25,6 +25,10 @@ class Login extends React.Component {
     }
 
     render() {
+        const userCreated = this.props.route.params;
+        if (userCreated) {
+            ToastAndroid.show('User created!', ToastAndroid.LONG);
+        }
         return (
             <View style={{height:'100%', width:'100%'}}>
                 <ImageBackground style={{width:'100%', height:'100%', resizeMode:'cover'}} resizeMode={'stretch'} source={require('./../assets/img/bg.jpg')}>
@@ -46,10 +50,8 @@ class Login extends React.Component {
                                 <MainScreensInput placeholder={'password'} secure={true} maxLength={20} onChangeText={password => this.setState({password})}/>
 
                                 <Button title={'Login'} buttonStyle={{backgroundColor:'#24B24A', borderRadius:5, marginLeft:10, marginRight:10}}
-                                        titleStyle={{fontWeight:'bold'}} onPress={() => this.showState()}/>
+                                        titleStyle={{fontWeight:'bold'}} onPress={() => this.login()}/>
                                 <Text style={styles.registerText} onPress={() => this.props.navigation.navigate('Register')}>Register</Text>
-                                {/*Forgot Password no implementado por ahora*/}
-                                {/*<Text style={styles.registerText} onPress={() => console.log('Register...')}>Forgot Password?</Text>*/}
                             </View>
                         </View>
                     </ScrollView>
@@ -62,10 +64,18 @@ class Login extends React.Component {
         console.log(this.state.username + " " + this.state.password);
     }
 
-    checkUser = () => { console.log('Check username and password...');
-        // let url = `${this.BASE_URL}Users?userId=${this.state.username}&password=${this.state.password}`;
-        // axios.get(url).then(response => { console.log(response.data); })
-        //     .catch(error => console.log(error.response.request._response));
+    login = () => { console.log('Check username and password...');
+         let url = `${Constants.BASE_URL}Users?userId=${this.state.username}&password=${md5(this.state.password)}`;
+         axios.get(url).then(response => { 
+             if (response.data) {
+                 console.log('Logging in...');
+                 ToastAndroid.show('Logging in...', ToastAndroid.SHORT);
+             } else {
+                 console.log('Username or password wrong');
+                 ToastAndroid.show('Username or password wrong', ToastAndroid.SHORT);
+             }
+          })
+             .catch(error => console.log(error.response.request._response));
     }
 
 };

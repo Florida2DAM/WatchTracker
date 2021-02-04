@@ -11,7 +11,8 @@ class MainScreensInput extends React.Component {
     render() { return (
         <View>
             <Input 
-                style={styles.input} 
+            value={this.props.value}
+                style={{color: this.props.colorRed ? 'red' : 'white'}} 
                 maxLength={this.props.maxLength} 
                 inputContainerStyle={styles.inputContainer} 
                 placeholder={this.props.placeholder} 
@@ -20,21 +21,17 @@ class MainScreensInput extends React.Component {
                 onChangeText={e => this.props.onChangeText(e.valueOf())}
                 disabled={this.props.disabled}
                 disabledInputStyle={{opacity:1}}
-                value={this.props.value}
             />
         </View>
     )}
 }
 
 const styles = StyleSheet.create({
-    input: {
-        color:'white'
-    },
     inputContainer: {
         borderWidth:2,
         borderBottomWidth:2,
         borderRadius:80,
-        borderColor:'green'
+        borderColor:'#24B24A'
     },
 
 });

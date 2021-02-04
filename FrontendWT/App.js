@@ -7,8 +7,10 @@ import Register from './screens/Register';
 
 const Stack = createStackNavigator();
 
-export class App extends React.Component  {
+class App extends React.Component  {
   
+  static BASE_URL = 'http://192.168.0.16:45455/api/';
+
   render() {
 
     return (
