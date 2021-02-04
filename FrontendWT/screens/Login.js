@@ -8,8 +8,9 @@
 
 import React from 'react';
 import { StyleSheet, ScrollView, View, Text, Image, ImageBackground } from 'react-native';
-import {Button, Input} from 'react-native-elements';
+import {Button} from 'react-native-elements';
 import axios from 'axios';
+import MainScreensInput from './../components/specific/MainScreensInput';
 
 class Login extends React.Component {
 
@@ -18,8 +19,8 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: null,
-            password: null
+            username: '',
+            password: ''
         }
     }
 
@@ -39,15 +40,13 @@ class Login extends React.Component {
                                 borderRadius:10, opacity:0.75}}/>
                             <View style={{padding:20}}>
                                 <Text style={styles.text}>Username</Text>
-                                <Input style={styles.input} inputContainerStyle={styles.inputContainer} maxLength={15}
-                                       onChangeText={r => this.setState({username: r})}/>
+                                <MainScreensInput placeholder={'username'} secure={false} maxLength={15} onChangeText={username => this.setState({username})}/>
 
                                 <Text style={styles.text}>Password</Text>
-                                <Input style={styles.input} maxLength={20} inputContainerStyle={styles.inputContainer}
-                                       secureTextEntry={true} onChangeText={r => this.setState({password: r})}/>
+                                <MainScreensInput placeholder={'password'} secure={true} maxLength={20} onChangeText={password => this.setState({password})}/>
 
                                 <Button title={'Login'} buttonStyle={{backgroundColor:'#24B24A', borderRadius:5, marginLeft:10, marginRight:10}}
-                                        titleStyle={{fontWeight:'bold'}} onPress={this.checkUser}/>
+                                        titleStyle={{fontWeight:'bold'}} onPress={(e) => this.showState(e)}/>
                                 <Text style={styles.registerText} onPress={() => console.log('Register...')}>Register</Text>
                                 {/*Forgot Password no implementado por ahora*/}
                                 {/*<Text style={styles.registerText} onPress={() => console.log('Register...')}>Forgot Password?</Text>*/}
@@ -57,6 +56,10 @@ class Login extends React.Component {
                 </ImageBackground>
             </View>
         );
+    }
+
+    showState = () => {
+        console.log(this.state.username + " " + this.state.password);
     }
 
     checkUser = () => { console.log('Check username and password...');
@@ -94,15 +97,6 @@ const styles = StyleSheet.create({
         fontSize:22,
         marginLeft: 10,
         marginBottom: 5
-    },
-    input: {
-        color:'white'
-    },
-    inputContainer: {
-        borderWidth:2,
-        borderBottomWidth:2,
-        borderRadius:80,
-        borderColor:'green'
     },
     registerText: {
         fontSize:18,

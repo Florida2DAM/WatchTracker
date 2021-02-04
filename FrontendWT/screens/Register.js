@@ -1,7 +1,8 @@
 import { Button, colors, Icon, Text, Input } from 'react-native-elements';
 import React from 'react';
-import { ImageBackground, StyleSheet, View, Header, Image, ScrollView } from 'react-native';
-
+import { ImageBackground, StyleSheet, View, Header, Image, ScrollView, TouchableOpacity } from 'react-native';
+import MainScreensInput from './../components/specific/MainScreensInput';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 
 export default class Register extends React.Component {
@@ -9,12 +10,14 @@ export default class Register extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: null,
-            password: null,
-            email: null,
-            name: null,
-            surname: null,
-            birthday: null
+            username: '',
+            password: '',
+            email: '',
+            name: '',
+            surname: '',
+            birthday: '',
+
+            visible: false
         }
     }
 
@@ -30,40 +33,31 @@ export default class Register extends React.Component {
                     </View>
                     <ScrollView>
                         <View style={styles.userBox}>
-                            <View style={{
-                                height: '100%', width: '100%', backgroundColor: 'black', position: 'absolute',
-                                borderRadius: 10, opacity: 0.75
-                            }} />
+                            <View style={{ height: '100%', width: '100%', backgroundColor: 'black', position: 'absolute',
+                                borderRadius: 10, opacity: 0.75 }} />
                             <View style={{ padding: 20 }}>
                                 <Text style={styles.text}>Username</Text>
-                                <Input style={styles.input} inputContainerStyle={styles.inputContainer} maxLength={15}
-                                    onChangeText={r => this.setState({ username: r })} />
-
+                                <MainScreensInput placeholder={'username'} secure={false} maxLength={15} onChangeText={username => this.setState({username})}/>
                                 <Text style={styles.text}>Password</Text>
-                                <Input style={styles.input} maxLength={20} inputContainerStyle={styles.inputContainer}
-                                    secureTextEntry={true} onChangeText={r => this.setState({ password: r })} />
-
+                                <MainScreensInput placeholder={'password'} secure={true} maxLength={20} onChangeText={password => this.setState({password})}/>
                                 <Text style={styles.text}>Email</Text>
-                                <Input style={styles.input} maxLength={20} inputContainerStyle={styles.inputContainer}
-                                    onChangeText={r => this.setState({ email: r })} />
-
+                                <MainScreensInput placeholder={'example@gmail.com'} secure={false} maxLength={35} onChangeText={email => this.setState({email})}/>
                                 <Text style={styles.text}>Name</Text>
-                                <Input style={styles.input} maxLength={20} inputContainerStyle={styles.inputContainer}
-                                    onChangeText={r => this.setState({ name: r })} />
-
+                                <MainScreensInput placeholder={'Name'} secure={false} maxLength={15} onChangeText={name => this.setState({name})}/>
                                 <Text style={styles.text}>Surname</Text>
-                                <Input style={styles.input} maxLength={20} inputContainerStyle={styles.inputContainer}
-                                    onChangeText={r => this.setState({ surname: r })} />
+                                <MainScreensInput placeholder={'Surnames'} secure={false} maxLength={30} onChangeText={surname => this.setState({surname})}/>
                                 
-                                <Text style={styles.text}>Date of Birth</Text>
-                                <Input style={styles.input} maxLength={20} inputContainerStyle={styles.inputContainer}
-                                    onChangeText={r => this.setState({ birthday: r })} />
+                                <Text style={styles.text}>Date of birth</Text>
+                                <TouchableOpacity style={{backgroundColor:'transparent', height:50}} onPress={() => this.setState({visible: true})}>
+                                    <MainScreensInput placeholder={'yyyy-dd-mm'} secure={false} disabled={true} maxLength={30} value={this.state.birthday}/>
+                                </TouchableOpacity>
+                                <DateTimePickerModal testID="dateTimePicker" value={new Date()} mode={'date'} display='spinner' maximumDate={new Date()}
+                                             onConfirm={(date) => this.selectDate(date)} onCancel={() => this.setState({visible: false})} isVisible={this.state.visible}/>
 
-                                <Button title={'Sing up'} buttonStyle={{ backgroundColor: '#24B24A', borderRadius: 5, marginLeft: 10, marginRight: 10 }}
-                                    titleStyle={{ fontWeight: 'bold' }} onPress={this.checkUser} />
-                                <Text style={styles.registerText} onPress={() => console.log('Register...')}>Return to login</Text>
-                                {/*Forgot Password no implementado por ahora*/}
-                                {/*<Text style={styles.registerText} onPress={() => console.log('Register...')}>Forgot Password?</Text>*/}
+                                <View style={{height:30}}/>
+                                <Button title={'Sing up'} buttonStyle={{ backgroundColor: '#24B24A', borderRadius: 5, marginLeft: 10, marginRight: 10}}
+                                    titleStyle={{ fontWeight: 'bold' }} onPress={() => this.showState()} />
+                                <Text style={styles.registerText} onPress={() => console.log('To Login...')}>Return to login</Text>
                             </View>
                         </View>
                     </ScrollView>
@@ -72,11 +66,26 @@ export default class Register extends React.Component {
         );
     }
 
+    showState = () => {
+        console.log(this.state.username + " " + this.state.password + " " + this.state.email + " " + this.state.name + " " + this.state.surname + " " + this.state.birthday);
+    }
+
     checkUser = () => {
-        console.log('Check username and password...');
+        console.log('');
         // let url = `${this.BASE_URL}Users?userId=${this.state.username}&password=${this.state.password}`;
         // axios.get(url).then(response => { console.log(response.data); })
         //     .catch(error => console.log(error.response.request._response));
+    }
+
+    selectDate = (date) => {
+        let month = (parseInt(date.getMonth()) + 1).toString();
+        month = month.length === 1 ? "0" + month : month;
+        let day = parseInt(date.getDate()).toString();
+        day = day.length === 1 ? "0" + day : day;
+        let selectedDate = date.getFullYear() + "-" + month + "-" + day;
+
+        this.setState({birthday: selectedDate});
+        this.setState({visible: false});
     }
 
 };
@@ -108,15 +117,6 @@ const styles = StyleSheet.create({
         fontSize: 22,
         marginLeft: 10,
         marginBottom: 5
-    },
-    input: {
-        color: 'white'
-    },
-    inputContainer: {
-        borderWidth: 2,
-        borderBottomWidth: 2,
-        borderRadius: 80,
-        borderColor: 'green'
     },
     registerText: {
         fontSize: 18,

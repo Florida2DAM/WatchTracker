@@ -1,6 +1,6 @@
 {
   "name": "FrontendWT",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -10,11 +10,13 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "@react-native-community/datetimepicker": "3.0.9",
+    "axios": "0.21.1",
     "react": "16.13.1",
     "react-native": "0.63.4",
-    "react-native-elements": "^3.1.0",
-    "react-native-vector-icons": "^8.0.0"
+    "react-native-elements": "3.1.0",
+    "react-native-modal-datetime-picker": "^9.1.0",
+    "react-native-vector-icons": "8.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
