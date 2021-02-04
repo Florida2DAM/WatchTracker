@@ -27,7 +27,7 @@ class Login extends React.Component {
     render() {
         return (
             <View style={{height:'100%', width:'100%'}}>
-                <ImageBackground style={{width:'100%', height:'100%', resizeMode:'cover'}} source={require('./../assets/img/bg.jpg')}>
+                <ImageBackground style={{width:'100%', height:'100%', resizeMode:'cover'}} resizeMode={'stretch'} source={require('./../assets/img/bg.jpg')}>
                     {/*Apply general opacity*/}
                     <View style={{width:'100%', height:'100%', backgroundColor:'black', opacity:0.3, position:'absolute'}}/>
                     <View style={{height: 100, width:'100%'}}>
@@ -46,8 +46,8 @@ class Login extends React.Component {
                                 <MainScreensInput placeholder={'password'} secure={true} maxLength={20} onChangeText={password => this.setState({password})}/>
 
                                 <Button title={'Login'} buttonStyle={{backgroundColor:'#24B24A', borderRadius:5, marginLeft:10, marginRight:10}}
-                                        titleStyle={{fontWeight:'bold'}} onPress={(e) => this.showState(e)}/>
-                                <Text style={styles.registerText} onPress={() => console.log('Register...')}>Register</Text>
+                                        titleStyle={{fontWeight:'bold'}} onPress={() => this.showState()}/>
+                                <Text style={styles.registerText} onPress={() => this.props.navigation.navigate('Register')}>Register</Text>
                                 {/*Forgot Password no implementado por ahora*/}
                                 {/*<Text style={styles.registerText} onPress={() => console.log('Register...')}>Forgot Password?</Text>*/}
                             </View>

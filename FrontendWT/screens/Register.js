@@ -57,7 +57,7 @@ export default class Register extends React.Component {
                                 <View style={{height:30}}/>
                                 <Button title={'Sing up'} buttonStyle={{ backgroundColor: '#24B24A', borderRadius: 5, marginLeft: 10, marginRight: 10}}
                                     titleStyle={{ fontWeight: 'bold' }} onPress={() => this.showState()} />
-                                <Text style={styles.registerText} onPress={() => console.log('To Login...')}>Return to login</Text>
+                                <Text style={styles.registerText} onPress={() => this.props.navigation.navigate('Login')}>Return to login</Text>
                             </View>
                         </View>
                     </ScrollView>
@@ -68,6 +68,7 @@ export default class Register extends React.Component {
 
     showState = () => {
         console.log(this.state.username + " " + this.state.password + " " + this.state.email + " " + this.state.name + " " + this.state.surname + " " + this.state.birthday);
+        this.props.navigation.navigate('Login');
     }
 
     checkUser = () => {
