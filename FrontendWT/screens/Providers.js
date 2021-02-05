@@ -47,8 +47,7 @@ export default class Providers extends React.Component {
          axios.get(url).then(response => { 
              for (let i = 0; i < response.data.length; i++) {
                  //console.log(response.data[i].UserSubscriptionsId);
-                 var base64Image = 'data:image/png;base64,' + response.data[i].ProviderLogo;
-                 this.state.providers.push({key: response.data[i].ProviderId, name: response.data[i].ProviderName, img: base64Image });
+                 this.state.providers.push({key: response.data[i].ProviderId, name: response.data[i].ProviderName, img: response.data[i].ProviderLogo });
              }
              //console.log(this.state.providers);
           }).catch(error => console.log(error.response.request._response));
@@ -61,7 +60,7 @@ export default class Providers extends React.Component {
         }
         return (
           <TouchableOpacity style={styles.itemContainerBox} onPress={() => console.log('Clicked: ' + item.key + ' - ' + item.name)}>
-            <Image style={{width: 100, height: 100, borderRadius:10}} source={{uri: item.img}}/>
+            <Image style={{width: 100, height: 100, borderRadius:10}} source={{uri: 'data:image/png;base64,' + item.img}}/>
           </TouchableOpacity>
         );
       };

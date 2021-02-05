@@ -19,9 +19,7 @@ export default class Subscriptions extends React.Component {
         this.state = {
             userSubscriptions: [],
 
-            paymentPeriod: 'Monthly',
-            paymentDate: 'yyyy-mm-dd',
-            price: 10,
+            
             visible: false,
         }
     }
@@ -30,77 +28,13 @@ export default class Subscriptions extends React.Component {
         const {username} = this.props.route.params;
         return (
             <View style={{ height: '100%', width: '100%', backgroundColor: '#1A1A1A' }}>
-                {/*<View style={{ width: '100%', height: '100%', backgroundColor: 'black', opacity: 0.3, position: 'absolute' }} />*/}
                 <Header title={'Subscriptions'} name={username} avatar={require('./../assets/img/DefaultAvatar.png')} showReturn={true} onPress={() => this.props.navigation.goBack()}/>
                 
                 <View style={{padding: 15, paddingTop:25, backgroundColor:'transparent', flex:1}}>
                     <Button title={'Add Subscriptions'} buttonStyle={{ backgroundColor: '#24B24A', borderRadius: 5, marginLeft: 30, marginRight: 30}}
                         titleStyle={{ fontWeight: 'bold' }} onPress={() => console.log('')}/>
-
-                    <ScrollView>
-
-                    {/* //providerLogo, providerName, paymentDate, paymentPeriod, price */}
-                    <UserSubscription providerLogo={'https://image.tmdb.org/t/p/w500/78lPtwv72eTNqFW9COBYI0dWDJa.jpg'}
-                    providerName={'Netflix'} paymentDate={'2022-02-05'} paymentPeriod={'Yearly'} price={36}/>
-
-<UserSubscription providerLogo={'https://image.tmdb.org/t/p/w500/78lPtwv72eTNqFW9COBYI0dWDJa.jpg'}
-                    providerName={'Netflix'} paymentDate={'2022-02-05'} paymentPeriod={'Yearly'} price={36}/>
-
-<UserSubscription providerLogo={'https://image.tmdb.org/t/p/w500/78lPtwv72eTNqFW9COBYI0dWDJa.jpg'}
-                    providerName={'Netflix'} paymentDate={'2022-02-05'} paymentPeriod={'Yearly'} price={36}/>
-
-                    <View style={{width: '100%', height: 170, backgroundColor:'gray', borderRadius:10}}>
-                        <View style={{width:'100%', height:50, display:'flex', flexDirection:'row', alignItems:'center', backgroundColor:'transparent'}}>
-                            <Image style={{width:50, height:50, borderRadius:5}} source={{uri : 'https://image.tmdb.org/t/p/w500/78lPtwv72eTNqFW9COBYI0dWDJa.jpg'}}/>
-                            <Text style={{fontSize:30, fontWeight:'bold', color:'white', marginLeft:10}}>Youtube Premium</Text>
-                        </View>
-
-                        <View style={{width:'100%', height:80, display:'flex', flexDirection:'row', backgroundColor:'transparent'}}>
-                            <View style={{width:'33%', height:80, display:'flex', flexDirection:'column', backgroundColor:'transparent', alignItems:'center'}}>
-                                <Text style={styles.textInfo}>Payment</Text>
-                                <View style={{marginTop:5, width:'95%', height:40, marginLeft:5, marginRight:5}}>
-                                    <Button title={this.state.paymentDate} buttonStyle={{ backgroundColor: '#24B24A', borderRadius: 5}} titleStyle={{ fontWeight: 'bold' }} 
-                                    onPress={() => this.setState({visible: true})}/>
-                                </View>
-
-                                <DateTimePickerModal testID="dateTimePicker" value={new Date()} mode={'date'} display='spinner' minimumDate={new Date()}
-                                             onConfirm={(date) => this.selectDate(date)} onCancel={() => this.setState({visible: false})} isVisible={this.state.visible}/>
-
-                            </View>
-                            <View style={{width:'34%', height:80, display:'flex', flexDirection:'column', backgroundColor:'transparent', alignItems:'center'}}>
-                                <Text style={styles.textInfo}>Period</Text>
-                                <View style={{marginTop:5, width:'95%', height:40, marginLeft:5, marginRight:5}}>
-                                    <Button title={this.state.paymentPeriod} buttonStyle={{ backgroundColor: '#24B24A', borderRadius: 5}} titleStyle={{ fontWeight: 'bold' }} onPress={() => console.log('')}/>
-                                </View>
-                            </View>
-                            <View style={{width:'33%', height:80, display:'flex', flexDirection:'column', backgroundColor:'transparent', alignItems:'center'}}>
-                                <Text style={styles.textInfo}>Price</Text>
-                                <View style={{marginTop:5, width:'95%', height:40, marginLeft:5, marginRight:5}}>
-                                    <Button title={this.state.price + ' €'} buttonStyle={{ backgroundColor: '#24B24A', borderRadius: 5}} titleStyle={{ fontWeight: 'bold' }} onPress={() => console.log('')}/>
-                                </View>
-                            </View>
-                        </View>
-
-                        <View style={{width:'100%', height:40, display:'flex', flexDirection:'row', backgroundColor:'transparent'}}>
-                            <View style={{width:'50%', justifyContent:'center', alignItems:'center', backgroundColor:'#EA392F', borderBottomLeftRadius: 10}}>
-                                <TouchableOpacity style={{display:'flex', flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
-                                    <Text style={styles.textInfoB}>Remove</Text>
-                                    <View style={{width:10}}/>
-                                    <Icon size={30} name='times' color='white' onPress={() => console.log('')}/>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={{width:'50%', justifyContent:'center', alignItems:'center', backgroundColor:'#24B24A', borderBottomRightRadius: 10}}>
-                                <TouchableOpacity style={{display:'flex', flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
-                                    <Text style={styles.textInfoB}>Renew</Text>
-                                    <View style={{width:10}}/>
-                                    <Icon size={30} name='retweet' color='white' onPress={() => console.log('')}/>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </View>
-
-                    </ScrollView>
-
+                    <FlatList data={this.state.userSubscriptions} keyExtractor={(item, index) => index.toString()} 
+                        ItemSeparatorComponent={() => <View style={{height: 0}}/>} style={{padding: 15}} renderItem={item => <UserSubscription p={item}/>}/>
                 </View>
                 <FooterMenu selectedScreen={2}/>
             </View>
@@ -112,10 +46,14 @@ export default class Subscriptions extends React.Component {
         this.getUserSubscriptions(username);
     }
 
-    getUserSubscriptions = (username) => {
+    getUserSubscriptions = (username) => {//ProviderLogo UserSubscriptionsId, ProviderName PaymentDate BillingPeriod Price UserId ProviderId
          let url = `${Constants.BASE_URL}UsersSubscriptions?userId=${username}`;
          axios.get(url).then(response => { 
-             console.log(response.data[0].ProviderId);
+             //console.log(response.data[0].ProviderName);
+             for (let i = 0; i < response.data.length; i++) {
+                response.data[i].PaymentDate = response.data[i].PaymentDate.substring(0, 10);//Get date formated to yyyy-mm-dd
+             }
+             this.setState({userSubscriptions: response.data});
           }).catch(error => console.log(error.response.request._response));
     }
 
