@@ -35,4 +35,15 @@ namespace BackendWT.Models
         public User User { get; set; }
         public Provider Provider { get; set; }
     }
+
+    public class UserSubscriptionsDTO : UserSubscriptions
+    {
+        public UserSubscriptionsDTO(int userSubscriptionsId, string providerName, DateTime paymentDate, string billingPeriod, double price, string userId, byte providerId, byte[] providerLogo) : 
+            base (userSubscriptionsId, providerName, paymentDate, billingPeriod, price, userId, providerId)
+        {
+            ProviderLogo = providerLogo;
+        }
+
+        public byte[] ProviderLogo { get; set; }
+    }
 }

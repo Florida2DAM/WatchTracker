@@ -246,21 +246,23 @@
     <Compile Include="Common\TMDBRequests.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
+    <Compile Include="Controllers\ProvidersController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\UsersSubscriptionsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20210203162655_m1.cs" />
-    <Compile Include="Migrations\20210203162655_m1.designer.cs">
-      <DependentUpon>20210203162655_m1.cs</DependentUpon>
+    <Compile Include="Migrations\20210204212123_m1.cs" />
+    <Compile Include="Migrations\20210204212123_m1.designer.cs">
+      <DependentUpon>20210204212123_m1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\WatchTrackerContextModelSnapshot.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\MovieDTO.cs" />
     <Compile Include="Models\MoviesRepository.cs" />
     <Compile Include="Models\Provider.cs" />
+    <Compile Include="Models\ProvidersRepository.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserMovies.cs" />
     <Compile Include="Models\UsersRepository.cs" />
@@ -271,6 +273,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Assets\p_Apple_TV.jpg" />
+    <Content Include="Assets\p_ATRESPlayer.jpg" />
+    <Content Include="Assets\p_Crunchyroll.jpg" />
+    <Content Include="Assets\p_Disney_Plus.jpg" />
+    <Content Include="Assets\p_Filmin.jpg" />
+    <Content Include="Assets\p_FuboTV.jpg" />
+    <Content Include="Assets\p_HBO.jpg" />
+    <Content Include="Assets\p_Mitele.jpg" />
+    <Content Include="Assets\p_Movistar_Plus.jpg" />
+    <Content Include="Assets\p_Netflix.jpg" />
+    <Content Include="Assets\p_Prime_Video.jpg" />
+    <Content Include="Assets\p_Youtube.jpg" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />

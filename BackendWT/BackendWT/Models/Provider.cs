@@ -8,15 +8,17 @@ namespace BackendWT.Models
 {
     public class Provider
     {
-        public Provider(byte providerId, string providerName)
+        public Provider(byte providerId, string providerName, byte[] providerLogo)
         {
             ProviderId = providerId;
             ProviderName = providerName;
+            ProviderLogo = providerLogo;
         }
 
         public byte ProviderId { get; set; }
         [Required]
         public string ProviderName { get; set; }
+        public byte[] ProviderLogo { get; set; }
 
         public List<UserSubscriptions> UserSubscriptions { get; set; }
     }

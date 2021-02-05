@@ -11,7 +11,7 @@ namespace BackendWT.Controllers
     public class UsersSubscriptionsController : ApiController
     {
         // GET: api/UsersSubscriptions
-        public List<UserSubscriptions> Get(string userId) => new UsersSubscriptionsRepository().GetUserSubscriptions(userId);
+        public List<UserSubscriptionsDTO> Get(string userId) => new UsersSubscriptionsRepository().GetUserSubscriptions(userId);
 
         // POST: api/UsersSubscriptions
         public bool Post([FromBody]UserSubscriptions userSubscription) => new UsersSubscriptionsRepository().AddUserSubscription(userSubscription);

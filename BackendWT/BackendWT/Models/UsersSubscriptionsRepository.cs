@@ -7,14 +7,20 @@ namespace BackendWT.Models
 {
     public class UsersSubscriptionsRepository
     {
-        internal List<UserSubscriptions> GetUserSubscriptions(string userId)
+        internal List<UserSubscriptionsDTO> GetUserSubscriptions(string userId)
         {
             List<UserSubscriptions> userSubscriptions;
+            List<UserSubscriptionsDTO> userSubscriptionsDTO = new List<UserSubscriptionsDTO>();
             using (WatchTrackerContext context = new WatchTrackerContext())
             {
                 userSubscriptions = context.UserSubscriptions.Where(uSubs => uSubs.UserId == userId).ToList();
+                foreach (var uSub in userSubscriptions)
+                {
+                    byte[] providerLogo = context.Providers.Where(p => p.ProviderId == uSub.ProviderId).Select(x => x.ProviderLogo).FirstOrDefault();
+                    userSubscriptionsDTO.Add(new UserSubscriptionsDTO(uSub.UserSubscriptionsId, uSub.ProviderName, uSub.PaymentDate, uSub.BillingPeriod, uSub.Price, uSub.UserId, uSub.ProviderId, providerLogo));
+                }
             }
-            return userSubscriptions;
+            return userSubscriptionsDTO;
         }
 
         internal bool AddUserSubscription(UserSubscriptions userSubscription)
