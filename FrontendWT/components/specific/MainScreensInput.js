@@ -12,7 +12,7 @@ class MainScreensInput extends React.Component {
         <View>
             <Input 
             value={this.props.value}
-                style={{color: this.props.colorRed ? 'red' : 'white'}} 
+                style={{color: 'white'}} 
                 maxLength={this.props.maxLength} 
                 inputContainerStyle={styles.inputContainer} 
                 placeholder={this.props.placeholder} 
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     inputContainer: {
         borderWidth:2,
         borderBottomWidth:2,
-        borderRadius:80,
+        borderRadius:15,
         borderColor:'#24B24A'
     },
 

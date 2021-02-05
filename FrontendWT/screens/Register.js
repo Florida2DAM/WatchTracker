@@ -44,15 +44,15 @@ export default class Register extends React.Component {
                             <View style={{ padding: 20 }}>
                                 <Text style={styles.text}>Username</Text>
                                 <Input value={this.state.username} maxLength={15} disabledInputStyle={{opacity:1}} style={{color: 'white'}}
-                                inputContainerStyle={{borderWidth:2,borderBottomWidth:2,borderRadius:80, borderColor: !this.state.usernameRegex && this.state.username.length > 0 ? '#EA392F' : '#24B24A'}} placeholder={'username'} placeholderTextColor={'white'} 
+                                inputContainerStyle={{borderWidth:2,borderBottomWidth:2,borderRadius:15, borderColor: !this.state.usernameRegex && this.state.username.length > 0 ? '#EA392F' : '#24B24A'}} placeholder={'username'} placeholderTextColor={'white'} 
                                 onChangeText={username => this.setState({username}, () => this.checkUsernameRegex())}/>
                                 <Text style={styles.text}>Password</Text>
                                 <Input value={this.state.password} style={{color: 'white'}} secureTextEntry={true} maxLength={20} disabledInputStyle={{opacity:1}}
-                                inputContainerStyle={{borderWidth:2,borderBottomWidth:2,borderRadius:80, borderColor: !this.state.passwordRegex && this.state.password.length > 0 ? '#EA392F' : '#24B24A'}} placeholder={'password'} placeholderTextColor={'white'} 
+                                inputContainerStyle={{borderWidth:2,borderBottomWidth:2,borderRadius:15, borderColor: !this.state.passwordRegex && this.state.password.length > 0 ? '#EA392F' : '#24B24A'}} placeholder={'password'} placeholderTextColor={'white'} 
                                 onChangeText={password => this.setState({password}, () => this.checkPasswordRegex())}/>
                                 <Text style={styles.text}>Email</Text>
                                 <Input value={this.state.email} style={{color:'white'}}  maxLength={40} disabledInputStyle={{opacity:1}}
-                                inputContainerStyle={{borderWidth:2,borderBottomWidth:2,borderRadius:80, borderColor: !this.state.emailRegex && this.state.email.length > 0 ? '#EA392F' : '#24B24A'}} placeholder={'example@gmail.com'} placeholderTextColor={'white'} 
+                                inputContainerStyle={{borderWidth:2,borderBottomWidth:2,borderRadius:15, borderColor: !this.state.emailRegex && this.state.email.length > 0 ? '#EA392F' : '#24B24A'}} placeholder={'example@gmail.com'} placeholderTextColor={'white'} 
                                 onChangeText={email => this.setState({email}, () => this.checkEmailRegex())}/>
                                 <Text style={styles.text}>Name</Text>
                                 <MainScreensInput placeholder={'Name'} secure={false} maxLength={15} onChangeText={name => this.setState({name})}/>

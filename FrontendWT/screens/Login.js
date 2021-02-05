@@ -25,6 +25,7 @@ class Login extends React.Component {
     }
 
     render() {
+
         const userCreated = this.props.route.params;
         if (userCreated) {
             ToastAndroid.show('User created!', ToastAndroid.LONG);
@@ -60,6 +61,14 @@ class Login extends React.Component {
         );
     }
 
+    componentDidMount() {
+                //Auto-navigation (REMOVE WHEN ALL SCREENS ARE DONE)
+                //this.props.navigation.navigate('Register');
+                //this.props.navigation.navigate('Providers', {username: 'jolame'});
+                this.props.navigation.navigate('Subscriptions', {username: 'jolame'});
+                //Auto-navigation (REMOVE WHEN ALL SCREENS ARE DONE)
+    }
+
     showState = () => {
         console.log(this.state.username + " " + this.state.password);
     }
@@ -70,6 +79,7 @@ class Login extends React.Component {
              if (response.data) {
                  console.log('Logging in...');
                  ToastAndroid.show('Logging in...', ToastAndroid.SHORT);
+                 this.props.navigation.navigate('Providers', {username: this.state.username});
              } else {
                  console.log('Username or password wrong');
                  ToastAndroid.show('Username or password wrong', ToastAndroid.SHORT);
