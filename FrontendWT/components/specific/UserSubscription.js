@@ -1,58 +1,28 @@
 import { Button } from 'react-native-elements';
 import React from 'react';
 import { StyleSheet, View, Image, Text } from 'react-native';
-import {FooterMenu} from './../components/general/FooterMenu';
-import {Header} from './../components/general/Header';
-import { FlatList, ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import Constants from './../common/Constants';
-import axios from 'axios';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import UserSubscription from './../components/specific/UserSubscription';
 
-const numColumns = 3;
-
-export default class Subscriptions extends React.Component {
+export default class UserSubscription extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            userSubscriptions: [],
-
             paymentPeriod: 'Monthly',
-            paymentDate: 'yyyy-mm-dd',
-            price: 10,
+            paymentDate: '0001-01-01',
+            price: 0,
             visible: false,
         }
     }
 
-    render() {
-        const {username} = this.props.route.params;
+    render() {//providerLogo, providerName, paymentPeriod, paymentDate, price
         return (
-            <View style={{ height: '100%', width: '100%', backgroundColor: '#1A1A1A' }}>
-                {/*<View style={{ width: '100%', height: '100%', backgroundColor: 'black', opacity: 0.3, position: 'absolute' }} />*/}
-                <Header title={'Subscriptions'} name={username} avatar={require('./../assets/img/DefaultAvatar.png')} showReturn={true} onPress={() => this.props.navigation.goBack()}/>
-                
-                <View style={{padding: 15, paddingTop:25, backgroundColor:'transparent', flex:1}}>
-                    <Button title={'Add Subscriptions'} buttonStyle={{ backgroundColor: '#24B24A', borderRadius: 5, marginLeft: 30, marginRight: 30}}
-                        titleStyle={{ fontWeight: 'bold' }} onPress={() => console.log('')}/>
-
-                    <ScrollView>
-
-                    {/* //providerLogo, providerName, paymentDate, paymentPeriod, price */}
-                    <UserSubscription providerLogo={'https://image.tmdb.org/t/p/w500/78lPtwv72eTNqFW9COBYI0dWDJa.jpg'}
-                    providerName={'Netflix'} paymentDate={'2022-02-05'} paymentPeriod={'Yearly'} price={36}/>
-
-<UserSubscription providerLogo={'https://image.tmdb.org/t/p/w500/78lPtwv72eTNqFW9COBYI0dWDJa.jpg'}
-                    providerName={'Netflix'} paymentDate={'2022-02-05'} paymentPeriod={'Yearly'} price={36}/>
-
-<UserSubscription providerLogo={'https://image.tmdb.org/t/p/w500/78lPtwv72eTNqFW9COBYI0dWDJa.jpg'}
-                    providerName={'Netflix'} paymentDate={'2022-02-05'} paymentPeriod={'Yearly'} price={36}/>
-
-                    <View style={{width: '100%', height: 170, backgroundColor:'gray', borderRadius:10}}>
+            <View style={{width: '100%', height: 170, backgroundColor:'gray', borderRadius:10, marginTop:25}}>
                         <View style={{width:'100%', height:50, display:'flex', flexDirection:'row', alignItems:'center', backgroundColor:'transparent'}}>
-                            <Image style={{width:50, height:50, borderRadius:5}} source={{uri : 'https://image.tmdb.org/t/p/w500/78lPtwv72eTNqFW9COBYI0dWDJa.jpg'}}/>
-                            <Text style={{fontSize:30, fontWeight:'bold', color:'white', marginLeft:10}}>Youtube Premium</Text>
+                            <Image style={{width:50, height:50, borderRadius:5}} source={{uri : this.props.providerLogo}}/>
+                            <Text style={{fontSize:30, fontWeight:'bold', color:'white', marginLeft:10}}>{this.props.providerName}</Text>
                         </View>
 
                         <View style={{width:'100%', height:80, display:'flex', flexDirection:'row', backgroundColor:'transparent'}}>
@@ -91,32 +61,18 @@ export default class Subscriptions extends React.Component {
                             </View>
                             <View style={{width:'50%', justifyContent:'center', alignItems:'center', backgroundColor:'#24B24A', borderBottomRightRadius: 10}}>
                                 <TouchableOpacity style={{display:'flex', flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
-                                    <Text style={styles.textInfoB}>Renew</Text>
-                                    <View style={{width:10}}/>
-                                    <Icon size={30} name='retweet' color='white' onPress={() => console.log('')}/>
-                                </TouchableOpacity>
-                            </View>
+                                <Text style={styles.textInfoB}>Renew</Text>
+                                <View style={{width:10}}/>
+                                <Icon size={30} name='retweet' color='white' onPress={() => console.log('')}/>
+                            </TouchableOpacity>
                         </View>
                     </View>
-
-                    </ScrollView>
-
                 </View>
-                <FooterMenu selectedScreen={2}/>
-            </View>
         );
     }
 
     componentDidMount() {
-        const {username} = this.props.route.params;
-        this.getUserSubscriptions(username);
-    }
-
-    getUserSubscriptions = (username) => {
-         let url = `${Constants.BASE_URL}UsersSubscriptions?userId=${username}`;
-         axios.get(url).then(response => { 
-             console.log(response.data[0].ProviderId);
-          }).catch(error => console.log(error.response.request._response));
+        this.setState({paymentDate: this.props.paymentDate, paymentPeriod: this.props.paymentPeriod, price: this.props.price});
     }
 
     selectDate = (date) => {
