@@ -1,16 +1,12 @@
-import { Button } from 'react-native-elements';
 import React from 'react';
-import { StyleSheet, View, Image, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import {FooterMenu} from './../components/general/FooterMenu';
 import {Header} from './../components/general/Header';
-import { FlatList, ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import { FlatList } from 'react-native-gesture-handler';
 import Constants from './../common/Constants';
 import axios from 'axios';
-import Icon from 'react-native-vector-icons/dist/FontAwesome';
-import DateTimePickerModal from "react-native-modal-datetime-picker";
 import UserSubscription from './../components/specific/UserSubscription';
-
-const numColumns = 3;
+import TouchableButton from './../components/general/TouchableButton';
 
 export default class Subscriptions extends React.Component {
 
@@ -18,8 +14,6 @@ export default class Subscriptions extends React.Component {
         super(props);
         this.state = {
             userSubscriptions: [],
-
-            
             visible: false,
         }
     }
@@ -27,19 +21,20 @@ export default class Subscriptions extends React.Component {
     render() {
         const {username} = this.props.route.params;
         return (
-            <View style={{ height: '100%', width: '100%', backgroundColor: '#1A1A1A' }}>
+            <View style={styles.mainView}>
                 <Header title={'Subscriptions'} name={username} avatar={require('./../assets/img/DefaultAvatar.png')} showReturn={true} onPress={() => this.props.navigation.goBack()}/>
                 
-                <View style={{padding: 0, paddingTop:25, backgroundColor:'transparent', flex:1}}>
-                    <Button title={'Add Subscriptions'} buttonStyle={{ backgroundColor: '#24B24A', borderRadius: 5, marginLeft: 30, marginRight: 30}}
-                        titleStyle={{ fontWeight: 'bold' }} onPress={() => this.props.navigation.navigate('Providers', {username: 'jolame'})}/>
-                    <View style={{height: 25}}/>
+                <View style={styles.mainBody}>
+                    <View style={styles.btnMargin}>
+                        <TouchableButton btnWidth={'100%'} btnHeight={40} btnBgColor={'#24B24A'} borderRadius={5} btnTxt={'Add Subscriptions'} 
+                            onPress={() => this.props.navigation.navigate('Providers', {username: 'jolame'})}/>
+                    </View>
                     <FlatList data={this.state.userSubscriptions} keyExtractor={(item, index) => index.toString()}
                         ListHeaderComponent={<View style={styles.separatorBar}/>} ListFooterComponent={<View style={styles.separatorBar}/>}
                         ItemSeparatorComponent={() => <View style={styles.separatorBar}/>} style={{padding: 0}} renderItem={item => <UserSubscription p={item}
-                        callback={this.getChildResponse.bind(this)}/>}/>
+                        refreshCallback={this.getChildRefreshResponse.bind(this)} editCallback={this.getChildEditResponse.bind(this)}/>}/>
                 </View>
-                <FooterMenu selectedScreen={2} onSubscriptionsPress={() => this.props.navigation.navigate('Subscriptions', {username: 'jolame'})}/>
+                <FooterMenu selectedScreen={2} onSubscriptionsPress={() => this.props.navigation.navigate('Subscriptions', { username: username })}/>
             </View>
         );
     }
@@ -50,8 +45,14 @@ export default class Subscriptions extends React.Component {
         this.getUserSubscriptions(username);
     }
 
-    getChildResponse = () => {
+    getChildRefreshResponse = () => {
         this.getUserSubscriptions(this.state.username);
+    }
+
+    getChildEditResponse = (uSub, paymentDate, paymentPeriod, price) => {
+        this.props.navigation.navigate('AddSubscription', 
+            { addSub: false, paymentDate: paymentDate, paymentPeriod: paymentPeriod, price: price, 
+            username: uSub.UserId, providerId: uSub.ProviderId, providerName: uSub.ProviderName, providerLogo: uSub.ProviderLogo, uSubId: uSub.UserSubscriptionsId });
     }
 
     getUserSubscriptions = (username) => {//ProviderLogo UserSubscriptionsId, ProviderName PaymentDate BillingPeriod Price UserId ProviderId
@@ -79,18 +80,22 @@ export default class Subscriptions extends React.Component {
 };
 
 const styles = StyleSheet.create({
+    mainView: {
+        height: '100%', width: '100%', backgroundColor: '#1A1A1A'
+    },
+    mainBody: {
+        paddingTop:25, backgroundColor:'transparent', flex:1
+    },
+    btnMargin: {
+        marginLeft: 30, marginRight: 30, marginBottom: 25
+    },
     textInfo: {
-        fontSize:18, 
-        color:'white'
+        fontSize:18,color:'white'
     },
     textInfoB: {
-        fontSize:18, 
-        color:'white',
-        fontWeight:'bold'
+        fontSize:18,color:'white',fontWeight:'bold'
     },
     separatorBar: {
-        width:'100%', 
-        height: 1, 
-        backgroundColor: '#727272'
+        width:'100%', height: 1, backgroundColor: '#727272'
     }
 });

@@ -10,24 +10,25 @@ export default class UserSubscription extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            uSub: [],
+            uSub: [],//uSub: UserSubscriptionsId, ProviderId , UserId, ProviderName, ProviderLogo, PaymentDate, BillingPeriod, Price
             visible: false,
         }
     }
 
-    render() {//providerLogo, providerName, paymentPeriod, paymentDate, price
+    render() {
         return (
-            <Pressable onLongPress={() => console.log(this.removeSubscription(this.props.p.item.ProviderName))} onPress={() => console.log('Short')}>
-                <TouchableOpacity style={{width: '100%', height: 150, backgroundColor:'#212121', display:'flex', flexDirection:'row', alignItems:'center', padding: 10}}>
+            <Pressable onLongPress={() => console.log(this.removeSubscription(this.props.p.item.ProviderName))} 
+            onPress={() => this.props.editCallback(this.state.uSub, this.props.p.item.PaymentDate, this.props.p.item.BillingPeriod, this.props.p.item.Price)}>
+                <TouchableOpacity style={styles.subscriptionCard}>
                     <View>
-                        <Image style={{width:90, height:90, borderRadius:50, marginRight:10}} source={{uri : 'data:image/png;base64,' + this.props.p.item.ProviderLogo}}/>
+                        <Image style={styles.cardImage} source={{uri : 'data:image/png;base64,' + this.props.p.item.ProviderLogo}}/>
                     </View>
-                    <View style={{height: 150, backgroundColor:'transparent', flex:1, marginLeft:10}}>
-                        <View style={{width: '100%', height: 50, backgroundColor:'transparent', alignItems:'center', justifyContent:'space-between', display:'flex', flexDirection:'row'}}>
+                    <View style={styles.cardRight}>
+                        <View style={styles.cardRightTop}>
                             <Text style={styles.providerName}>{this.props.p.item.ProviderName}</Text>
                             <Text style={styles.textInfoB}>{this.props.p.item.Price} €</Text>
                         </View>
-                        <View style={{width: '100%', height: 100, backgroundColor:'transparent', justifyContent:'center'}}>
+                        <View style={styles.cardRightBottom}>
                             <Text style={styles.textInfoB}>Period: {this.props.p.item.BillingPeriod}</Text>
                             <Text style={styles.textInfoB}>Payment: {this.props.p.item.PaymentDate}</Text>
                             <Text style={styles.textInfoB}>Days left: {this.state.daysLeft}</Text>
@@ -39,7 +40,7 @@ export default class UserSubscription extends React.Component {
     }
 
     removeSubscription = (providerName) => {
-        Alert.alert('Remove Subscription', `Do you want to cancel your subscription with ${this.props.p.item.ProviderName}?`,
+        Alert.alert('Remove Subscription', `Do you want to cancel your subscription with ${providerName}?`,
             [
               { text: 'Cancel', style: 'cancel', onPress: () => {} },
               { text: 'OK', onPress: () => this.deleteSubscriptionFromDB() }
@@ -49,10 +50,9 @@ export default class UserSubscription extends React.Component {
     }
 
     deleteSubscriptionFromDB = () => {
-        //DELETE api/UsersSubscriptions?userId={userId}&providerId={providerId}
         axios.delete(`${Constants.BASE_URL}UsersSubscriptions?userId=${this.props.p.item.UserId}&providerId=${this.props.p.item.ProviderId}`).then(response => {
             if (response.data) {
-                this.props.callback();
+                this.props.refreshCallback();
             }
         }).catch(error => console.log(error.response.request._response));
     }
@@ -70,7 +70,6 @@ export default class UserSubscription extends React.Component {
 
         let uSub = Object.assign({}, this.state.uSub);
         uSub.PaymentDate = selectedDate;
-
         this.setState({uSub});
         this.setState({visible: false});
     }
@@ -78,7 +77,6 @@ export default class UserSubscription extends React.Component {
     daysLeft = () => {
         const [year, month, day] = this.state.uSub.PaymentDate.split("-");
         let payDate = new Date(year, month - 1, day);
-        //let daysLeft = Math.round((payDate-Date.now())/(1000*60*60*24)) + 1;
         let daysLeft = Math.round((payDate-Date.now())/(1000*60*60*24));
         return daysLeft >= 0 ? daysLeft : 0;
     }
@@ -86,27 +84,34 @@ export default class UserSubscription extends React.Component {
 };
 
 const styles = StyleSheet.create({
+    subscriptionCard: {
+        width: '100%', height: 150, backgroundColor:'#212121', display:'flex', flexDirection:'row', alignItems:'center', padding: 10
+    },
+    cardImage: {
+        width:90, height:90, borderRadius:50, marginRight:10
+    },
+    cardRight: {
+        height: 150, backgroundColor:'transparent', flex:1, marginLeft:10
+    },
+    cardRightTop: {
+        width: '100%', height: 50, backgroundColor:'transparent', alignItems:'center', justifyContent:'space-between', display:'flex', flexDirection:'row'
+    },
+    cardRightBottom: {
+        width: '100%', height: 100, backgroundColor:'transparent', justifyContent:'center'
+    },
     providerName: {
-        fontSize:25, 
-        color:'#24B24A',
-        fontWeight:'bold'
+        fontSize:25,color:'#24B24A',fontWeight:'bold'
     },
     textInfo: {
-        fontSize:18, 
-        color:'white'
+        fontSize:18,color:'white'
     },
     textInfoB: {
-        fontSize:18, 
-        color:'white',
-        fontWeight:'bold'
+        fontSize:18,color:'white',fontWeight:'bold'
     },
-
     btnStyle: {
-        backgroundColor: '#24B24A', 
-        borderRadius: 5
+        backgroundColor: '#24B24A', borderRadius: 5
     },
     btnTxtStyle: {
-        fontWeight: 'bold', 
-        fontSize:14
+        fontWeight: 'bold', fontSize:14
     }
 });
