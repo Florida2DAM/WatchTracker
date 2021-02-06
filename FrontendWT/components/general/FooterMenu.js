@@ -23,7 +23,8 @@ class FooterMenu extends React.Component {
                     width: 60, height: 60, justifyContent: 'center', alignItems: 'center', marginBottom:30 }} onPress={() => console.log('Main')}>
                     <Image source={require('./../../assets/img/WT_Logo.png')} style={{width: 40, height: 40, resizeMode: 'stretch'}} />
                 </TouchableOpacity>
-                <Button icon={<Icon name="calendar" size={40} color={this.props.selectedScreen === 2 ? 'white' : 'black'}/>} buttonStyle={structureStyles.buttonStyle}/>
+                <Button icon={<Icon name="calendar" size={40} color={this.props.selectedScreen === 2 ? 'white' : 'black'}/>} buttonStyle={structureStyles.buttonStyle}
+                onPress={e => this.props.onSubscriptionsPress(e.valueOf())}/>
                 <Button icon={<Icon name="user" size={40} color={this.props.selectedScreen === 3 ? 'white' : 'black'}/>} buttonStyle={structureStyles.buttonStyle}/>
             </View>
         </View>

@@ -33,7 +33,7 @@ export default class Providers extends React.Component {
                     <FlatList data={this.formatData(this.state.providers, numColumns)} style={styles.container} 
                         columnWrapperStyle={{justifyContent:'space-evenly'}} renderItem={this.renderItem} numColumns={3}/>
                 </View>
-                <FooterMenu selectedScreen={2}/>
+                <FooterMenu selectedScreen={2} onSubscriptionsPress={() => this.props.navigation.navigate('Subscriptions', {username: 'jolame'})}/>
             </View>
         );
     }

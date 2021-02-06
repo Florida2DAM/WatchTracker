@@ -11,17 +11,37 @@ export default class UserSubscription extends React.Component {
         super(props);
         this.state = {
             uSub: [],
-
-            paymentPeriod: 'Monthly',
-            paymentDate: '0001-01-01',
-            price: 0,
             visible: false,
         }
     }
 
     render() {//providerLogo, providerName, paymentPeriod, paymentDate, price
         return (
-            <View style={{width: '100%', height: 170, backgroundColor:'gray', borderRadius:10, marginTop:25, marginBottom:25}}>
+            <TouchableOpacity style={{width: '100%', height: 150, backgroundColor:'#212121', display:'flex', flexDirection:'row', alignItems:'center', padding: 10}}>{/* Padding Left? */}
+                <View>
+                    <Image style={{width:90, height:90, borderRadius:50, marginRight:10}} source={{uri : 'data:image/png;base64,' + this.props.p.item.ProviderLogo}}/>
+                </View>
+                <View style={{height: 150, backgroundColor:'transparent', flex:1, marginLeft:10}}>
+                    <View style={{width: '100%', height: 50, backgroundColor:'transparent', alignItems:'center', justifyContent:'space-between', display:'flex', flexDirection:'row'}}>
+                        <Text style={styles.providerName}>{this.props.p.item.ProviderName}</Text>
+                        <Text style={styles.textInfoB}>{this.props.p.item.Price} €</Text>
+                    </View>
+                    <View style={{width: '100%', height: 100, backgroundColor:'transparent', justifyContent:'center'}}>
+                        <Text style={styles.textInfoB}>Period: {this.props.p.item.BillingPeriod}</Text>
+                        <Text style={styles.textInfoB}>Payment: {this.props.p.item.PaymentDate}</Text>
+                        <Text style={styles.textInfoB}>Days left: {this.state.daysLeft}</Text>
+                    </View>
+                </View>
+            </TouchableOpacity>
+
+
+
+
+
+
+
+
+            /*<View style={{width: '100%', height: 170, backgroundColor:'gray', borderRadius:10, marginTop:25, marginBottom:25}}>
                         <View style={{width:'100%', height:50, display:'flex', flexDirection:'row', alignItems:'center', backgroundColor:'transparent'}}>
                             <Image style={{width:50, height:50, borderRadius:5}} source={{uri : 'data:image/png;base64,' + this.props.p.item.ProviderLogo}}/>
                             <Text style={{fontSize:30, fontWeight:'bold', color:'white', marginLeft:10}}>{this.props.p.item.ProviderName}</Text>
@@ -71,12 +91,12 @@ export default class UserSubscription extends React.Component {
                             </TouchableOpacity>
                         </View>
                     </View>
-                </View>
+                </View>*/
         );
     }
 
     componentDidMount() {
-        this.setState({uSub: this.props.p.item}, () => console.log(''));
+        this.setState({uSub: this.props.p.item}, () => this.setState({daysLeft: this.daysLeft()}));
     }
 
     selectDate = (date) => {
@@ -93,9 +113,21 @@ export default class UserSubscription extends React.Component {
         this.setState({visible: false});
     }
 
+    daysLeft = () => {
+        const [year, month, day] = this.state.uSub.PaymentDate.split("-");
+        let payDate = new Date(year, month - 1, day);
+        let daysLeft = Math.round((payDate-Date.now())/(1000*60*60*24)) + 1;
+        return daysLeft >= 0 ? daysLeft : 0;
+    }
+
 };
 
 const styles = StyleSheet.create({
+    providerName: {
+        fontSize:25, 
+        color:'#24B24A',
+        fontWeight:'bold'
+    },
     textInfo: {
         fontSize:18, 
         color:'white'

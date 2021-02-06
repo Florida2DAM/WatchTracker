@@ -30,13 +30,15 @@ export default class Subscriptions extends React.Component {
             <View style={{ height: '100%', width: '100%', backgroundColor: '#1A1A1A' }}>
                 <Header title={'Subscriptions'} name={username} avatar={require('./../assets/img/DefaultAvatar.png')} showReturn={true} onPress={() => this.props.navigation.goBack()}/>
                 
-                <View style={{padding: 15, paddingTop:25, backgroundColor:'transparent', flex:1}}>
+                <View style={{padding: 0, paddingTop:25, backgroundColor:'transparent', flex:1}}>
                     <Button title={'Add Subscriptions'} buttonStyle={{ backgroundColor: '#24B24A', borderRadius: 5, marginLeft: 30, marginRight: 30}}
-                        titleStyle={{ fontWeight: 'bold' }} onPress={() => console.log('')}/>
-                    <FlatList data={this.state.userSubscriptions} keyExtractor={(item, index) => index.toString()} 
-                        ItemSeparatorComponent={() => <View style={{height: 0}}/>} style={{padding: 15}} renderItem={item => <UserSubscription p={item}/>}/>
+                        titleStyle={{ fontWeight: 'bold' }} onPress={() => this.props.navigation.navigate('Providers', {username: 'jolame'})}/>
+                    <View style={{height: 25}}/>
+                    <FlatList data={this.state.userSubscriptions} keyExtractor={(item, index) => index.toString()}
+                        ListHeaderComponent={<View style={styles.separatorBar}/>} ListFooterComponent={<View style={styles.separatorBar}/>}
+                        ItemSeparatorComponent={() => <View style={styles.separatorBar}/>} style={{padding: 0}} renderItem={item => <UserSubscription p={item}/>}/>
                 </View>
-                <FooterMenu selectedScreen={2}/>
+                <FooterMenu selectedScreen={2} onSubscriptionsPress={() => this.props.navigation.navigate('Subscriptions', {username: 'jolame'})}/>
             </View>
         );
     }
@@ -79,5 +81,10 @@ const styles = StyleSheet.create({
         fontSize:18, 
         color:'white',
         fontWeight:'bold'
+    },
+    separatorBar: {
+        width:'100%', 
+        height: 1, 
+        backgroundColor: '#727272'
     }
 });
