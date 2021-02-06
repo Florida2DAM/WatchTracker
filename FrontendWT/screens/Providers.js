@@ -14,19 +14,20 @@ export default class Providers extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            providers: [
-                {key: 0, empty: true}
-            ]
+          username: 'r',
+          providers: [
+              {key: 0, empty: true}
+          ]
         }
     }
 
     screenWidth = Dimensions.get('window').width;
 
     render() {
-        const {username} = this.props.route.params;
+
         return (
             <View style={{ height: '100%', width: '100%', backgroundColor: '#1A1A1A' }}>
-                <Header title={'Providers'} name={username} avatar={require('./../assets/img/DefaultAvatar.png')} showReturn={true} onPress={() => this.props.navigation.goBack()}/>           
+                <Header title={'Providers'} name={this.state.username} avatar={require('./../assets/img/DefaultAvatar.png')} showReturn={true} onPress={() => this.props.navigation.goBack()}/>           
                 <View style={{padding: 15, paddingTop:25, backgroundColor:'transparent', flex:1}}>
                     <Button title={'Manage Subscriptions'} buttonStyle={{ backgroundColor: '#24B24A', borderRadius: 5, marginLeft: 30, marginRight: 30}}
                         titleStyle={{ fontWeight: 'bold' }} onPress={() => console.log('')}/>
@@ -39,6 +40,8 @@ export default class Providers extends React.Component {
     }
 
     componentDidMount() {
+      const {username} = this.props.route.params;
+      this.setState({username: username});
         this.getProviders();
     }
 
@@ -49,7 +52,7 @@ export default class Providers extends React.Component {
                  //console.log(response.data[i].UserSubscriptionsId);
                  this.state.providers.push({key: response.data[i].ProviderId, name: response.data[i].ProviderName, img: response.data[i].ProviderLogo });
              }
-             //console.log(this.state.providers);
+             console.log(this.state.providers);
           }).catch(error => console.log(error.response.request._response));
     }
 
@@ -59,7 +62,8 @@ export default class Providers extends React.Component {
           return <View style={[styles.itemContainerBox, styles.itemInvisible]} />;
         }
         return (
-          <TouchableOpacity style={styles.itemContainerBox} onPress={() => console.log('Clicked: ' + item.key + ' - ' + item.name)}>
+          <TouchableOpacity style={styles.itemContainerBox} 
+          onPress={() => this.props.navigation.navigate('AddSubscription', {addSub: false, username: this.state.username, providerId: item.key, providerName: item.name, providerLogo: item.img})}>
             <Image style={{width: 100, height: 100, borderRadius:10}} source={{uri: 'data:image/png;base64,' + item.img}}/>
           </TouchableOpacity>
         );

@@ -36,7 +36,8 @@ export default class Subscriptions extends React.Component {
                     <View style={{height: 25}}/>
                     <FlatList data={this.state.userSubscriptions} keyExtractor={(item, index) => index.toString()}
                         ListHeaderComponent={<View style={styles.separatorBar}/>} ListFooterComponent={<View style={styles.separatorBar}/>}
-                        ItemSeparatorComponent={() => <View style={styles.separatorBar}/>} style={{padding: 0}} renderItem={item => <UserSubscription p={item}/>}/>
+                        ItemSeparatorComponent={() => <View style={styles.separatorBar}/>} style={{padding: 0}} renderItem={item => <UserSubscription p={item}
+                        callback={this.getChildResponse.bind(this)}/>}/>
                 </View>
                 <FooterMenu selectedScreen={2} onSubscriptionsPress={() => this.props.navigation.navigate('Subscriptions', {username: 'jolame'})}/>
             </View>
@@ -45,7 +46,12 @@ export default class Subscriptions extends React.Component {
 
     componentDidMount() {
         const {username} = this.props.route.params;
+        this.setState({username, username});
         this.getUserSubscriptions(username);
+    }
+
+    getChildResponse = () => {
+        this.getUserSubscriptions(this.state.username);
     }
 
     getUserSubscriptions = (username) => {//ProviderLogo UserSubscriptionsId, ProviderName PaymentDate BillingPeriod Price UserId ProviderId
