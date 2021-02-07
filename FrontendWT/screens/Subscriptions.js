@@ -19,22 +19,25 @@ export default class Subscriptions extends React.Component {
     }
 
     render() {
-        const {username} = this.props.route.params;
+        //const {username} = this.props.route.params;
         return (
             <View style={styles.mainView}>
-                <Header title={'Subscriptions'} name={username} avatar={require('./../assets/img/DefaultAvatar.png')} showReturn={true} onPress={() => this.props.navigation.goBack()}/>
+                <Header title={'Subscriptions'} name={this.state.username} avatar={require('./../assets/img/DefaultAvatar.png')} showReturn={true} onPress={() => this.props.navigation.goBack()}/>
                 
                 <View style={styles.mainBody}>
                     <View style={styles.btnMargin}>
                         <TouchableButton btnWidth={'100%'} btnHeight={40} btnBgColor={'#24B24A'} borderRadius={5} btnTxt={'Add Subscriptions'} 
-                            onPress={() => this.props.navigation.navigate('Providers', {username: 'jolame'})}/>
+                            onPress={() => this.props.navigation.navigate('Providers', {username: this.state.username})}/>
                     </View>
                     <FlatList data={this.state.userSubscriptions} keyExtractor={(item, index) => index.toString()}
                         ListHeaderComponent={<View style={styles.separatorBar}/>} ListFooterComponent={<View style={styles.separatorBar}/>}
                         ItemSeparatorComponent={() => <View style={styles.separatorBar}/>} style={{padding: 0}} renderItem={item => <UserSubscription p={item}
                         refreshCallback={this.getChildRefreshResponse.bind(this)} editCallback={this.getChildEditResponse.bind(this)}/>}/>
                 </View>
-                <FooterMenu selectedScreen={2} onSubscriptionsPress={() => this.props.navigation.navigate('Subscriptions', { username: username })}/>
+                
+                <FooterMenu selectedScreen={2} 
+                onSubscriptionsPress={() => this.props.navigation.navigate('Subscriptions', { username: this.state.username })}
+                onHomePress={() => this.props.navigation.navigate('Home', { username: this.state.username })}/>
             </View>
         );
     }

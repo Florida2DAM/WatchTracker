@@ -20,7 +20,7 @@ class FooterMenu extends React.Component {
                 <Button icon={<Icon name="search" size={40} color={this.props.selectedScreen === 0 ? 'white' : 'black'}/>} buttonStyle={structureStyles.buttonStyle}/>
                 <Button icon={<Icon name="list-ul" size={40} color={this.props.selectedScreen === 1 ? 'white' : 'black'}/>} buttonStyle={structureStyles.buttonStyle}/>
                 <TouchableOpacity style={{ backgroundColor: '#1A1A1A', borderRadius: 30, borderColor:'white', borderWidth:1,
-                    width: 60, height: 60, justifyContent: 'center', alignItems: 'center', marginBottom:30 }} onPress={() => console.log('Main')}>
+                    width: 60, height: 60, justifyContent: 'center', alignItems: 'center', marginBottom:30 }} onPress={e => this.props.onHomePress(e.valueOf())}>
                     <Image source={require('./../../assets/img/WT_Logo.png')} style={{width: 40, height: 40, resizeMode: 'stretch'}} />
                 </TouchableOpacity>
                 <Button icon={<Icon name="calendar" size={40} color={this.props.selectedScreen === 2 ? 'white' : 'black'}/>} buttonStyle={structureStyles.buttonStyle}

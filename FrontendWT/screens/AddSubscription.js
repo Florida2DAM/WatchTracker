@@ -68,7 +68,9 @@ export default class AddSubscription extends React.Component {
                         {this.createSubmitButtons(this.state.addSub, providerId, providerName, username, this.state.uSubId)}
                     </View>
                 </ScrollView>
-                <FooterMenu selectedScreen={2} onSubscriptionsPress={() => this.props.navigation.replace('Subscriptions', { username: username })}/>
+                <FooterMenu selectedScreen={2} 
+                onSubscriptionsPress={() => this.props.navigation.navigate('Subscriptions', { username: username })}
+                onHomePress={() => this.props.navigation.navigate('Home', { username: username })}/>
                 <DateTimePickerModal testID="dateTimePicker" value={new Date()} mode={'date'} display='spinner' minimumDate={new Date()} 
                                 onConfirm={(date) => this.selectDate(date)} onCancel={() => this.setState({visible: false})} isVisible={this.state.visible}/>
             </View>

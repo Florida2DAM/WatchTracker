@@ -14,7 +14,7 @@ export default class Providers extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          username: 'r',
+          username: '',
           providers: [ {key: 0, empty: true} ]//Needed to render the future providers
         }
     }
@@ -34,7 +34,9 @@ export default class Providers extends React.Component {
                     <FlatList data={this.formatData(this.state.providers, NUM_COLUMNS)} style={styles.container} 
                         columnWrapperStyle={{justifyContent:'space-evenly'}} renderItem={this.renderItem} numColumns={NUM_COLUMNS}/>
                 </View>
-                <FooterMenu selectedScreen={2} onSubscriptionsPress={() => this.props.navigation.replace('Subscriptions', { username: this.state.username })}/>{/* Replace to: Render again Subscriptions */}
+                <FooterMenu selectedScreen={2} 
+                onSubscriptionsPress={() => this.props.navigation.navigate('Subscriptions', { username: this.state.username })}
+                onHomePress={() => this.props.navigation.navigate('Home', { username: this.state.username })}/>{/* Replace to: Render again Subscriptions */}
             </View>
         );
     }
