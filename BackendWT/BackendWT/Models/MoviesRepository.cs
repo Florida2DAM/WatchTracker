@@ -16,17 +16,11 @@ namespace BackendWT.Models
             JObject jsonProviders = TMDBRequests.SearchMovieProvidersByMovieId(movieId);
 
             string posterPath = jsonDetails["poster_path"] != null ? baseImgUrl + jsonDetails["poster_path"] : null;
-            JToken esProviders;
+            JToken esProviders = null;
             List<String> providerLogos = new List<String>();
-            try
-            {
-                esProviders = jsonProviders["results"]["ES"]["flatrate"];//rent//buy//flatrate
-            }
-            catch (NullReferenceException)
-            {
-                esProviders = null;
-            }
 
+            if (jsonProviders["results"]["ES"] != null)
+                esProviders = jsonProviders["results"]["ES"]["flatrate"];//rent//buy//flatrate
             if (esProviders != null)
             {
                 foreach (var provider in esProviders.Children())
@@ -35,7 +29,7 @@ namespace BackendWT.Models
                 }
             }
 
-            Movie movie = new Movie((int)jsonDetails["id"], posterPath, (string)jsonDetails["original_title"], (double)jsonDetails["vote_average"], (string)jsonDetails["release_date"],
+            Movie movie = new Movie((int)jsonDetails["id"], posterPath, (string)jsonDetails["title"], (double)jsonDetails["vote_average"], (string)jsonDetails["release_date"],
                 (string)jsonDetails["overview"], (double)jsonDetails["popularity"], (int)jsonDetails["vote_count"], (int)jsonDetails["runtime"], providerLogos, null, DateTime.MinValue, -1, null);
             UserMovies userMovie;
             using (WatchTrackerContext context = new WatchTrackerContext())
@@ -75,6 +69,47 @@ namespace BackendWT.Models
                 }
             }
             return moviesDTO;
+        }
+
+
+        internal List<MoviePosterDTO> GetRecentMovies() => GetGeneral(1);
+        internal List<MoviePosterDTO> GetTopRatedMovies() => GetGeneral(2);
+        internal List<MoviePosterDTO> GetUpcomingMovies() => GetGeneral(3);
+        private List<MoviePosterDTO> GetGeneral(byte option)
+        {
+            JObject jsonMovies = null;
+            switch (option)
+            {
+                case 1:
+                    jsonMovies = TMDBRequests.SearchRecent();
+                    break;
+                case 2:
+                    jsonMovies = TMDBRequests.SearchUpcoming();
+                    break;
+                case 3:
+                    jsonMovies = TMDBRequests.SearchTopRated();
+                    break;
+                default:
+                    return null;
+            }
+            JToken movies;
+            List<MoviePosterDTO> moviePosterDTOs = new List<MoviePosterDTO>();
+            try
+            {
+                movies = jsonMovies["results"];
+            }
+            catch (NullReferenceException)
+            {
+                movies = null;
+            }
+            if (movies != null)
+            {
+                foreach (var movie in movies.Children())
+                {
+                    moviePosterDTOs.Add(new MoviePosterDTO((int)movie["id"], TMDBRequests.BASE_IMG_URL + (string)movie["poster_path"], (string)movie["title"]));
+                }
+            }
+            return moviePosterDTOs;
         }
 
         internal void Save(UserMovies userMovies)

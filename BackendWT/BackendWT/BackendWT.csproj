@@ -260,6 +260,7 @@
     <Compile Include="Migrations\WatchTrackerContextModelSnapshot.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\MovieDTO.cs" />
+    <Compile Include="Models\MoviePosterDTO.cs" />
     <Compile Include="Models\MoviesRepository.cs" />
     <Compile Include="Models\Provider.cs" />
     <Compile Include="Models\ProvidersRepository.cs" />

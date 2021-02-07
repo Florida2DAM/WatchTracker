@@ -14,6 +14,19 @@ namespace BackendWT.Controllers
 
         [HttpGet]
         public List<MovieDTO> Get(string movieName) => new MoviesRepository().SearchMovies(movieName);
+
+        [HttpGet]
+        [Route("api/Movies/Recent")]
+        public List<MoviePosterDTO> GetRecent() => new MoviesRepository().GetRecentMovies();
+
+        [HttpGet]
+        [Route("api/Movies/Upcoming")]
+        public List<MoviePosterDTO> GetUpcoming() => new MoviesRepository().GetUpcomingMovies();
+
+        [HttpGet]
+        [Route("api/Movies/TopRated")]
+        public List<MoviePosterDTO> GetTopRated() => new MoviesRepository().GetTopRatedMovies();
+
         // POST: api/Movies
         public void Post([FromBody] UserMovies userMovies) => new MoviesRepository().Save(userMovies);
 

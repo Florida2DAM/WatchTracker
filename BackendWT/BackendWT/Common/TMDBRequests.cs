@@ -13,6 +13,21 @@ namespace BackendWT.Common
         private const string BASE_URL = "https://api.themoviedb.org/3/";
         public const string BASE_IMG_URL = "https://image.tmdb.org/t/p/w500";
 
+        public static JObject SearchRecent() => GeneralSearch(BASE_URL + "movie/now_playing" + "?api_key=" + API_KEY);
+        public static JObject SearchUpcoming() => GeneralSearch(BASE_URL + "movie/upcoming" + "?api_key=" + API_KEY);
+        public static JObject SearchTopRated() => GeneralSearch(BASE_URL + "movie/top_rated" + "?api_key=" + API_KEY);
+
+        private static JObject GeneralSearch(string requestUrl)
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                using (HttpRequestMessage request = new HttpRequestMessage(new HttpMethod("GET"), requestUrl))
+                {
+                    return HTTP_JSON_Response(httpClient, request);
+                }
+            }
+        }
+
         public static JObject SearchByName(string movieName)
         {
             using (HttpClient httpClient = new HttpClient())
