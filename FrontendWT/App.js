@@ -10,6 +10,7 @@ import {Header} from './components/general/Header';
 import {FooterMenu} from './components/general/FooterMenu';
 import AddSubscription from './screens/AddSubscription';
 import Home from './screens/Home';
+import Details from './screens/Details';
 //import {Poster} from './components/specific/Poster';
 
 const Stack = createStackNavigator();
@@ -26,6 +27,7 @@ class App extends React.Component  {
           <Stack.Screen name="Login" component={Login}/>
           <Stack.Screen name="Register" component={Register}/>
           <Stack.Screen name="Home" component={Home}/>
+          <Stack.Screen name="Details" component={Details}/>
           <Stack.Screen name="Subscriptions" component={Subscriptions}/>
           <Stack.Screen name="AddSubscription" component={AddSubscription}/>
           <Stack.Screen name="Providers" component={Providers}/>

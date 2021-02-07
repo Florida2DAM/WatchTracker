@@ -65,6 +65,7 @@ class Login extends React.Component {
                 //Auto-navigation (REMOVE WHEN ALL SCREENS ARE DONE)
                 //this.props.navigation.navigate('Register');
                 this.props.navigation.navigate('Home', {username: 'jolame'});
+                //this.props.navigation.navigate('Details', {username: 'jolame', movieId: 557});
                 //this.props.navigation.navigate('Providers', {username: 'jolame'});
                 //this.props.navigation.navigate('Subscriptions', {username: 'jolame'});
                 //this.props.navigation.navigate('AddSubscription', {username: 'jolame'});

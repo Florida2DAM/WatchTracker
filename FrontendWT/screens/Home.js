@@ -1,11 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
 import {StyleSheet, ScrollView, View, Text, FlatList} from 'react-native';
 import {FooterMenu} from './../components/general/FooterMenu';
@@ -74,23 +66,23 @@ class Home extends React.Component {
 
     getRecentMovies = () => {
             let url = `${Constants.BASE_URL}Movies/Recent`;
-            axios.get(url).then(response => this.setState({recentMovies: response.data}, () => console.log(this.state.recentMoviesData)))
+            axios.get(url).then(response => this.setState({recentMovies: response.data}))
                 .catch(error => console.log(error.response.request._response));
     }
 
     getUpcomingMovies = () => {
         let url = `${Constants.BASE_URL}Movies/Upcoming`;
-        axios.get(url).then(response => this.setState({upcomingMovies: response.data}, () => console.log(this.state.recentMoviesData)))
+        axios.get(url).then(response => this.setState({upcomingMovies: response.data}))
             .catch(error => console.log(error.response.request._response));
     }
 
     getTopRatedMovies = () => {
         let url = `${Constants.BASE_URL}Movies/TopRated`;
-        axios.get(url).then(r => this.setState({topRatedMovies: r.data}, () => console.log(this.state.recentMoviesData)))
+        axios.get(url).then(r => this.setState({topRatedMovies: r.data}))
             .catch(error => console.log(error.response.request._response));
     }
 
-    goToDetails = (movieId) => this.props.navigation.navigate('Subscriptions', { username: movieId + this.state.username });
+    goToDetails = (movieId) => this.props.navigation.replace('Details', { username: this.state.username, movieId: movieId });
 
 };
 
