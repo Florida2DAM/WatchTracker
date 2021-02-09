@@ -10,10 +10,14 @@ namespace BackendWT.Controllers
 {
     public class MoviesController : ApiController
     {
-        public Movie Get(int movieId, string userId) => new MoviesRepository().Retrieve(movieId, userId);//Añadir usuario y película ID (ahora están hardcodeados)
+        public Movie Get(int movieId, string userId) => new MoviesRepository().GetMovieDetails(movieId, userId);
 
         [HttpGet]
         public List<MovieDTO> Get(string movieName) => new MoviesRepository().SearchMovies(movieName);
+
+        [HttpGet]
+        [Route("api/Movies/UserMovies")]
+        public List<MovieDTO> GetUserMovies(string userId) => new MoviesRepository().GetUserMovies(userId);
 
         [HttpGet]
         [Route("api/Movies/Recent")]

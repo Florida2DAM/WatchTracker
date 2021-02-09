@@ -12,6 +12,7 @@ namespace BackendWT.Common
         private const string API_KEY = "bd1e11d67c79371f88dd6275035b637c";
         private const string BASE_URL = "https://api.themoviedb.org/3/";
         public const string BASE_IMG_URL = "https://image.tmdb.org/t/p/w500";
+        public const string NO_IMAGE_URL = "https://rimatour.com/wp-content/uploads/2017/09/No-image-found.jpg";
 
         public static JObject SearchRecent() => GeneralSearch(BASE_URL + "movie/now_playing" + "?api_key=" + API_KEY);
         public static JObject SearchUpcoming() => GeneralSearch(BASE_URL + "movie/upcoming" + "?api_key=" + API_KEY);

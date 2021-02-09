@@ -9,13 +9,17 @@ namespace BackendWT.Models
 {
     public class MoviesRepository
     {
-        internal Movie Retrieve(int movieId, string userId)
+        internal Movie GetMovieDetails(int movieId, string userId)
         {
             string baseImgUrl = TMDBRequests.BASE_IMG_URL;
             JObject jsonDetails = TMDBRequests.SearchMovieDetailsByMovieId(movieId);
             JObject jsonProviders = TMDBRequests.SearchMovieProvidersByMovieId(movieId);
 
-            string posterPath = jsonDetails["poster_path"] != null ? baseImgUrl + jsonDetails["poster_path"] : null;
+            string posterPath = (string)jsonDetails["poster_path"];
+            if (posterPath != null)
+                posterPath = baseImgUrl + posterPath;
+            else
+                posterPath = TMDBRequests.NO_IMAGE_URL;
             JToken esProviders = null;
             List<String> providerLogos = new List<String>();
 
@@ -28,9 +32,17 @@ namespace BackendWT.Models
                     providerLogos.Add(baseImgUrl + (string)provider["logo_path"]);
                 }
             }
-
-            Movie movie = new Movie((int)jsonDetails["id"], posterPath, (string)jsonDetails["title"], (double)jsonDetails["vote_average"], (string)jsonDetails["release_date"],
+            Movie movie = null;
+            try
+            {
+                movie = new Movie((int)jsonDetails["id"], posterPath, (string)jsonDetails["title"], (double)jsonDetails["vote_average"], (string)jsonDetails["release_date"],
                 (string)jsonDetails["overview"], (double)jsonDetails["popularity"], (int)jsonDetails["vote_count"], (int)jsonDetails["runtime"], providerLogos, null, DateTime.MinValue, -1, null);
+            }
+            catch (System.ArgumentException)
+            {
+                return null;
+            }
+            
             UserMovies userMovie;
             using (WatchTrackerContext context = new WatchTrackerContext())
             {
@@ -65,12 +77,30 @@ namespace BackendWT.Models
             {
                 foreach (var movie in movies.Children())
                 {
-                    moviesDTO.Add(new MovieDTO((int)movie["id"], baseImgUrl + (string)movie["poster_path"], (string)movie["title"], (double)movie["vote_average"], (string)movie["overview"]));
+                    if ((string)movie["poster_path"] != null)
+                        moviesDTO.Add(new MovieDTO((int)movie["id"], baseImgUrl + (string)movie["poster_path"], (string)movie["title"], (double)movie["vote_average"], (string)movie["overview"]));
+                    else
+                        moviesDTO.Add(new MovieDTO((int)movie["id"], TMDBRequests.NO_IMAGE_URL, (string)movie["title"], (double)movie["vote_average"], (string)movie["overview"]));
                 }
             }
             return moviesDTO;
         }
 
+        internal List<MovieDTO> GetUserMovies(string userId)
+        {
+            List<MovieDTO> userMovies = new List<MovieDTO>();
+            List<int> userMoviesId;
+            using (WatchTrackerContext context = new WatchTrackerContext())
+            {
+                userMoviesId = context.UserMovies.Where(u => u.UserId == userId).Select(m => m.MovieId).ToList();
+            }
+            foreach (var id in userMoviesId)
+            {
+                Movie movie = GetMovieDetails(id, userId);
+                userMovies.Add(new MovieDTO(movie.MovieId, movie.Poster, movie.Title, movie.VoteAverage, movie.Overview));
+            }
+            return userMovies;
+        }
 
         internal List<MoviePosterDTO> GetRecentMovies() => GetGeneral(1);
         internal List<MoviePosterDTO> GetTopRatedMovies() => GetGeneral(2);
@@ -106,7 +136,10 @@ namespace BackendWT.Models
             {
                 foreach (var movie in movies.Children())
                 {
-                    moviePosterDTOs.Add(new MoviePosterDTO((int)movie["id"], TMDBRequests.BASE_IMG_URL + (string)movie["poster_path"], (string)movie["title"]));
+                    if ((string)movie["poster_path"] != null)
+                        moviePosterDTOs.Add(new MoviePosterDTO((int)movie["id"], TMDBRequests.BASE_IMG_URL + (string)movie["poster_path"], (string)movie["title"]));
+                    else
+                        moviePosterDTOs.Add(new MoviePosterDTO((int)movie["id"], TMDBRequests.NO_IMAGE_URL, (string)movie["title"]));
                 }
             }
             return moviePosterDTOs;

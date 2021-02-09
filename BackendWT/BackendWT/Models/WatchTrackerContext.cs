@@ -26,7 +26,6 @@ namespace BackendWT.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<UserMovies>(entity => entity.HasKey(e => e.UserMoviesId));
             modelBuilder.Entity<UserMovies>().HasIndex(uMovies => new { uMovies.MovieId, uMovies.UserId }).IsUnique();//MultiIndex for unique columns (Movie - User)
             modelBuilder.Entity<User>().HasData(new User("jolame", "1234", "jolame@gmail.es", "Jose", "Lacueva", DateTime.Now, null));
             modelBuilder.Entity<User>().HasData(new User("alalma", "1234", "alvaro@gmail.com", "Alvaro", "Alepuz", DateTime.Now, null));
@@ -34,7 +33,6 @@ namespace BackendWT.Models
             modelBuilder.Entity<UserMovies>().HasData(new UserMovies(2, 557, "Watching", DateTime.Now, 10, "jolame"));
             modelBuilder.Entity<UserMovies>().HasData(new UserMovies(3, 557, "Watching", DateTime.Now, 8, "alalma"));
 
-            byte providerId = 1;
             string[] providerNames = {
                 "Netflix", "Prime Video", "HBO", "Disney Plus", "Apple TV", "Crunchyroll",
                 "Movistar Plus", "Youtube Premium", "Filmin", "ATRESPlayer", "Mitele", "FuboTV"
@@ -48,14 +46,6 @@ namespace BackendWT.Models
             {
                 modelBuilder.Entity<Provider>().HasData(new Provider(i, providerNames[i - 1], File.ReadAllBytes(@"Assets/" + providersLogos[i - 1])));
             }
-            //foreach (var providerName in providerNames)
-            //{
-            //    //modelBuilder.Entity<Provider>().HasData(new Provider(providerId, providerName, BackendWT.Common.ImageHelper.
-            //    //    GetImageByteArray("https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Netflix-new-icon.png/480px-Netflix-new-icon.png")));
-            //    //modelBuilder.Entity<Provider>().HasData(new Provider(providerId, providerName, File.ReadAllBytes(@"Assets/p_Netflix.jpg")));
-            //    modelBuilder.Entity<Provider>().HasData(new Provider(providerId, providerName, File.ReadAllBytes(@"Assets/" + providersLogos[providerId-1])));
-            //    providerId++;
-            //}
 
             modelBuilder.Entity<UserSubscriptions>().HasData(
                 new UserSubscriptions(1, "Netflix", DateTime.Now.AddMonths(1), "Monthly", 9.95, "jolame", 1));
