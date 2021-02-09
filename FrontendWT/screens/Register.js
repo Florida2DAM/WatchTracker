@@ -1,6 +1,6 @@
-import { Button, Text, Input } from 'react-native-elements';
+import { Button, Text, Input, CheckBox } from 'react-native-elements';
 import React from 'react';
-import { ImageBackground, StyleSheet, View, Image, ScrollView, TouchableOpacity, ToastAndroid } from 'react-native';
+import { ImageBackground, StyleSheet, View, Image, ScrollView, TouchableOpacity, ToastAndroid, Alert } from 'react-native';
 import MainScreensInput from './../components/specific/MainScreensInput';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import axios from 'axios';
@@ -23,7 +23,10 @@ export default class Register extends React.Component {
 
             usernameRegex: false,
             passwordRegex: false,
-            emailRegex: false
+            emailRegex: false,
+
+            checked: false,
+            showAlert: false
         }
     }
 
@@ -63,6 +66,16 @@ export default class Register extends React.Component {
                                 <DateTimePickerModal testID="dateTimePicker" value={new Date()} mode={'date'} display='spinner' maximumDate={new Date()}
                                              onConfirm={(date) => this.selectDate(date)} onCancel={() => this.setState({visible: false})} isVisible={this.state.visible}/>
                                 <View style={{height:30}}/>
+                                <View>
+                                    <CheckBox center title='Accept data' onPress={() => {
+                                        Alert.alert('Text...', `Text info...?`,
+                                        [
+                                        { text: 'Cancel', style: 'cancel', onPress: () => this.setState({checked: false}) },
+                                        { text: 'OK', onPress: () => this.setState({checked: true}) }
+                                        ],
+                                        {cancelable: false});
+                                    }} checked={this.state.checked}/>
+                                </View>
                                 <Button title={'Sing up'} buttonStyle={styles.submitButton} titleStyle={{ fontWeight: 'bold' }} onPress={() => this.signUp()} />
                                 <Text style={styles.registerText} onPress={() => this.props.navigation.navigate('Login')}>Return to login</Text>
                             </View>
@@ -88,7 +101,9 @@ export default class Register extends React.Component {
             url = `${Constants.BASE_URL}Users?email=${this.state.email}`;
             axios.get(url).then(e => {
                 emailAvailable = !e.data;
-                if (this.state.name.length > 0 && this.state.surname.length > 0 && this.state.birthday.length > 0 
+                if (!this.state.checked)
+                    ToastAndroid.show('You have to accept the terms.', ToastAndroid.SHORT);
+                if (this.state.checked && this.state.name.length > 0 && this.state.surname.length > 0 && this.state.birthday.length > 0 
                     && this.state.usernameRegex && this.state.passwordRegex && this.state.emailRegex && usernameAvailable && emailAvailable) {
                     this.addUser();
                 } else {
