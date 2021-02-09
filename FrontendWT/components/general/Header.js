@@ -1,10 +1,9 @@
-import {StyleSheet, Text, View} from 'react-native';
-import {Avatar} from 'react-native-elements';
+import {StyleSheet, Text, View, Image} from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import React from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-class Header extends React.Component {
+export default class Header extends React.Component {
 
     constructor(props) {
         super(props);
@@ -17,9 +16,12 @@ class Header extends React.Component {
             {this.showReturnButton()}
 
             <View style={{display:'flex', flexDirection:'row', alignItems: 'center'}}>
-                <Text style={{fontWeight:'bold', color:'white', fontSize:13}}>{this.props.name}</Text>
+                <Text style={{fontWeight:'bold', color:'white', fontSize:13}}>{this.props.username}</Text>
                 <View style={{ width: 50, height: 50, justifyContent: 'center', alignItems: 'center', }}>
-                    <Avatar style={{width: 40, height: 40}} rounded source={this.props.avatar} />
+                    <TouchableOpacity onPress={() => this.props.onResponse(this.props.username)}>{/* Move to PROFILE */}
+                        <Image style={{width: 40, height: 40, borderRadius:50}} 
+                            source={{uri: `data:image/jpeg;base64, ${this.props.profileImage}`}}/>
+                    </TouchableOpacity>
                 </View>
             </View>
 
@@ -30,7 +32,7 @@ class Header extends React.Component {
         if (this.props.showReturn) {
             return (
                 <View style={{ width: 50, height: 50, justifyContent: 'center', alignItems: 'center'}}>
-                    <TouchableOpacity><Icon size={30} name='arrow-left' color='white' onPress={e => this.props.onPress(e.valueOf())}/></TouchableOpacity>
+                    <TouchableOpacity><Icon size={30} name='arrow-left' color='white' onPress={e => this.props.onBack()}/></TouchableOpacity>
                 </View>
             );
         } else
@@ -58,5 +60,3 @@ const structureStyles = StyleSheet.create({
     },
 
 });
-
-export { Header };

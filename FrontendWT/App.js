@@ -6,12 +6,13 @@ import Login from './screens/Login';
 import Register from './screens/Register';
 import Subscriptions from './screens/Subscriptions';
 import Providers from './screens/Providers';
-import {Header} from './components/general/Header';
-import {FooterMenu} from './components/general/FooterMenu';
+import FooterMenu from './components/general/FooterMenu';
 import AddSubscription from './screens/AddSubscription';
 import Home from './screens/Home';
+import Search from './screens/Search';
+import MyList from './screens/MyList';
 import Details from './screens/Details';
-//import {Poster} from './components/specific/Poster';
+import Profile from './screens/Profile';
 
 const Stack = createStackNavigator();
 
@@ -27,8 +28,11 @@ class App extends React.Component  {
           <Stack.Screen name="Login" component={Login}/>
           <Stack.Screen name="Register" component={Register}/>
           <Stack.Screen name="Home" component={Home}/>
+          <Stack.Screen name="Search" component={Search}/>
+          <Stack.Screen name="MyList" component={MyList}/>
           <Stack.Screen name="Details" component={Details}/>
           <Stack.Screen name="Subscriptions" component={Subscriptions}/>
+          <Stack.Screen name="Profile" component={Profile}/>
           <Stack.Screen name="AddSubscription" component={AddSubscription}/>
           <Stack.Screen name="Providers" component={Providers}/>
           <Stack.Screen name="FooterMenu" component={FooterMenu}/>

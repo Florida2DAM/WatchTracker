@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Image, Text, Alert } from 'react-native';
+import { StyleSheet, View, Image, Text, Alert, ToastAndroid } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Pressable } from 'react-native';
 import Constants from './../../common/Constants';
@@ -17,7 +17,7 @@ export default class UserSubscription extends React.Component {
 
     render() {
         return (
-            <Pressable onLongPress={() => console.log(this.removeSubscription(this.props.p.item.ProviderName))} 
+            <Pressable onLongPress={() => this.removeSubscription(this.props.p.item.ProviderName)} 
             onPress={() => this.props.editCallback(this.state.uSub, this.props.p.item.PaymentDate, this.props.p.item.BillingPeriod, this.props.p.item.Price)}>
                 <TouchableOpacity style={styles.subscriptionCard}>
                     <View>
@@ -54,7 +54,7 @@ export default class UserSubscription extends React.Component {
             if (response.data) {
                 this.props.refreshCallback();
             }
-        }).catch(error => console.log(error.response.request._response));
+        }).catch(() => ToastAndroid.show('Server Error', ToastAndroid.SHORT));
     }
 
     componentDidMount() {

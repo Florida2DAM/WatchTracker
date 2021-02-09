@@ -12,18 +12,21 @@ class TouchableButton extends React.Component {
                 <TouchableOpacity style={{backgroundColor: this.props.btnBgColor, width: '100%', height: this.props.btnHeight, 
                     borderRadius: this.props.borderRadius, alignItems:'center', justifyContent:'center'}}
                     onPress={event => this.props.onPress(event.valueOf())}>
-                    <Text style={styles.btnText}>{this.props.btnTxt}</Text>
+                    <Text style={{
+                        fontSize: this.props.txtSize === undefined ? 18 : this.props.txtSize, 
+                        color: this.props.txtColor === undefined ? 'white' : this.props.txtColor, 
+                        fontWeight: this.props.txtWeight === undefined ? 'bold' : this.props.txtWeight}}>{this.props.btnTxt}</Text>
                 </TouchableOpacity>
         </View>
     )}
 }
 
 const styles = StyleSheet.create({
-    btnText: {
+    /*btnText: {
         fontSize:18, 
         color:'white',
         fontWeight:'bold'
-    }
+    }*/
 });
 
 /*Copy and style

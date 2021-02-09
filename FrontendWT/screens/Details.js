@@ -1,12 +1,12 @@
 import React from 'react';
-import {StyleSheet, ScrollView, View, Text, Image, TouchableOpacity, FlatList, ToastAndroid} from 'react-native';
+import {StyleSheet, ScrollView, View, Text, Image, TouchableOpacity, FlatList, ToastAndroid, Alert} from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import NumberPickerDialog from 'react-native-numberpicker-dialog';
-import {FooterMenu} from './../components/general/FooterMenu';
-import {Header} from './../components/general/Header';
+import FooterMenu from './../components/general/FooterMenu';
+import Header from './../components/general/Header';
 import axios from 'axios';
 import Constants from '../common/Constants';
 
@@ -33,7 +33,8 @@ class Details extends React.Component {
     render() {
         return (
             <View style={styles.mainView}>
-                <Header title={'Details'} name={'jolame'} avatar={require('./../assets/img/DefaultAvatar.png')} showReturn={true}/>
+                <Header title={'Details'} username={this.state.username} profileImage={this.state.profileImage} showReturn={true} onBack={() => this.props.navigation.goBack()}
+                    onResponse={() => this.props.navigation.replace('Profile', { username: this.state.username, profileImage: this.state.profileImage })}/>
                 <ScrollView>
                     <Image source={require('./../assets/img/WTDiagonal.png')} style={styles.imageDiagonal}/>
                     <View style={styles.mainBody}>
@@ -112,9 +113,12 @@ class Details extends React.Component {
                         {this.listManageButtons(this.canEditAndRemove())}
                     </View>
                 </ScrollView>
-                <FooterMenu selectedScreen={-1} 
-                onSubscriptionsPress={() => this.props.navigation.navigate('Subscriptions', { username: this.state.username })}
-                onHomePress={() => this.props.navigation.navigate('Home', { username: this.state.username })}/>
+                <FooterMenu selectedScreen={-1}
+                    onSearchPress={() => this.props.navigation.navigate('Search', { username: this.state.username, profileImage: this.state.profileImage })}
+                    onMyListPress={() => this.props.navigation.replace('MyList', { username: this.state.username, profileImage: this.state.profileImage })}
+                    onHomePress={() => this.props.navigation.navigate('Home', { username: this.state.username, profileImage: this.state.profileImage })}
+                    onSubscriptionsPress={() => this.props.navigation.replace('Subscriptions', { username: this.state.username, profileImage: this.state.profileImage })}
+                    onProfilePress={() => this.props.navigation.replace('Profile', { username: this.state.username, profileImage: this.state.profileImage })}/>
                 <DateTimePickerModal testID="dateTimePicker" value={new Date()} mode={'date'} display='spinner' maximumDate={new Date()}
                     onConfirm={(date) => this.selectDate(date)}
                     onCancel={() => this.setState({visible: false})} isVisible={this.state.visible}/>
@@ -123,8 +127,8 @@ class Details extends React.Component {
     }
 
     componentDidMount() {
-        const {username, movieId} = this.props.route.params;
-        this.setState({username, username, MovieId: movieId}, () => this.getMovieDetails());
+        const {username, profileImage, movieId} = this.props.route.params;
+        this.setState({username: username, profileImage: profileImage, MovieId: movieId}, () => this.getMovieDetails());
     }
 
     selectScore = () => {
@@ -163,7 +167,7 @@ class Details extends React.Component {
                 </TouchableOpacity>
                 <TouchableOpacity style={{width:'70%', height:50, backgroundColor: user === null ? '#9A9D9B' : '#EA392F', borderRadius:10,
                     justifyContent:'center', alignItems:'center', marginTop:10}} disabled={user === null ? true : false}
-                                  onPress={() => this.deleteMovie()}>
+                                  onPress={() => this.confirmDelete()}>
                     <Text style={{color: 'white', fontWeight: 'bold', fontSize: 18}}>REMOVE FROM LIST</Text>
                 </TouchableOpacity>
             </View>
@@ -185,8 +189,8 @@ class Details extends React.Component {
        
             this.setState({MovieId: d.MovieId, Overview: d.Overview, Popularity: d.Popularity, Poster: d.Poster, ReleaseDate: d.ReleaseDate,
                 Providers: d.Providers, Runtime: d.Runtime, Title: d.Title, UserDate: d.UserDate, UserId: d.UserId, 
-                UserStatus: d.UserStatus,  UserVote: d.UserVote,  VoteAverage: d.VoteAverage,  VoteCount: d.VoteCount}, () => {}/*console.log(this.state)*/)
-        }).catch(error => console.log(error.response.request._response));
+                UserStatus: d.UserStatus,  UserVote: d.UserVote,  VoteAverage: d.VoteAverage,  VoteCount: d.VoteCount});
+        }).catch(() => ToastAndroid.show('Server Error', ToastAndroid.SHORT));
     }
 
     addMovie = () => {
@@ -201,7 +205,7 @@ class Details extends React.Component {
         axios.post(url, data).then(() => {
             ToastAndroid.show('Movie added to the list', ToastAndroid.SHORT);
             this.getMovieDetails();
-        }).catch(error => console.log(error.response.request._response));
+        }).catch(() => ToastAndroid.show('Server Error', ToastAndroid.SHORT));
     }
 
     editMovie = () => {//field named 'userSatus' in DB for some bug.
@@ -209,14 +213,24 @@ class Details extends React.Component {
         axios.put(url).then(() => {
             ToastAndroid.show('Movie edited', ToastAndroid.SHORT);
             this.getMovieDetails();
-        }).catch(error => console.log(error.response.request._response));
+        }).catch(() => ToastAndroid.show('Server Error', ToastAndroid.SHORT));
+    }
+
+    confirmDelete = () => {
+        Alert.alert('Remove movie', `Do you want to remove '${this.state.Title}' from your list?`,
+        [
+          { text: 'Cancel', style: 'cancel', onPress: () => {} },
+          { text: 'OK', onPress: () => this.deleteMovie() }
+        ],
+        {cancelable: true},
+      );
     }
 
     deleteMovie = () => {
         axios.delete(`${Constants.BASE_URL}Movies?movieId=${this.state.MovieId}&userId=${this.state.username}`).then(() => {
             ToastAndroid.show('Movie deleted from list', ToastAndroid.SHORT);
             this.getMovieDetails();
-        }).catch(error => console.log(error.response.request._response));
+        }).catch(() => ToastAndroid.show('Server Error', ToastAndroid.SHORT));
     }
 
 };

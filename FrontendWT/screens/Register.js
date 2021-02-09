@@ -29,18 +29,16 @@ export default class Register extends React.Component {
 
     render() {
         return (
-            <View style={{ height: '100%', width: '100%' }}>
-                <ImageBackground style={{ width: '100%', height: '100%', resizeMode: 'cover' }} resizeMode={'stretch'} source={require('./../assets/img/bg.jpg')}>
-                    {/*Apply general opacity*/}
-                    <View style={{ width: '100%', height: '100%', backgroundColor: 'black', opacity: 0.3, position: 'absolute' }} />
-                    <View style={{ height: 100, width: '100%' }}>
+            <View style={styles.mainView}>
+                <ImageBackground style={styles.bgImg} resizeMode={'stretch'} source={require('./../assets/img/bg.jpg')}>
+                    <View style={styles.screenOpacity} />
+                    <View style={styles.headerContainer}>
                         <View style={styles.loginHeader} />
-                        <Image style={styles.logoHeader} source={require('../assets/img/Logo1.png')} />
+                        <Image style={styles.logoHeader} source={require('../assets/img/WT_Logo_Login.png')} />
                     </View>
                     <ScrollView>
                         <View style={styles.userBox}>
-                            <View style={{ height: '100%', width: '100%', backgroundColor: 'black', position: 'absolute',
-                                borderRadius: 10, opacity: 0.75 }}/>
+                            <View style={styles.box}/>
                             <View style={{ padding: 20 }}>
                                 <Text style={styles.text}>Username</Text>
                                 <Input value={this.state.username} maxLength={15} disabledInputStyle={{opacity:1}} style={{color: 'white'}}
@@ -64,10 +62,8 @@ export default class Register extends React.Component {
                                 </TouchableOpacity>
                                 <DateTimePickerModal testID="dateTimePicker" value={new Date()} mode={'date'} display='spinner' maximumDate={new Date()}
                                              onConfirm={(date) => this.selectDate(date)} onCancel={() => this.setState({visible: false})} isVisible={this.state.visible}/>
-
                                 <View style={{height:30}}/>
-                                <Button title={'Sing up'} buttonStyle={{ backgroundColor: '#24B24A', borderRadius: 5, marginLeft: 10, marginRight: 10}}
-                                    titleStyle={{ fontWeight: 'bold' }} onPress={() => this.signUp()} />
+                                <Button title={'Sing up'} buttonStyle={styles.submitButton} titleStyle={{ fontWeight: 'bold' }} onPress={() => this.signUp()} />
                                 <Text style={styles.registerText} onPress={() => this.props.navigation.navigate('Login')}>Return to login</Text>
                             </View>
                         </View>
@@ -92,7 +88,6 @@ export default class Register extends React.Component {
             url = `${Constants.BASE_URL}Users?email=${this.state.email}`;
             axios.get(url).then(e => {
                 emailAvailable = !e.data;
-                //console.log(this.state.username + " " + this.state.password + " " + this.state.email + " " + this.state.name + " " + this.state.surname + " " + this.state.birthday);
                 if (this.state.name.length > 0 && this.state.surname.length > 0 && this.state.birthday.length > 0 
                     && this.state.usernameRegex && this.state.passwordRegex && this.state.emailRegex && usernameAvailable && emailAvailable) {
                     this.addUser();
@@ -107,7 +102,6 @@ export default class Register extends React.Component {
     }
       
     addUser = () => {
-        let s = Object.assign({}, this.state);
         let url = `${Constants.BASE_URL}Users`;
         let data = { 
             UserId: this.state.username, 
@@ -119,7 +113,7 @@ export default class Register extends React.Component {
             Image: null
         }
         axios.post(url, data).then(() => {
-            this.props.navigation.navigate('Login', {userCreated: true});
+            this.props.navigation.replace('Login', {userCreated: true});
         }).catch(() => ToastAndroid.show('Error creating the user. Try again later.', ToastAndroid.LONG));
     }
 
@@ -137,37 +131,37 @@ export default class Register extends React.Component {
 };
 
 const styles = StyleSheet.create({
+    mainView: {
+        height: '100%', width: '100%'
+    },
+    screenOpacity: {
+        width: '100%', height: '100%', backgroundColor: 'black', opacity: 0.3, position: 'absolute'
+    },
+    bgImg: {
+        width: '100%', height: '100%', resizeMode: 'cover'
+    },
+    headerContainer: {
+        height: 100, width: '100%'
+    },
     loginHeader: {
-        opacity: 0.75,
-        backgroundColor: '#070707',
-        height: 100, width: '100%',
-        position: 'absolute'
+        opacity: 0.75, backgroundColor: '#070707', height: 100, width: '100%', position: 'absolute'
     },
     logoHeader: {
-        width: 180,
-        height: 60,
-        margin: 20,
-        resizeMode: 'stretch'
+        width: 180, height: 60, margin: 20, resizeMode: 'stretch'
     },
     userBox: {
-        backgroundColor: 'transparent',
-        marginTop: 100,
-        marginBottom: 100,
-        width: '80%',
-        alignSelf: 'center',
-        borderRadius: 10,
+        backgroundColor: 'transparent', marginTop: 100, marginBottom: 100, width: '80%', alignSelf: 'center', borderRadius: 10,
+    },
+    box: {
+        height: '100%', width: '100%', backgroundColor: 'black', position: 'absolute', borderRadius: 10, opacity: 0.75
     },
     text: {
-        color: 'white',
-        fontWeight: 'bold',
-        fontSize: 22,
-        marginLeft: 10,
-        marginBottom: 5
+        color: 'white', fontWeight: 'bold', fontSize: 22, marginLeft: 10, marginBottom: 5
     },
     registerText: {
-        fontSize: 18,
-        textAlign: 'right',
-        color: 'white',
-        marginTop: 20
+        fontSize: 18, textAlign: 'right', color: 'white', marginTop: 20
+    },
+    submitButton: {
+        backgroundColor: '#24B24A', borderRadius: 5, marginLeft: 10, marginRight: 10
     }
 });

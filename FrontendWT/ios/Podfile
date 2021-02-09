@@ -10,6 +10,8 @@ target 'FrontendWT' do
 
   pod 'RNCPicker', :path => '../node_modules/@react-native-picker/picker'
 
+  pod 'react-native-image-base64', :path => '../node_modules/react-native-image-base64'
+
   target 'FrontendWTTests' do
     inherit! :complete
     # Pods for testing

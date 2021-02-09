@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import {FooterMenu} from './../components/general/FooterMenu';
-import {Header} from './../components/general/Header';
+import { StyleSheet, View, ToastAndroid } from 'react-native';
+import FooterMenu from './../components/general/FooterMenu';
+import Header from './../components/general/Header';
 import { FlatList } from 'react-native-gesture-handler';
 import Constants from './../common/Constants';
 import axios from 'axios';
@@ -19,15 +19,14 @@ export default class Subscriptions extends React.Component {
     }
 
     render() {
-        //const {username} = this.props.route.params;
         return (
             <View style={styles.mainView}>
-                <Header title={'Subscriptions'} name={this.state.username} avatar={require('./../assets/img/DefaultAvatar.png')} showReturn={true} onPress={() => this.props.navigation.goBack()}/>
-                
+                <Header title={'Subscriptions'} username={this.state.username} profileImage={this.state.profileImage} showReturn={true} onBack={() => this.props.navigation.goBack()}
+                    onResponse={() => this.props.navigation.replace('Profile', { username: this.state.username, profileImage: this.state.profileImage })}/>
                 <View style={styles.mainBody}>
                     <View style={styles.btnMargin}>
                         <TouchableButton btnWidth={'100%'} btnHeight={40} btnBgColor={'#24B24A'} borderRadius={5} btnTxt={'Add Subscriptions'} 
-                            onPress={() => this.props.navigation.navigate('Providers', {username: this.state.username})}/>
+                            onPress={() => this.props.navigation.navigate('Providers', {username: this.state.username, profileImage: this.state.profileImage})}/>
                     </View>
                     <FlatList data={this.state.userSubscriptions} keyExtractor={(item, index) => index.toString()}
                         ListHeaderComponent={<View style={styles.separatorBar}/>} ListFooterComponent={<View style={styles.separatorBar}/>}
@@ -35,16 +34,19 @@ export default class Subscriptions extends React.Component {
                         refreshCallback={this.getChildRefreshResponse.bind(this)} editCallback={this.getChildEditResponse.bind(this)}/>}/>
                 </View>
                 
-                <FooterMenu selectedScreen={2} 
-                onSubscriptionsPress={() => this.props.navigation.navigate('Subscriptions', { username: this.state.username })}
-                onHomePress={() => this.props.navigation.navigate('Home', { username: this.state.username })}/>
+                <FooterMenu selectedScreen={2}
+                    onSearchPress={() => this.props.navigation.navigate('Search', { username: this.state.username, profileImage: this.state.profileImage })}
+                    onMyListPress={() => this.props.navigation.replace('MyList', { username: this.state.username, profileImage: this.state.profileImage })}
+                    onHomePress={() => this.props.navigation.navigate('Home', { username: this.state.username, profileImage: this.state.profileImage })}
+                    onSubscriptionsPress={() => this.props.navigation.navigate('Subscriptions', { username: this.state.username, profileImage: this.state.profileImage })}
+                    onProfilePress={() => this.props.navigation.replace('Profile', { username: this.state.username, profileImage: this.state.profileImage })}/>
             </View>
         );
     }
 
     componentDidMount() {
-        const {username} = this.props.route.params;
-        this.setState({username, username});
+        const {username, profileImage} = this.props.route.params;
+        this.setState({username: username, profileImage: profileImage});
         this.getUserSubscriptions(username);
     }
 
@@ -55,18 +57,17 @@ export default class Subscriptions extends React.Component {
     getChildEditResponse = (uSub, paymentDate, paymentPeriod, price) => {
         this.props.navigation.navigate('AddSubscription', 
             { addSub: false, paymentDate: paymentDate, paymentPeriod: paymentPeriod, price: price, 
-            username: uSub.UserId, providerId: uSub.ProviderId, providerName: uSub.ProviderName, providerLogo: uSub.ProviderLogo, uSubId: uSub.UserSubscriptionsId });
+            username: uSub.UserId, providerId: uSub.ProviderId, providerName: uSub.ProviderName, providerLogo: uSub.ProviderLogo, uSubId: uSub.UserSubscriptionsId, profileImage: this.state.profileImage });
     }
 
     getUserSubscriptions = (username) => {//ProviderLogo UserSubscriptionsId, ProviderName PaymentDate BillingPeriod Price UserId ProviderId
          let url = `${Constants.BASE_URL}UsersSubscriptions?userId=${username}`;
-         axios.get(url).then(response => { 
-             //console.log(response.data[0].ProviderName);
+         axios.get(url).then(response => {
              for (let i = 0; i < response.data.length; i++) {
                 response.data[i].PaymentDate = response.data[i].PaymentDate.substring(0, 10);//Get date formated to yyyy-mm-dd
              }
              this.setState({userSubscriptions: response.data});
-          }).catch(error => console.log(error.response.request._response));
+          }).catch(() => ToastAndroid.show('Server Error', ToastAndroid.SHORT));
     }
 
     selectDate = (date) => {

@@ -1,7 +1,7 @@
 import React from 'react';
-import {StyleSheet, ScrollView, View, Text, FlatList} from 'react-native';
-import {FooterMenu} from './../components/general/FooterMenu';
-import {Header} from './../components/general/Header';
+import {StyleSheet, ScrollView, View, Text, FlatList, ToastAndroid} from 'react-native';
+import FooterMenu from './../components/general/FooterMenu';
+import Header from './../components/general/Header';
 import {Poster} from '../components/specific/Poster';
 import Constants from '../common/Constants';
 import axios from 'axios';
@@ -20,7 +20,8 @@ class Home extends React.Component {
     render() {
         return (
             <View style={styles.mainView}>
-                <Header title={'Home'} name={this.state.username} avatar={require('./../assets/img/DefaultAvatar.png')} showReturn={false}/>
+                <Header title={'Home'} username={this.state.username} profileImage={this.state.profileImage} showReturn={false} 
+                    onResponse={() => this.props.navigation.replace('Profile', { username: this.state.username, profileImage: this.state.profileImage })}/>
                 <View style={styles.apiProvidersContainer}>
                     <Text style={styles.apiProvidersText}>Powered by TMDB and JustWatch</Text>
                 </View>      
@@ -49,16 +50,19 @@ class Home extends React.Component {
                               ItemSeparatorComponent={() => <View style={{width: 10}}/>}
                               style={{marginBottom: 40}} renderItem={item => <Poster e={item} callback={this.goToDetails.bind(this)}/>}/>
                 </ScrollView>
-                <FooterMenu selectedScreen={-1} 
-                onSubscriptionsPress={() => this.props.navigation.navigate('Subscriptions', { username: this.state.username })}
-                onHomePress={() => this.props.navigation.navigate('Home', { username: this.state.username })}/>
+                <FooterMenu selectedScreen={-1}
+                    onSearchPress={() => this.props.navigation.navigate('Search', { username: this.state.username, profileImage: this.state.profileImage })}
+                    onMyListPress={() => this.props.navigation.replace('MyList', { username: this.state.username, profileImage: this.state.profileImage })}
+                    onHomePress={() => this.props.navigation.navigate('Home', { username: this.state.username, profileImage: this.state.profileImage })}
+                    onSubscriptionsPress={() => this.props.navigation.replace('Subscriptions', { username: this.state.username, profileImage: this.state.profileImage })}
+                    onProfilePress={() => this.props.navigation.replace('Profile', { username: this.state.username, profileImage: this.state.profileImage })}/>
             </View>
         );
     }
 
     componentDidMount() {
-        const {username} = this.props.route.params;
-        this.setState({username, username});
+        const {username, profileImage} = this.props.route.params;
+        this.setState({username: username, profileImage: profileImage});
         this.getRecentMovies();
         this.getUpcomingMovies();
         this.getTopRatedMovies();
@@ -67,22 +71,22 @@ class Home extends React.Component {
     getRecentMovies = () => {
             let url = `${Constants.BASE_URL}Movies/Recent`;
             axios.get(url).then(response => this.setState({recentMovies: response.data}))
-                .catch(error => console.log(error.response.request._response));
+                .catch(() => ToastAndroid.show('Server Error', ToastAndroid.SHORT));
     }
 
     getUpcomingMovies = () => {
         let url = `${Constants.BASE_URL}Movies/Upcoming`;
         axios.get(url).then(response => this.setState({upcomingMovies: response.data}))
-            .catch(error => console.log(error.response.request._response));
+            .catch(() => ToastAndroid.show('Server Error', ToastAndroid.SHORT));
     }
 
     getTopRatedMovies = () => {
         let url = `${Constants.BASE_URL}Movies/TopRated`;
         axios.get(url).then(r => this.setState({topRatedMovies: r.data}))
-            .catch(error => console.log(error.response.request._response));
+            .catch(() => ToastAndroid.show('Server Error', ToastAndroid.SHORT));
     }
 
-    goToDetails = (movieId) => this.props.navigation.replace('Details', { username: this.state.username, movieId: movieId });
+    goToDetails = (movieId) => this.props.navigation.replace('Details', { username: this.state.username, movieId: movieId, profileImage: this.state.profileImage });
 
 };
 
