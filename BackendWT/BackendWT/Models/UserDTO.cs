@@ -13,8 +13,11 @@ namespace BackendWT.Models
         public string Surname { get; set; }
         public DateTime Birthday { get; set; }
         public byte[] Image { get; set; }
+        public DateTime RegisterDate { get; set; }
+        public bool Active { get; set; }
 
-        public UserDTO(string userId, string email, string name, string surname, DateTime birthday, byte[] image)
+        public UserDTO(string userId, string email, string name, string surname, DateTime birthday, byte[] image, 
+            DateTime registerDate, bool active)
         {
             UserId = userId;
             Email = email;
@@ -22,6 +25,8 @@ namespace BackendWT.Models
             Surname = surname;
             Birthday = birthday;
             Image = image;
+            RegisterDate = registerDate;
+            Active = active;
         }
     }
 }

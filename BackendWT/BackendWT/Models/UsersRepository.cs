@@ -20,7 +20,7 @@ namespace BackendWT.Models
                 {
                     if (user.Image == null)
                         user.Image = Convert.FromBase64String(DEFAULT_IMG_B64);
-                    userDTO = new UserDTO(user.UserId, user.Email, user.Name, user.Surname, user.Birthday, user.Image);
+                    userDTO = new UserDTO(user.UserId, user.Email, user.Name, user.Surname, user.Birthday, user.Image, user.RegisterDate, user.Active);
                 }
             }
             return userDTO;
@@ -67,6 +67,7 @@ namespace BackendWT.Models
 
         internal bool SaveUser(User user)
         {
+            user.RegisterDate = DateTime.Now;//¿Dejar la fecha de registro?
             using (WatchTrackerContext context = new WatchTrackerContext())
             {
                 User u = context.Users.Where(x => x.UserId == user.UserId || x.Email == user.Email).FirstOrDefault();
@@ -151,6 +152,64 @@ namespace BackendWT.Models
                 listStatusCount[2] = context.UserMovies.Where(u => u.UserId == userId && u.UserStatus == "Plan to Watch").Count();
             }
             return listStatusCount;
+        }
+
+        internal bool ChangeUserActive(string userId)
+        {
+            using (WatchTrackerContext context = new WatchTrackerContext())
+            {
+                User user = context.Users.Where(u => u.UserId == userId).FirstOrDefault();
+                if (user != null)
+                {
+                    user.Active = !user.Active;
+                    context.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        internal bool GenerateNewUserPassword(string userId)
+        {
+            using (WatchTrackerContext context = new WatchTrackerContext())
+            {
+                User user = context.Users.Where(u => u.UserId == userId).FirstOrDefault();
+                if (user != null)
+                {
+                    string unhashedPassword = CreateRandomPassword();
+                    user.Password = HashPassword(unhashedPassword);
+                    context.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        private string CreateRandomPassword()
+        {
+            const string validChars = "ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*?_-";
+            Random random = new Random();
+
+            char[] chars = new char[10];
+            for (int i = 0; i < 10; i++)
+            {
+                chars[i] = validChars[random.Next(0, validChars.Length)];
+            }
+            string password = new string(chars);
+            return password;
+        }
+
+        private string HashPassword(string password)
+        {
+            System.Security.Cryptography.MD5CryptoServiceProvider md5 = new System.Security.Cryptography.MD5CryptoServiceProvider();
+            byte[] passwordBytes = System.Text.Encoding.UTF8.GetBytes(password);
+            passwordBytes = md5.ComputeHash(passwordBytes);
+            System.Text.StringBuilder hashedPassword = new System.Text.StringBuilder();
+            foreach (byte passwordByte in passwordBytes)
+            {
+                hashedPassword.Append(passwordByte.ToString("x2").ToLower());
+            }
+            return hashedPassword.ToString();
         }
     }
 }

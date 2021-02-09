@@ -21,9 +21,12 @@ namespace BackendWT.Models
         [Required]
         public DateTime Birthday { get; set; }
         public byte[] Image { get; set; }
+        public DateTime RegisterDate { get; set; }
+        public bool Active { get; set; }
         //public List<UserMovies> UserMovies { get; set; }
 
-        public User(string userId, string password, string email, string name, string surname, DateTime birthday, byte[] image)
+        public User(string userId, string password, string email, string name, string surname, DateTime birthday, byte[] image,
+            DateTime registerDate, bool active)
         {
             UserId = userId;
             Password = password;
@@ -32,6 +35,8 @@ namespace BackendWT.Models
             Surname = surname;
             Birthday = birthday;
             Image = image;
+            RegisterDate = registerDate;
+            Active = active;
         }
 
     }

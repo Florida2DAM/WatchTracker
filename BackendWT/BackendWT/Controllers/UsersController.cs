@@ -34,6 +34,12 @@ namespace BackendWT.Controllers
         [Route("api/Users/ChangeData")]
         public bool PutData(string userId, [FromBody] User user) => new UsersRepository().ChangeUserData(userId, user);
         [HttpPut]
+        [Route("api/Users/ChangeUserActive")]
+        public bool ChangeUserActive(string userId) => new UsersRepository().ChangeUserActive(userId);
+        [HttpPut]
+        [Route("api/Users/GeneratePassword")]
+        public bool GeneratePassword(string userId) => new UsersRepository().GenerateNewUserPassword(userId);
+        [HttpPut]
         public bool Put(string userId,[FromBody] User user) => new UsersRepository().ChangeImage(userId, user);
 
         //// DELETE: api/Users/5

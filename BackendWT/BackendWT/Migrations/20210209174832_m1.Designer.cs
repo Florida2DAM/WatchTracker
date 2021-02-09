@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackendWT.Migrations
 {
     [DbContext(typeof(WatchTrackerContext))]
-    [Migration("20210204212123_m1")]
+    [Migration("20210209174832_m1")]
     partial class m1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -115,6 +115,9 @@ namespace BackendWT.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
 
+                    b.Property<bool>("Active")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<DateTime>("Birthday")
                         .HasColumnType("datetime(6)");
 
@@ -133,6 +136,9 @@ namespace BackendWT.Migrations
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
+                    b.Property<DateTime>("RegisterDate")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<string>("Surname")
                         .IsRequired()
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -144,21 +150,25 @@ namespace BackendWT.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "jolame",
-                            Birthday = new DateTime(2021, 2, 4, 22, 21, 23, 427, DateTimeKind.Local).AddTicks(4932),
-                            Email = "jolame@gmail.es",
-                            Name = "Jose",
-                            Password = "1234",
-                            Surname = "Lacueva"
+                            UserId = "admin",
+                            Active = true,
+                            Birthday = new DateTime(2021, 2, 9, 18, 48, 32, 25, DateTimeKind.Local).AddTicks(1242),
+                            Email = "admin@gmail.es",
+                            Name = "Admin",
+                            Password = "827ccb0eea8a706c4c34a16891f84e7b",
+                            RegisterDate = new DateTime(2021, 2, 9, 18, 48, 32, 25, DateTimeKind.Local).AddTicks(1242),
+                            Surname = "AdminSurname"
                         },
                         new
                         {
-                            UserId = "alalma",
-                            Birthday = new DateTime(2021, 2, 4, 22, 21, 23, 430, DateTimeKind.Local).AddTicks(4914),
-                            Email = "alvaro@gmail.com",
-                            Name = "Alvaro",
-                            Password = "1234",
-                            Surname = "Alepuz"
+                            UserId = "test",
+                            Active = true,
+                            Birthday = new DateTime(2021, 2, 9, 18, 48, 32, 25, DateTimeKind.Local).AddTicks(1242),
+                            Email = "test@gmail.com",
+                            Name = "Test",
+                            Password = "827ccb0eea8a706c4c34a16891f84e7b",
+                            RegisterDate = new DateTime(2021, 2, 9, 18, 48, 32, 25, DateTimeKind.Local).AddTicks(1242),
+                            Surname = "TestSurname"
                         });
                 });
 
@@ -199,8 +209,8 @@ namespace BackendWT.Migrations
                         {
                             UserMoviesId = 1,
                             MovieId = 1726,
-                            UserDate = new DateTime(2021, 2, 4, 22, 21, 23, 430, DateTimeKind.Local).AddTicks(4914),
-                            UserId = "jolame",
+                            UserDate = new DateTime(2021, 2, 9, 18, 48, 32, 25, DateTimeKind.Local).AddTicks(1242),
+                            UserId = "test",
                             UserStatus = "Watched",
                             UserVote = 9
                         },
@@ -208,8 +218,8 @@ namespace BackendWT.Migrations
                         {
                             UserMoviesId = 2,
                             MovieId = 557,
-                            UserDate = new DateTime(2021, 2, 4, 22, 21, 23, 430, DateTimeKind.Local).AddTicks(4914),
-                            UserId = "jolame",
+                            UserDate = new DateTime(2021, 2, 9, 18, 48, 32, 25, DateTimeKind.Local).AddTicks(1242),
+                            UserId = "test",
                             UserStatus = "Watching",
                             UserVote = 10
                         },
@@ -217,8 +227,8 @@ namespace BackendWT.Migrations
                         {
                             UserMoviesId = 3,
                             MovieId = 557,
-                            UserDate = new DateTime(2021, 2, 4, 22, 21, 23, 430, DateTimeKind.Local).AddTicks(4914),
-                            UserId = "alalma",
+                            UserDate = new DateTime(2021, 2, 9, 18, 48, 32, 25, DateTimeKind.Local).AddTicks(1242),
+                            UserId = "admin",
                             UserStatus = "Watching",
                             UserVote = 8
                         });
@@ -264,21 +274,21 @@ namespace BackendWT.Migrations
                         {
                             UserSubscriptionsId = 1,
                             BillingPeriod = "Monthly",
-                            PaymentDate = new DateTime(2021, 3, 4, 22, 21, 23, 431, DateTimeKind.Local).AddTicks(5130),
-                            Price = 9.9499999999999993,
+                            PaymentDate = new DateTime(2021, 3, 9, 18, 48, 32, 25, DateTimeKind.Local).AddTicks(1242),
+                            Price = 8.0,
                             ProviderId = (byte)1,
                             ProviderName = "Netflix",
-                            UserId = "jolame"
+                            UserId = "test"
                         },
                         new
                         {
                             UserSubscriptionsId = 2,
                             BillingPeriod = "Monthly",
-                            PaymentDate = new DateTime(2021, 3, 4, 22, 21, 23, 431, DateTimeKind.Local).AddTicks(5130),
-                            Price = 9.9499999999999993,
+                            PaymentDate = new DateTime(2021, 3, 9, 18, 48, 32, 25, DateTimeKind.Local).AddTicks(1242),
+                            Price = 10.0,
                             ProviderId = (byte)6,
                             ProviderName = "Crunchyroll",
-                            UserId = "jolame"
+                            UserId = "test"
                         });
                 });
 

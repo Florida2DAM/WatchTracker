@@ -27,11 +27,11 @@ namespace BackendWT.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UserMovies>().HasIndex(uMovies => new { uMovies.MovieId, uMovies.UserId }).IsUnique();//MultiIndex for unique columns (Movie - User)
-            modelBuilder.Entity<User>().HasData(new User("jolame", "1234", "jolame@gmail.es", "Jose", "Lacueva", DateTime.Now, null));
-            modelBuilder.Entity<User>().HasData(new User("alalma", "1234", "alvaro@gmail.com", "Alvaro", "Alepuz", DateTime.Now, null));
-            modelBuilder.Entity<UserMovies>().HasData(new UserMovies(1, 1726, "Watched", DateTime.Now, 9, "jolame"));
-            modelBuilder.Entity<UserMovies>().HasData(new UserMovies(2, 557, "Watching", DateTime.Now, 10, "jolame"));
-            modelBuilder.Entity<UserMovies>().HasData(new UserMovies(3, 557, "Watching", DateTime.Now, 8, "alalma"));
+            modelBuilder.Entity<User>().HasData(new User("admin", "827ccb0eea8a706c4c34a16891f84e7b", "admin@gmail.es", "Admin", "AdminSurname", DateTime.Now, null, DateTime.Now, true));
+            modelBuilder.Entity<User>().HasData(new User("test", "827ccb0eea8a706c4c34a16891f84e7b", "test@gmail.com", "Test", "TestSurname", DateTime.Now, null, DateTime.Now, true));
+            modelBuilder.Entity<UserMovies>().HasData(new UserMovies(1, 1726, "Watched", DateTime.Now, 9, "test"));
+            modelBuilder.Entity<UserMovies>().HasData(new UserMovies(2, 557, "Watching", DateTime.Now, 10, "test"));
+            modelBuilder.Entity<UserMovies>().HasData(new UserMovies(3, 557, "Watching", DateTime.Now, 8, "admin"));
 
             string[] providerNames = {
                 "Netflix", "Prime Video", "HBO", "Disney Plus", "Apple TV", "Crunchyroll",
@@ -48,9 +48,9 @@ namespace BackendWT.Models
             }
 
             modelBuilder.Entity<UserSubscriptions>().HasData(
-                new UserSubscriptions(1, "Netflix", DateTime.Now.AddMonths(1), "Monthly", 9.95, "jolame", 1));
+                new UserSubscriptions(1, "Netflix", DateTime.Now.AddMonths(1), "Monthly", 8, "test", 1));
             modelBuilder.Entity<UserSubscriptions>().HasData(
-                new UserSubscriptions(2, "Crunchyroll", DateTime.Now.AddMonths(1), "Monthly", 9.95, "jolame", 6));
+                new UserSubscriptions(2, "Crunchyroll", DateTime.Now.AddMonths(1), "Monthly", 10, "test", 6));
         }
     }
 }
