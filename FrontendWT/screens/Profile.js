@@ -11,6 +11,7 @@ import ProfileTable from './../components/specific/ProfileTable';
 import Constants from '../common/Constants';
 import axios from 'axios';
 import md5 from 'md5';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 class Profile extends React.Component {
 
@@ -233,11 +234,16 @@ class Profile extends React.Component {
         [
         { text: 'Cancel', style: 'cancel', onPress: () => {} },
         { text: 'OK', onPress: () => {
-            this.props.navigation.replace('Login');
+            //this.props.navigation.replace('Login');
             //Delete saved keys (username/password file)
+            this.removeKeys();
         }}
         ],
         {cancelable: false});
+    }
+
+    removeKeys = async () => {
+        await AsyncStorage.removeItem(Constants.LOGIN_KEY, () => this.props.navigation.replace('Login'));
     }
 
     deleteAccount = () => {

@@ -5,14 +5,15 @@ import axios from 'axios';
 import MainScreensInput from './../components/specific/MainScreensInput';
 import Constants from './../common/Constants';
 import md5 from 'md5';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 class Login extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
             username: '',
-            password: ''
+            password: '',
+            keysFound: false
         }
     }
 
@@ -35,7 +36,8 @@ class Login extends React.Component {
                                 <Text style={styles.text}>Password</Text>
                                 <MainScreensInput placeholder={'password'} secure={true} maxLength={20} onChangeText={password => this.setState({password})}/>
 
-                                <Button title={'Login'} buttonStyle={styles.submitButton} titleStyle={{fontWeight:'bold'}} onPress={() => this.login()}/>
+                                <Button title={'Login'} buttonStyle={styles.submitButton} titleStyle={{fontWeight:'bold'}} 
+                                    onPress={() => this.login(this.state.username, this.state.password)}/>
                                 <Text style={styles.registerText} onPress={() => this.props.navigation.navigate('Register')}>Register</Text>
                             </View>
                         </View>
@@ -46,26 +48,44 @@ class Login extends React.Component {
     }
 
     componentDidMount() {
+        this.getKeys();
         const userCreated = this.props.route.params;
         if (userCreated)
             ToastAndroid.show('User created!', ToastAndroid.SHORT);
     }
 
-    login = () => {
-         let url = `${Constants.BASE_URL}Users?userId=${this.state.username}&password=${md5(this.state.password)}`;
+    login = async (username, password) => {
+         let url = `${Constants.BASE_URL}Users?userId=${username}&password=${md5(password)}`;
          axios.get(url).then(response => { 
              if (response.data) {
+                 if (!this.state.keysFound)
+                    this.setKeys(username, password);
                  ToastAndroid.show('Logging in...', ToastAndroid.SHORT);
-                 this.getUserData();
+                 this.getUserData(username);
              } else
                  ToastAndroid.show('Username or password wrong', ToastAndroid.SHORT);
           }).catch(() => ToastAndroid.show('Server Error', ToastAndroid.SHORT));
     }
 
-    getUserData = () => {
-        const url = `${Constants.BASE_URL}Users/UserData?userId=${this.state.username}`;
-        axios.get(url).then(r => this.props.navigation.replace('Home', {username: this.state.username, profileImage: r.data.Image}))
+    getUserData = (username) => {
+        const url = `${Constants.BASE_URL}Users/UserData?userId=${username}`;
+        axios.get(url).then(r => this.props.navigation.replace('Home', {username: username, profileImage: r.data.Image}))
             .catch(() => ToastAndroid.show('Server Error', ToastAndroid.SHORT));
+    }
+
+    setKeys = async (username, password) => {
+        let userKeys = {
+            username: username,
+            password: password
+        }
+        await AsyncStorage.setItem(Constants.LOGIN_KEY, JSON.stringify(userKeys));
+    }
+
+    getKeys = async () => {
+        let jsonString = await AsyncStorage.getItem(Constants.LOGIN_KEY);
+        if (jsonString !== null) {
+            this.setState({keysFound: true}, () => this.login(JSON.parse(jsonString).username, JSON.parse(jsonString).password));
+        }
     }
 
 };
