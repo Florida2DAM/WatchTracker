@@ -62,7 +62,6 @@ class Login extends React.Component {
          let url = `${Constants.BASE_URL}Users?userId=${username}&password=${md5(password)}`;
          axios.get(url).then(response => { 
              if (response.data) {
-                 if (!this.state.keysFound)
                     this.setKeys(username, password);
                  ToastAndroid.show('Logging in...', ToastAndroid.SHORT);
                  this.getUserData(username);
