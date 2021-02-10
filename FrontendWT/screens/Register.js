@@ -9,6 +9,11 @@ import md5 from 'md5';
 
 export default class Register extends React.Component {
 
+    TITLE = 'Terms and conditions';
+    DESCRIPTION = ' - Your personal data will only be processed for our company\'s database.\n\n - The personal data will not be used for commercial use.\n\n' + 
+    ' - Software products:\nSoftware products for the automated processing of personal data must include in their technical description the level ' + 
+    'of security, basic, medium or high, that they allow to achieve in accordance with the provisions of title VIII of these regulations.'
+
     constructor(props) {
         super(props);
         this.state = {
@@ -66,9 +71,9 @@ export default class Register extends React.Component {
                                 <DateTimePickerModal testID="dateTimePicker" value={new Date()} mode={'date'} display='spinner' maximumDate={new Date()}
                                              onConfirm={(date) => this.selectDate(date)} onCancel={() => this.setState({visible: false})} isVisible={this.state.visible}/>
                                 <View style={{height:30}}/>
-                                <View>
-                                    <CheckBox center title='Accept data' onPress={() => {
-                                        Alert.alert('Text...', `Text info...?`,
+                                <View style={styles.termsContainer}>
+                                    <CheckBox center title='Accept data' containerStyle={styles.termsInput} textStyle={styles.termsText} onPress={() => {
+                                        Alert.alert(this.TITLE, this.DESCRIPTION,
                                         [
                                         { text: 'Cancel', style: 'cancel', onPress: () => this.setState({checked: false}) },
                                         { text: 'OK', onPress: () => this.setState({checked: true}) }
@@ -178,5 +183,14 @@ const styles = StyleSheet.create({
     },
     submitButton: {
         backgroundColor: '#24B24A', borderRadius: 5, marginLeft: 10, marginRight: 10
+    },
+    termsContainer: {
+        marginBottom:20
+    },
+    termsInput: {
+        backgroundColor:'transparent', borderWidth:2,borderBottomWidth:2,borderRadius:15, borderColor: '#24B24A'
+    },
+    termsText: {
+        color:'white'
     }
 });

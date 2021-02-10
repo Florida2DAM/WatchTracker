@@ -191,6 +191,7 @@ class Profile extends React.Component {
             const url = `${Constants.BASE_URL}Users?userId=${this.state.username}&oldPassword=${md5(this.state.oldPassword)}&newPassword=${md5(this.state.newPassword)}`;
             axios.put(url).then(response => {
                 if (response.data) {
+                    this.setKeys(this.state.username, this.state.newPassword);
                     ToastAndroid.show('Password changed successfully!', ToastAndroid.SHORT);
                     this.setState({passwordModalVisible: false});
                 } else {
@@ -200,6 +201,14 @@ class Profile extends React.Component {
         } else {
             ToastAndroid.show('The passwords has to have at least 5 characters.', ToastAndroid.SHORT);
         }
+    }
+
+    setKeys = async (username, password) => {
+        let userKeys = {
+            username: username,
+            password: password
+        }
+        await AsyncStorage.setItem(Constants.LOGIN_KEY, JSON.stringify(userKeys));
     }
 
     openDataModal = () => {
@@ -227,15 +236,10 @@ class Profile extends React.Component {
     }
 
     logout = () => {
-        //Alert
-        //Delete saved keys (username/password file)
-        //Move to login
         Alert.alert('Logout', `Do you want to logout?`,
         [
         { text: 'Cancel', style: 'cancel', onPress: () => {} },
         { text: 'OK', onPress: () => {
-            //this.props.navigation.replace('Login');
-            //Delete saved keys (username/password file)
             this.removeKeys();
         }}
         ],
