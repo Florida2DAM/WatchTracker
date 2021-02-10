@@ -6,6 +6,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import axios from 'axios';
 import Constants from './../common/Constants';
 import md5 from 'md5';
+import FadeInView from './../components/specific/FadeInView';
 
 export default class Register extends React.Component {
 
@@ -42,7 +43,9 @@ export default class Register extends React.Component {
                     <View style={styles.screenOpacity} />
                     <View style={styles.headerContainer}>
                         <View style={styles.loginHeader} />
-                        <Image style={styles.logoHeader} source={require('../assets/img/WT_Logo_Login.png')} />
+                        <FadeInView>
+                            <Image style={styles.logoHeader} source={require('./../assets/img/WT_Logo_Login.png')}/>
+                        </FadeInView>
                     </View>
                     <ScrollView>
                         <View style={styles.userBox}>

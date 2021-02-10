@@ -6,6 +6,8 @@ import MainScreensInput from './../components/specific/MainScreensInput';
 import Constants from './../common/Constants';
 import md5 from 'md5';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import FadeInView from './../components/specific/FadeInView';
+
 class Login extends React.Component {
 
     constructor(props) {
@@ -24,7 +26,9 @@ class Login extends React.Component {
                     <View style={styles.screenOpacity}/>
                     <View style={styles.headerContainer}>
                         <View style={styles.loginHeader}/>
-                        <Image style={styles.logoHeader} source={require('./../assets/img/WT_Logo_Login.png')}/>
+                        <FadeInView>
+                            <Image style={styles.logoHeader} source={require('./../assets/img/WT_Logo_Login.png')}/>
+                        </FadeInView>   
                     </View>
                     <ScrollView>
                         <View style={styles.userBox}>
