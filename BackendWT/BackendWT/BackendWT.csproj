@@ -137,11 +137,17 @@
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.7\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.7\lib\net45\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
@@ -243,6 +249,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Common\MailSender.cs" />
     <Compile Include="Common\TMDBRequests.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
@@ -253,9 +260,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20210209174832_m1.cs" />
-    <Compile Include="Migrations\20210209174832_m1.designer.cs">
-      <DependentUpon>20210209174832_m1.cs</DependentUpon>
+    <Compile Include="Migrations\20210209194451_m1.cs" />
+    <Compile Include="Migrations\20210209194451_m1.designer.cs">
+      <DependentUpon>20210209194451_m1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\WatchTrackerContextModelSnapshot.cs" />
     <Compile Include="Models\Movie.cs" />
@@ -267,6 +274,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserDTO.cs" />
     <Compile Include="Models\UserMovies.cs" />
+    <Compile Include="Models\UserNoImgDTO.cs" />
     <Compile Include="Models\UsersRepository.cs" />
     <Compile Include="Models\UsersSubscriptionsRepository.cs" />
     <Compile Include="Models\UserSubscriptions.cs" />

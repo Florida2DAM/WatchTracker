@@ -4,13 +4,17 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using BackendWT.Models;
 
 namespace BackendWT.Controllers
 {
+    [EnableCors(origins: "http://localhost:3000", headers: "*", methods: "*")]
     public class UsersController : ApiController
     {
-
+        [HttpGet]
+        [Route("api/Users/GetAllUsers")]
+        public List<UserNoImgDTO> GetAllUsers() => new UsersRepository().GetAllUsers();
         [HttpGet]
         public bool CheckUsername(string userId) => new UsersRepository().CheckUsername(userId);
         [HttpGet]

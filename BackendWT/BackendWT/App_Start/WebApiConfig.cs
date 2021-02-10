@@ -9,9 +9,7 @@ namespace BackendWT
     {
         public static void Register(HttpConfiguration config)
         {
-            // Configuración y servicios de API web
-
-            // Rutas de API web
+            config.EnableCors();
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
