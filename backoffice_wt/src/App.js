@@ -1,5 +1,6 @@
 import './App.css';
 import {Switch, Route, Redirect, NavLink, BrowserRouter} from "react-router-dom";
+import UsersView from "./Views/UsersView";
 
 function App() {
   return (
@@ -9,14 +10,14 @@ function App() {
                   <h2>Watch Tracker Backoffice</h2>
                   <ul>
                       <li><NavLink to={'/users'} className={'menu-default'} activeClassName={'menu-active'}>Users</NavLink></li>
-                      <li><NavLink to={'/events'} className={'menu-default'} activeClassName={'menu-active'}>Providers</NavLink></li>
+                      <li><NavLink to={'/providers'} className={'menu-default'} activeClassName={'menu-active'}>Providers</NavLink></li>
                       <li><NavLink to={'/reports'} className={'menu-default'} activeClassName={'menu-active'}>Reports</NavLink></li>
                   </ul>
               </div>
               <div className={'display'}>
                   <Switch>
-                      <Route path={'/users'}></Route>
-                      <Route path={'/events'}></Route>
+                      <Route path={'/users'}><UsersView/></Route>
+                      <Route path={'/providers'}></Route>
                       <Route path={'/reports'}></Route>
                       <Redirect exact from="/" to="users"/>
                   </Switch>
