@@ -260,9 +260,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20210209194451_m1.cs" />
-    <Compile Include="Migrations\20210209194451_m1.designer.cs">
-      <DependentUpon>20210209194451_m1.cs</DependentUpon>
+    <Compile Include="Migrations\20210211031245_m1.cs" />
+    <Compile Include="Migrations\20210211031245_m1.designer.cs">
+      <DependentUpon>20210211031245_m1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\WatchTrackerContextModelSnapshot.cs" />
     <Compile Include="Models\Movie.cs" />

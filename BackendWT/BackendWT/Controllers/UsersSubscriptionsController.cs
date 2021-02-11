@@ -25,6 +25,6 @@ namespace BackendWT.Controllers
         }
 
         // DELETE: api/UsersSubscriptions/5
-        public bool Delete(string userId, byte providerId) => new UsersSubscriptionsRepository().RemoveUserSubscription(userId, providerId);
+        public bool Delete(string userId, int providerId) => new UsersSubscriptionsRepository().RemoveUserSubscription(userId, providerId);
     }
 }

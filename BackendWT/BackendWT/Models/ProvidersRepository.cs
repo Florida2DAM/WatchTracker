@@ -32,7 +32,7 @@ namespace BackendWT.Models
             }
         }
 
-        internal bool ChangeProvider(byte providerId, Provider provider)
+        internal bool ChangeProvider(int providerId, Provider provider)
         {
             using (WatchTrackerContext context = new WatchTrackerContext())
             {
@@ -49,7 +49,7 @@ namespace BackendWT.Models
             }
         }
 
-        internal bool RemoveProvider(byte providerId)
+        internal bool RemoveProvider(int providerId)
         {
             using (WatchTrackerContext context = new WatchTrackerContext())
             {

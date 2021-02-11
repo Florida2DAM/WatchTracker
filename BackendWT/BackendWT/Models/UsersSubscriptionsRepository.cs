@@ -46,7 +46,7 @@ namespace BackendWT.Models
             }
         }
 
-        internal bool RemoveUserSubscription(string userId, byte providerId)
+        internal bool RemoveUserSubscription(string userId, int providerId)
         {
             using (WatchTrackerContext context = new WatchTrackerContext())
             {
