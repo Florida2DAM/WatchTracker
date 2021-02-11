@@ -113,6 +113,17 @@ th {
     }
 }
 
+.createBtn {
+    background-color: #24B24A;
+    border: none;
+    color: white;
+    padding: 5px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
 .blockBtn {
     width: 30%;
     border: none;

@@ -26,7 +26,7 @@ class UsersView extends Component {
             <div className={'mainContainer'}>
                 <div className={'secondContainer'}>
                     <div className={'searchContent'}>
-                        <InputText type={'text'} value={this.state.userFilteredText} placeholder={'Buscar...'}
+                        <InputText type={'text'} value={this.state.userFilteredText} placeholder={'Search...'}
                                    maxLength={60} onChange={this.handleTextChange}/>
                         <RadioButton inputId='opUsername' name='filterUser' value='1'
                                      onChange={this.handleUserOption}

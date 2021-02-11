@@ -1,6 +1,7 @@
 import './App.css';
 import {Switch, Route, Redirect, NavLink, BrowserRouter} from "react-router-dom";
 import UsersView from "./Views/UsersView";
+import ProvidersView from "./Views/ProvidersView";
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
               <div className={'display'}>
                   <Switch>
                       <Route path={'/users'}><UsersView/></Route>
-                      <Route path={'/providers'}></Route>
+                      <Route path={'/providers'}><ProvidersView/></Route>
                       <Route path={'/reports'}></Route>
                       <Redirect exact from="/" to="users"/>
                   </Switch>
