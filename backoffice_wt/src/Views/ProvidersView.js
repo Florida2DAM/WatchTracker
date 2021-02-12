@@ -8,10 +8,9 @@ import {InputText} from "primereact/inputtext";
 import {RadioButton} from "primereact/radiobutton";
 import './Views.css';
 import ProviderModal from "../components/ProviderModal";
+import Constants from './../Common/Constants';
 
 class ProvidersView extends Component {
-
-    URL = 'http://localhost:44399/api/';
 
     constructor(props) {
         super(props);
@@ -74,24 +73,23 @@ class ProvidersView extends Component {
     handleTextChange = (e) => this.setState({userFilteredText: e.target.value}, () => this.filterProviders());
 
     getProviders = () => {
-        const URL = `${this.URL}Providers`;
+        const URL = `${Constants.BASE_URL}Providers`;
         const PROMISE = axios.get(URL);
-        PROMISE.then(response => {
-            this.setState({providersList: response.data}, () => console.log(this.state.providersList))
-        }).catch(() =>  console.log('Error connecting to server.'));
+        PROMISE.then(response => this.setState({providersList: response.data}))
+            .catch(() =>  console.log('Error connecting to server.'));
     }
 
     deleteProvider = (data) => {
         let confirmResult = this.confirm(data, `Are you sure to remove ${data.ProviderName}?`);
         if (confirmResult) {
-            const URL = `${this.URL}Providers?provierId=${data.ProviderId}`;
+            const URL = `${Constants.BASE_URL}Providers?provierId=${data.ProviderId}`;
             const PROMISE = axios.delete(URL);
-            PROMISE.then(response => this.getProviders()).catch(() =>  console.log('Error connecting to server.'));
+            PROMISE.then(() => this.getProviders()).catch(() =>  console.log('Error connecting to server.'));
         }
     }
 
     filterProviders = () => {
-        const URL = `${this.URL}Providers`;
+        const URL = `${Constants.BASE_URL}Providers`;
         axios.get(URL).then((response) => {
             let tempArray = [];
             switch (this.state.userOption) {
@@ -119,7 +117,7 @@ class ProvidersView extends Component {
         return (
             <Fragment>
                 <center>
-                    <img src={`data:image/jpeg;base64,${data.ProviderLogo}`} alt={''} onClick={() => console.log(data.ProviderName)} style={{width: 75, height: 75}}/>
+                    <img src={`data:image/jpeg;base64,${data.ProviderLogo}`} alt={''} style={{width: 75, height: 75}}/>
                 </center>
             </Fragment>);
     }

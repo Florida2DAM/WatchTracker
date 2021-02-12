@@ -2,6 +2,7 @@ import './App.css';
 import {Switch, Route, Redirect, NavLink, BrowserRouter} from "react-router-dom";
 import UsersView from "./Views/UsersView";
 import ProvidersView from "./Views/ProvidersView";
+import ReportsView from "./Views/ReportsView";
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
                   <Switch>
                       <Route path={'/users'}><UsersView/></Route>
                       <Route path={'/providers'}><ProvidersView/></Route>
-                      <Route path={'/reports'}></Route>
+                      <Route path={'/reports'}><ReportsView/></Route>
                       <Redirect exact from="/" to="users"/>
                   </Switch>
               </div>

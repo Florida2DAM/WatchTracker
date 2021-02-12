@@ -4,10 +4,9 @@ import axios from 'axios';
 import {InputText} from "primereact/inputtext";
 import './../Views/Views.css';
 import './ProviderModal.css';
+import Constants from "../Common/Constants";
 
 class ProviderModal extends Component {
-
-    URL = 'http://localhost:44399/api/';
 
     constructor(props) {
         super(props);
@@ -56,14 +55,13 @@ class ProviderModal extends Component {
         fr.addEventListener("load", (e) => {
             result = e.target.result;
             result = result.substring(23);
-            console.log(result);
             this.setState({logo: result});
         });
     }
 
     addProvider = () => {
         if (this.state.name !== null && this.state.name.length > 0) {
-            const URL = `${this.URL}Providers`;
+            const URL = `${Constants.BASE_URL}Providers`;
             let provider = {
                 ProviderName: this.state.name,
                 ProviderLogo: this.state.emptyImage ? null : this.state.logo
@@ -80,7 +78,7 @@ class ProviderModal extends Component {
 
     editProvider = () => {
         if (this.state.name !== null && this.state.name.length > 0) {
-            const URL = `${this.URL}Providers?providerId=${this.state.id}`;
+            const URL = `${Constants.BASE_URL}Providers?providerId=${this.state.id}`;
             let provider = {
                 ProviderId: this.state.id,
                 ProviderName: this.state.name,

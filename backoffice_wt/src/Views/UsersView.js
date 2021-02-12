@@ -7,10 +7,9 @@ import axios from 'axios';
 import {InputText} from "primereact/inputtext";
 import {RadioButton} from "primereact/radiobutton";
 import './Views.css';
+import Constants from './../Common/Constants';
 
 class UsersView extends Component {
-
-    URL = 'http://localhost:44399/api/';
 
     constructor(props) {
         super(props);
@@ -65,16 +64,16 @@ class UsersView extends Component {
     handleTextChange = (e) => this.setState({userFilteredText: e.target.value}, () => this.filterUsers());
 
     getUsers = () => {
-        const URL = `${this.URL}Users/GetAllUsers`;
+        const URL = `${Constants.BASE_URL}Users/GetAllUsers`;
         const PROMISE = axios.get(URL);
         PROMISE.then(response => {
             response.data.forEach(e => e.RegisterDate = (e.RegisterDate.substring(0, 10)));
-            this.setState({usersList: response.data}, () => console.log(this.state.usersList))
+            this.setState({usersList: response.data});
         }).catch(() =>  console.log('Error connecting to server.'));
     }
 
     filterUsers = () => {
-        const URL = `${this.URL}Users/GetAllUsers`;
+        const URL = `${Constants.BASE_URL}Users/GetAllUsers`;
         axios.get(URL).then((response) => {
             response.data.forEach(e => e.RegisterDate = (e.RegisterDate.substring(0, 10)));
             let tempArray = [];
@@ -116,7 +115,7 @@ class UsersView extends Component {
     }
 
     activeUser = (data) => {
-        const PROMISE = axios.put(`${this.URL}Users/ChangeUserActive?userId=${data.UserId}`);
+        const PROMISE = axios.put(`${Constants.BASE_URL}Users/ChangeUserActive?userId=${data.UserId}`);
         PROMISE.then(() => this.getUsers()).catch(() =>  console.log('Error connecting to server.'));
     }
 
@@ -134,7 +133,7 @@ class UsersView extends Component {
     }
 
     resetUserPassword = (data) => {
-        const PROMISE = axios.put(`${this.URL}Users/GeneratePassword?userId=${data.UserId}`);
+        const PROMISE = axios.put(`${Constants.BASE_URL}Users/GeneratePassword?userId=${data.UserId}`);
         PROMISE.then((r) => r && alert('Password has been reset successfully')).catch(() =>  console.log('Error connecting to server.'));
     }
 
