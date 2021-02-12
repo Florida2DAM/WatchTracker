@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
         height:50, justifyContent:'center', alignItems:'center'
     },
     apiProvidersText: {
-        color: 'white', fontWeight: 'bold', fontSize: 20, textAlign:'center'
+        color: 'white', fontWeight: 'normal', fontSize: 20, textAlign:'center'
     },
     moviesSectionText: {
         color: 'white', fontWeight: 'bold', fontSize: 18, marginBottom:10, marginTop:20, marginLeft: 5

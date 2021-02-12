@@ -117,7 +117,7 @@ export default class Register extends React.Component {
                 } else {
                     ToastAndroid.show('Sign up error: All fields must be filled.', ToastAndroid.SHORT);
                     if (!usernameAvailable || !emailAvailable) {
-                        ToastAndroid.show('Error: Username or email already exisits.', ToastAndroid.LONG);
+                        ToastAndroid.show('Error: Username or email already exisits.', ToastAndroid.SHORT);
                     }
                 }
             }).catch();
@@ -137,7 +137,7 @@ export default class Register extends React.Component {
         }
         axios.post(url, data).then(() => {
             this.props.navigation.replace('Login', {userCreated: true});
-        }).catch(() => ToastAndroid.show('Error creating the user. Try again later.', ToastAndroid.LONG));
+        }).catch(() => ToastAndroid.show('Error creating the user. Try again later.', ToastAndroid.SHORT));
     }
 
     selectDate = (date) => {

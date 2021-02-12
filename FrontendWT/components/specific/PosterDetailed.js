@@ -17,7 +17,7 @@ class PosterDetailed extends React.Component {
                         <Text style={styles.title} ellipsizeMode={'tail'} numberOfLines={this.TITLE_MAX_LINES}>{this.props.e.item.Title}</Text>
                     </View>
                     <View style={styles.voteAverageContainer}>
-                        <Text style={styles.voteAverage}>{this.props.e.item.VoteAverage}</Text>
+                        <Text style={styles.voteAverage}>{this.props.e.item.VoteAverage} </Text>
                     </View>
                 </View>
                 <Text style={styles.overview} ellipsizeMode={'tail'} numberOfLines={this.OVERVIEW_MAX_LINES}>{this.props.e.item.Overview}</Text>

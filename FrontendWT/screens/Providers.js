@@ -15,7 +15,7 @@ export default class Providers extends React.Component {
         super(props);
         this.state = {
           username: '',
-          providers: [ {key: 0, empty: true} ]//Needed to render the future providers
+          providers: []
         }
     }
 
@@ -27,17 +27,17 @@ export default class Providers extends React.Component {
                     onResponse={() => this.props.navigation.replace('Profile', { username: this.state.username, profileImage: this.state.profileImage })}/>          
                 <View style={styles.mainBody}>
                     <View style={styles.btnMargin}>
-                        <TouchableButton btnWidth={'100%'} btnHeight={40} btnBgColor={'#24B24A'} borderRadius={5} btnTxt={'My Subscriptions'} 
+                        <TouchableButton btnWidth={'100%'} btnHeight={40} btnBgColor={'#24B24A'} borderRadius={5} btnTxt={'My Subscriptions '} 
                             onPress={() => this.props.navigation.replace('Subscriptions', { username: this.state.username, profileImage: this.state.profileImage })}/>
                     </View>
-                    <FlatList data={this.formatData(this.state.providers, NUM_COLUMNS)} style={styles.container} 
+                    <FlatList data={this.state.providers} style={styles.container} 
                         columnWrapperStyle={{justifyContent:'space-evenly'}} renderItem={this.renderItem} numColumns={NUM_COLUMNS}/>
                 </View>
                 <FooterMenu selectedScreen={2}
                     onSearchPress={() => this.props.navigation.navigate('Search', { username: this.state.username, profileImage: this.state.profileImage })}
-                    onMyListPress={() => this.props.navigation.navigate('MyList', { username: this.state.username, profileImage: this.state.profileImage })}
+                    onMyListPress={() => this.props.navigation.replace('MyList', { username: this.state.username, profileImage: this.state.profileImage })}
                     onHomePress={() => this.props.navigation.navigate('Home', { username: this.state.username, profileImage: this.state.profileImage })}
-                    onSubscriptionsPress={() => this.props.navigation.navigate('Subscriptions', { username: this.state.username, profileImage: this.state.profileImage })}
+                    onSubscriptionsPress={() => this.props.navigation.replace('Subscriptions', { username: this.state.username, profileImage: this.state.profileImage })}
                     onProfilePress={() => this.props.navigation.replace('Profile', { username: this.state.username, profileImage: this.state.profileImage })}/>
             </View>
         );
@@ -52,9 +52,19 @@ export default class Providers extends React.Component {
     getProviders = () => {
          let url = `${Constants.BASE_URL}Providers`;
          axios.get(url).then(response => { 
-             for (let i = 0; i < response.data.length; i++) {
-                 this.state.providers.push({key: response.data[i].ProviderId, name: response.data[i].ProviderName, img: response.data[i].ProviderLogo });
-             }
+            let tempArray = [];
+            for (let i = 0; i < response.data.length; i++) {
+                tempArray.push({key: response.data[i].ProviderId, name: response.data[i].ProviderName, img: response.data[i].ProviderLogo });
+            }
+
+            const numberOfFullRows = Math.floor(tempArray.length / NUM_COLUMNS);
+            let numberOfElementsLastRow = tempArray.length - (numberOfFullRows * NUM_COLUMNS);
+            while (numberOfElementsLastRow !== NUM_COLUMNS && numberOfElementsLastRow !== 0) {
+              tempArray.push({ key: `blank-${numberOfElementsLastRow}`, empty: true });//Create invisible boxes to fix the grid.
+                numberOfElementsLastRow++;
+            }
+
+            this.setState({providers: tempArray});
           }).catch(() => ToastAndroid.show('Server Error', ToastAndroid.SHORT));
     }
 
@@ -71,19 +81,7 @@ export default class Providers extends React.Component {
         );
       };
 
-      formatData = (data, numColumns) => {
-        const numberOfFullRows = Math.floor(data.length / numColumns);
-        let numberOfElementsLastRow = data.length - (numberOfFullRows * numColumns);
-        while (numberOfElementsLastRow !== numColumns && numberOfElementsLastRow !== 0) {
-            data.push({ key: `blank-${numberOfElementsLastRow}`, empty: true });
-            numberOfElementsLastRow++;
-        }
-        return data;
-    }
-
 };
-
-//const boxWidth = Dimensions.get('window').width / numColumns - 15;
 
 const styles = StyleSheet.create({
     mainView: {
@@ -105,7 +103,7 @@ const styles = StyleSheet.create({
       width: 100, height: 100, borderRadius:10
     },
     imageInvisible: {
-      backgroundColor: 'transparent', height:0, width: 0
+      backgroundColor: 'transparent'
     },
     itemText: {
       color: '#fff',

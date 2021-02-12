@@ -30,10 +30,8 @@ class Profile extends React.Component {
             watchingNumber: 0,
             finishedNumber: 0,
             pendingNumber: 2,
-
             oldPassword: '',
             newPassword: '',
-
             passwordModalVisible: false,
             dataModalVisible: false
         };
@@ -45,33 +43,32 @@ class Profile extends React.Component {
                 <Header title={'Profile'} username={this.state.username} profileImage={this.state.profileImage} showReturn={true} onBack={() => this.props.navigation.goBack()}
                     onResponse={() => this.props.navigation.replace('Profile', { username: this.state.username, profileImage: this.state.profileImage })}/>
                 <ScrollView>
-                    {/*<Text style={styles.text}>{this.state.username}'s profile:</Text>*/}
                     <View style={{backgroundColor:'#212121', margin:10, borderRadius:10}}>
                         <View style={{display:'flex', flexDirection:'row', padding:15}}>
                             <TouchableOpacity style={{display:'flex', flexDirection:'column'}} onPress={() => this.pickImage()}>
                                 {this.state.tempImage === null && <Image source={{uri: `data:image/jpeg;base64, ${this.state.profileImage}`}} style={{height:100, width:100, borderRadius:50}}/>}
                                 {this.state.tempImage !== null && <Image source={{uri: `data:image/jpeg;base64, ${this.state.tempImage}`}} style={{height:100, width:100, borderRadius:50}}/>}
                                 <View style={{backgroundColor:'#24B24A', height:30, width:100, borderRadius: 5, marginTop:-15, justifyContent:'center', alignItems:'center'}}>
-                                <TouchableButton borderRadius={5} btnTxt={'Change'}/>
+                                <TouchableButton borderRadius={5} btnTxt={'Change '}/>
                                 </View>
                             </TouchableOpacity>
                             <View style={{backgroundColor:'transparent', height:115, marginLeft:20}}>
-                                <Text style={styles.text}>{this.state.name} {this.state.surname}</Text>
-                                <Text style={styles.text}>{this.state.email}</Text>{/* Revisar width numberOfLines={1} ellipsizeMode={'tail'} */}
+                                <Text style={styles.text}>{this.state.name} {this.state.surname} </Text>
+                                <Text style={styles.text}>{this.state.email} </Text>
                             </View>
                         </View>
                         <ProfileTable watching={this.state.watchingNumber} finished={this.state.finishedNumber} pending={this.state.pendingNumber}/>
                     </View>
                     <View style={{backgroundColor:'#212121', margin:10, borderRadius:10, padding:15}}>
-                        <TouchableButton btnWidth={'100%'} btnHeight={50} btnBgColor={'#24B24A'} borderRadius={10} btnTxt={'Change Password'} onPress={() => this.openPasswordModal()}/>
+                        <TouchableButton btnWidth={'100%'} btnHeight={50} btnBgColor={'#24B24A'} borderRadius={10} btnTxt={'Change Password '} onPress={() => this.openPasswordModal()}/>
                         <View style={{height:20}}/>
-                        <TouchableButton btnWidth={'100%'} btnHeight={50} btnBgColor={'#24B24A'} borderRadius={10} btnTxt={'Edit Profile'} onPress={() => this.openDataModal()}/>
+                        <TouchableButton btnWidth={'100%'} btnHeight={50} btnBgColor={'#24B24A'} borderRadius={10} btnTxt={'Edit Profile '} onPress={() => this.openDataModal()}/>
                     </View>
                     <View style={{backgroundColor:'#212121', margin:10, borderRadius:10, padding:15}}>
-                        <TouchableButton btnWidth={'100%'} btnHeight={50} btnBgColor={'#EA392F'} borderRadius={10} btnTxt={'Logout'} onPress={() => this.logout()}/>
+                        <TouchableButton btnWidth={'100%'} btnHeight={50} btnBgColor={'#EA392F'} borderRadius={10} btnTxt={'Logout '} onPress={() => this.logout()}/>
                     </View>
                     <View style={{backgroundColor:'#212121', margin:10, borderRadius:10, padding:15}}>
-                        <TouchableButton btnWidth={'100%'} btnHeight={50} btnBgColor={'#EA392F'} borderRadius={10} btnTxt={'Delete my Account'} onPress={() => this.deleteAccount()}/>
+                        <TouchableButton btnWidth={'100%'} btnHeight={50} btnBgColor={'#EA392F'} borderRadius={10} btnTxt={'Delete my Account '} onPress={() => this.deleteAccount()}/>
                     </View>
                 </ScrollView>
                 <FooterMenu selectedScreen={3}
@@ -81,7 +78,6 @@ class Profile extends React.Component {
                     onSubscriptionsPress={() => this.props.navigation.replace('Subscriptions', { username: this.state.username, profileImage: this.state.profileImage })}
                     onProfilePress={() => this.props.navigation.replace('Profile', { username: this.state.username, profileImage: this.state.profileImage })}/>
 
-                    {/* MODALS */}
                     <Modal visible={this.state.passwordModalVisible}>
                         <ScrollView style={styles.mainModalView}>
                             <Text style={styles.modalText}>Old password</Text>
@@ -95,8 +91,8 @@ class Profile extends React.Component {
                                 onChangeText={newPassword => this.setState({newPassword})}/>
 
                             <View style={{width:'100%', display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
-                                <TouchableButton btnWidth={'48%'} btnHeight={50} btnBgColor={'#EA392F'} borderRadius={10} btnTxt={'Cancel'} onPress={() => this.setState({passwordModalVisible: false})}/>
-                                <TouchableButton btnWidth={'48%'} btnHeight={50} btnBgColor={'#24B24A'} borderRadius={10} btnTxt={'Change password'} onPress={() => this.editPassword()}/>
+                                <TouchableButton btnWidth={'48%'} btnHeight={50} btnBgColor={'#EA392F'} borderRadius={10} btnTxt={'Cancel '} onPress={() => this.setState({passwordModalVisible: false})}/>
+                                <TouchableButton btnWidth={'48%'} btnHeight={50} btnBgColor={'#24B24A'} borderRadius={10} btnTxt={'Change password '} onPress={() => this.editPassword()}/>
                             </View>
                         </ScrollView>
                     </Modal>
@@ -114,8 +110,8 @@ class Profile extends React.Component {
                                 onChangeText={tempSurname => this.setState({tempSurname})}/>
 
                             <View style={{width:'100%', display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
-                                <TouchableButton btnWidth={'48%'} btnHeight={50} btnBgColor={'#EA392F'} borderRadius={10} btnTxt={'Cancel'} onPress={() => this.setState({dataModalVisible: false})}/>
-                                <TouchableButton btnWidth={'48%'} btnHeight={50} btnBgColor={'#24B24A'} borderRadius={10} btnTxt={'Save'} onPress={() => this.editProfile()}/>
+                                <TouchableButton btnWidth={'48%'} btnHeight={50} btnBgColor={'#EA392F'} borderRadius={10} btnTxt={'Cancel '} onPress={() => this.setState({dataModalVisible: false})}/>
+                                <TouchableButton btnWidth={'48%'} btnHeight={50} btnBgColor={'#24B24A'} borderRadius={10} btnTxt={'Save '} onPress={() => this.editProfile()}/>
                             </View>
                         </ScrollView>
                     </Modal>
@@ -131,14 +127,14 @@ class Profile extends React.Component {
 
     pickImage = () => {
         this.setState({tempImage: null});
-        launchImageLibrary('Pick', callbackResponse => {//Gestión de errores, cancelar, etc.
+        launchImageLibrary('Pick', callbackResponse => {
             if (!callbackResponse.didCancel) {
                 ImgToBase64.getBase64String(callbackResponse.uri).then(r => 
                     this.setState({tempImage: r}));
                 Alert.alert('Change profile image', `Do you want to change your profile image?`,
                 [
                 { text: 'Cancel', style: 'cancel', onPress: () => this.setState({tempImage: null}) },
-                { text: 'OK', onPress: () => this.transformToB64DB(callbackResponse.uri)}//Mandar a base de datos...
+                { text: 'OK', onPress: () => this.transformToB64DB(callbackResponse.uri)}
                 ],
                 {cancelable: false});
             }
@@ -156,12 +152,12 @@ class Profile extends React.Component {
     }
 
     getUserData = () => {
-        const url = `${Constants.BASE_URL}Users/UserData?userId=${this.state.username}`;//user.UserId, user.Email, user.Name, user.Surname, user.Birthday, user.Image); BIRTHDAY not formated
+        const url = `${Constants.BASE_URL}Users/UserData?userId=${this.state.username}`;
         axios.get(url).then(r => {
             this.setState({name: r.data.Name, surname: r.data.Surname, email: r.data.Email, birthday: r.data.Birthday, 
                 profileImage: r.data.Image});
         }).catch(() => {
-                ToastAndroid.show('Server Error', ToastAndroid.SHORT);//this.transformToB64(Constants.NO_IMAGE_URL)
+                ToastAndroid.show('Server Error', ToastAndroid.SHORT);
             });
     }
 
@@ -173,7 +169,7 @@ class Profile extends React.Component {
 
     changeImageDB = (imageB64) => {
         const url = `${Constants.BASE_URL}Users?userId=${this.state.username}`;
-        let data = { Image: imageB64 } //UserId, Password, Email, Name, Surname, Birthday passed as null
+        let data = { Image: imageB64 }
         axios.put(url, data).then(response => {
             if (response.data)
                 ToastAndroid.show('Image changed successfully!', ToastAndroid.SHORT);
@@ -218,7 +214,7 @@ class Profile extends React.Component {
     editProfile = () => {
         if (this.state.tempName.length > 0 && this.state.tempSurname.length > 0) {
             const url = `${Constants.BASE_URL}Users/ChangeData?userId=${this.state.username}`;
-            let data = {//UserId: null, Password: null, Email: null, Image: null, Birthday: this.state.birthday
+            let data = {
                     Name: this.state.tempName,
                     Surname: this.state.tempSurname,
             };
@@ -264,7 +260,7 @@ class Profile extends React.Component {
                     ToastAndroid.show('Error. Try again.', ToastAndroid.SHORT);
                 }
             }).catch(() => ToastAndroid.show('Server Error', ToastAndroid.SHORT));
-        }}//Mandar a base de datos...
+        }}
         ],
         {cancelable: false});
     }
@@ -279,7 +275,7 @@ const styles = StyleSheet.create({
         paddingTop:25, flex:1
     },
     text: {
-        color: 'white', fontWeight: 'bold', fontSize: 18
+        color: 'white', fontWeight: 'normal', fontSize: 16
     },
 
     mainModalView: {

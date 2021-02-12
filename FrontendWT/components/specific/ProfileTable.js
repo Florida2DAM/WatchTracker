@@ -17,9 +17,9 @@ export default class Profile extends React.Component {
                     <View style={styles.emptyCell}><Icon name="eye-slash" size={30} color="white"/></View>
                 </View>
                 <View style={{display:'flex', flexDirection:'row'}}>
-                    <View style={styles.titleCell}><Text style={styles.cellText}>Watching</Text></View>
-                    <View style={styles.titleCell}><Text style={styles.cellText}>Finished</Text></View>
-                    <View style={styles.titleCell}><Text style={styles.cellText}>Pending</Text></View>
+                    <View style={styles.titleCell}><Text style={styles.cellText}>Watching </Text></View>
+                    <View style={styles.titleCell}><Text style={styles.cellText}>Finished </Text></View>
+                    <View style={styles.titleCell}><Text style={styles.cellText}>Pending </Text></View>
                 </View>
                 <View style={{display:'flex', flexDirection:'row'}}>
                     <View style={styles.resultCell}>
@@ -30,8 +30,6 @@ export default class Profile extends React.Component {
                     </View>
                     <View style={styles.resultCell}>
                         <Text>{this.props.pending}</Text>
-                            {/* <TouchableButton btnWidth={'100%'} btnHeight={28} btnBgColor={'transparent'} borderRadius={0} btnTxt={this.props.pending}
-                            txtColor={'black'} txtSize={14} txtWeight={'normal'} onPress={() => this.props.onResponse('Plan to Watch')}/> */}
                     </View>
                 </View>
             </View>

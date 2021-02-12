@@ -15,11 +15,9 @@ export default class AddSubscription extends React.Component {
         super(props);
         this.state = {
             visible: false,
-
             PaymentDate: '0001-01-01',
             BillingPeriod: 'Monthly',
             Price: 0,
-
             priceValues: ['']
         }
     }
@@ -39,13 +37,13 @@ export default class AddSubscription extends React.Component {
                             <Text style={styles.titleText}>Next Payment</Text>
                             <View style={styles.dateInputContainer}>
                                 <TouchableOpacity style={styles.dateTouchableBox} onPress={() => this.setState({visible: true})}>
-                                    <Text style={styles.btnText}>{this.state.PaymentDate}</Text>
+                                    <Text style={styles.btnText}>{this.state.PaymentDate} </Text>
                                 </TouchableOpacity>
                             </View>
                             <Text style={styles.titleText}>Payment Period</Text>
                             <View style={styles.pickersInputContainer}>
                                 <View style={styles.pickersTouchableBox}>
-                                    <Text style={styles.btnText}>{this.state.BillingPeriod}</Text>
+                                    <Text style={styles.btnText}>{this.state.BillingPeriod}  </Text>
                                 </View>
                                 <Picker selectedValue={this.state.BillingPeriod} onValueChange={(value, index) => this.setState({BillingPeriod: value})} dropdownIconColor='white'>
                                     <Picker.Item label={'Monthly'} value={'Monthly'} color='#797979'/>
@@ -55,10 +53,10 @@ export default class AddSubscription extends React.Component {
                             <Text style={styles.titleText}>Price</Text>
                             <View style={styles.pickersInputContainer}>
                                 <View style={styles.pickersTouchableBox}>
-                                    <Text style={styles.btnText}>{this.state.Price}</Text>
+                                    <Text style={styles.btnText}>{this.state.Price}  </Text>
                                 </View>
                                 <Picker selectedValue={this.state.Price} onValueChange={(value, index) => this.setState({Price: value})} dropdownIconColor='white'>
-                                    {this.state.priceValues.map((val, index) => <Picker.Item label={val + '€'} value={val} key={index} color='#797979'/>)}
+                                    {this.state.priceValues.map((val, index) => <Picker.Item label={val + '€  '} value={val} key={index} color='#797979'/>)}
                                 </Picker>
                             </View>
                         </View>
@@ -70,7 +68,7 @@ export default class AddSubscription extends React.Component {
                 </ScrollView>
                 <FooterMenu selectedScreen={2}
                     onSearchPress={() => this.props.navigation.navigate('Search', { username: this.state.username, profileImage: this.state.profileImage })}
-                    onMyListPress={() => this.props.navigation.navigate('MyList', { username: this.state.username, profileImage: this.state.profileImage })}
+                    onMyListPress={() => this.props.navigation.replace('MyList', { username: this.state.username, profileImage: this.state.profileImage })}
                     onHomePress={() => this.props.navigation.navigate('Home', { username: this.state.username, profileImage: this.state.profileImage })}
                     onSubscriptionsPress={() => this.props.navigation.replace('Subscriptions', { username: this.state.username, profileImage: this.state.profileImage })}
                     onProfilePress={() => this.props.navigation.replace('Profile', { username: this.state.username, profileImage: this.state.profileImage })}/>
@@ -122,18 +120,18 @@ export default class AddSubscription extends React.Component {
         return year + "-" + month + "-" + day;
     }
 
-    createSubmitButtons = () => {//addSub Const?
+    createSubmitButtons = () => {
         if (this.state.addSub) {
             return (
-                <TouchableButton btnWidth={'50%'} btnHeight={50} btnBgColor={'#24B24A'} borderRadius={5} btnTxt={'Add'} 
+                <TouchableButton btnWidth={'50%'} btnHeight={50} btnBgColor={'#24B24A'} borderRadius={5} btnTxt={'Add '} 
                     onPress={() => this.addSubscription()}/>
             );
         } else {
             return (
                 <>
-                    <TouchableButton btnWidth={'40%'} btnHeight={50} btnBgColor={'#24B24A'} borderRadius={5} btnTxt={'Save changes'} 
+                    <TouchableButton btnWidth={'40%'} btnHeight={50} btnBgColor={'#24B24A'} borderRadius={5} btnTxt={'Save changes '} 
                         onPress={() => this.editSubscription()}/>
-                    <TouchableButton btnWidth={'40%'} btnHeight={50} btnBgColor={'#EA392F'} borderRadius={5} btnTxt={'Remove'} 
+                    <TouchableButton btnWidth={'40%'} btnHeight={50} btnBgColor={'#EA392F'} borderRadius={5} btnTxt={'Remove '} 
                         onPress={() => this.removeSubscription()}/>
                 </>
             );

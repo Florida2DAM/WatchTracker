@@ -10,7 +10,7 @@ export default class UserSubscription extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            uSub: [],//uSub: UserSubscriptionsId, ProviderId , UserId, ProviderName, ProviderLogo, PaymentDate, BillingPeriod, Price
+            uSub: [],
             visible: false,
         }
     }
@@ -25,8 +25,8 @@ export default class UserSubscription extends React.Component {
                     </View>
                     <View style={styles.cardRight}>
                         <View style={styles.cardRightTop}>
-                            <Text style={styles.providerName}>{this.props.p.item.ProviderName}</Text>
-                            <Text style={styles.textInfoB}>{this.props.p.item.Price} €</Text>
+                            <Text style={styles.providerName}>{this.props.p.item.ProviderName} </Text>
+                            <Text style={styles.textInfoB}>{this.props.p.item.Price} € </Text>
                         </View>
                         <View style={styles.cardRightBottom}>
                             <Text style={styles.textInfoB}>Period: {this.props.p.item.BillingPeriod}</Text>

@@ -14,7 +14,7 @@ export default class Subscriptions extends React.Component {
         super(props);
         this.state = {
             userSubscriptions: [],
-            visible: false,
+            visible: false
         }
     }
 
@@ -25,8 +25,8 @@ export default class Subscriptions extends React.Component {
                     onResponse={() => this.props.navigation.replace('Profile', { username: this.state.username, profileImage: this.state.profileImage })}/>
                 <View style={styles.mainBody}>
                     <View style={styles.btnMargin}>
-                        <TouchableButton btnWidth={'100%'} btnHeight={40} btnBgColor={'#24B24A'} borderRadius={5} btnTxt={'Add Subscriptions'} 
-                            onPress={() => this.props.navigation.navigate('Providers', {username: this.state.username, profileImage: this.state.profileImage})}/>
+                        <TouchableButton btnWidth={'100%'} btnHeight={40} btnBgColor={'#24B24A'} borderRadius={5} btnTxt={'Add Subscriptions '} 
+                            onPress={() => this.props.navigation.replace('Providers', {username: this.state.username, profileImage: this.state.profileImage})}/>
                     </View>
                     <FlatList data={this.state.userSubscriptions} keyExtractor={(item, index) => index.toString()}
                         ListHeaderComponent={<View style={styles.separatorBar}/>} ListFooterComponent={<View style={styles.separatorBar}/>}
@@ -60,7 +60,7 @@ export default class Subscriptions extends React.Component {
             username: uSub.UserId, providerId: uSub.ProviderId, providerName: uSub.ProviderName, providerLogo: uSub.ProviderLogo, uSubId: uSub.UserSubscriptionsId, profileImage: this.state.profileImage });
     }
 
-    getUserSubscriptions = (username) => {//ProviderLogo UserSubscriptionsId, ProviderName PaymentDate BillingPeriod Price UserId ProviderId
+    getUserSubscriptions = (username) => {
          let url = `${Constants.BASE_URL}UsersSubscriptions?userId=${username}`;
          axios.get(url).then(response => {
              for (let i = 0; i < response.data.length; i++) {

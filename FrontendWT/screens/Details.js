@@ -1,6 +1,5 @@
 import React from 'react';
 import {StyleSheet, ScrollView, View, Text, Image, TouchableOpacity, FlatList, ToastAndroid, Alert} from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
@@ -10,7 +9,7 @@ import Header from './../components/general/Header';
 import axios from 'axios';
 import Constants from '../common/Constants';
 
-const statusItems = [
+const STATUS_ITEMS = [
     {label: 'Undefined Status', value: 'Undefined Status', icon: () => <Icon name="times" size={18} color="#EA392F" />},
     {label: 'Plan to Watch', value: 'Plan to Watch', icon: () => <Icon name="pencil" size={18} color="black" />, hidden: false},
     {label: 'Watching', value: 'Watching', icon: () => <Icon name="eye" size={18} color="black" />},
@@ -22,11 +21,9 @@ class Details extends React.Component {
     SCORE_VALUES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
 
     constructor(props) {
-        super(props);//Prop for username, avatarImg...
+        super(props);
         this.state = {
-            visible: false,
-            //Some default values...MovieId: 0, Overview: 'Synopsis...', Popularity: 0, Poster: null, ReleaseDate: '----/--/--', 
-            //Providers: null, Runtime: 0, Title: 'Title', UserDate: '----/--/--', UserId: null, UserStatus: '', UserVote: -1, VoteAverage: 0, VoteCount: 0
+            visible: false
         }
     }
 
@@ -43,11 +40,11 @@ class Details extends React.Component {
                             <View style={styles.mainResultsContainerRight}>
                                 <View style={styles.averageScore}>
                                     <Text style={styles.titleOptions}>Score</Text>
-                                    <Text style={styles.resultScore}>{this.state.VoteAverage}</Text>
+                                    <Text style={styles.resultScore}>{this.state.VoteAverage} </Text>
                                 </View>
                                 <View style={styles.releaseDate}>
                                     <Text style={styles.titleOptions}>Release date</Text>
-                                    <Text style={styles.txtSection}>{this.state.ReleaseDate}</Text>
+                                    <Text style={styles.txtSection}>{this.state.ReleaseDate} </Text>
                                 </View>
                                 <View style={styles.streamPlatforms}>
                                     <Text style={styles.titleOptions}>Stream platforms</Text>
@@ -63,9 +60,9 @@ class Details extends React.Component {
 
                         <View style={styles.inputsContainer}>
                             <View style={styles.statusContainer}>
-                                <Text style={styles.txtSection}>Watch Status</Text>
+                                <Text style={styles.txtSection}>Watch Status </Text>
                                 <DropDownPicker
-                                    items={statusItems}
+                                    items={STATUS_ITEMS}
                                     containerStyle={styles.statusDropMenu}
                                     defaultValue={this.state.UserStatus}
                                     placeholder={'Status...'}
@@ -76,14 +73,14 @@ class Details extends React.Component {
                             </View>
                             <View style={styles.secondInputsContainer}>
                                 <View style={styles.dateContainer}>
-                                    <Text style={styles.txtSection}>Watch Date</Text>
+                                    <Text style={styles.txtSection}>Watch Date </Text>
                                     <TouchableOpacity onPress={() => this.setState({visible: true})} style={styles.dateButton}>
                                         <Text style={styles.secondInputsResultText}>{this.state.UserDate}</Text>
                                     </TouchableOpacity>
                                 </View>
 
                                 <View style={styles.dateContainer}>
-                                    <Text style={styles.txtSection}>Your score</Text>
+                                    <Text style={styles.txtSection}>Your score </Text>
                                     <TouchableOpacity style={styles.scoreButton} onPress={() => this.selectScore()}>
                                         <Text style={styles.secondInputsResultText}>{this.state.UserVote !== -1 ? this.state.UserVote : '---'}</Text>
                                     </TouchableOpacity>
@@ -93,19 +90,19 @@ class Details extends React.Component {
 
                         <View style={styles.resultsContainer}>
                             <Text style={styles.title}>{this.state.Title}</Text>
-                            <Text style={styles.txtSection}>Synopsis:</Text>
+                            <Text style={styles.txtSection}>Synopsis: </Text>
                             <Text style={styles.synopsis}>{this.state.Overview}</Text>
                             <View style={styles.extraResultsContainer}>
                                 <View>
-                                    <Text style={styles.txtSection}>Popularity</Text>
+                                    <Text style={styles.txtSection}>Popularity </Text>
                                     <Text style={styles.txtResults}>{this.state.Popularity}</Text>
                                 </View>
                                 <View>
-                                    <Text style={styles.txtSection}>Vote Count</Text>
+                                    <Text style={styles.txtSection}>Vote Count </Text>
                                     <Text style={styles.txtResults}>{this.state.VoteCount}</Text>
                                 </View>
                                 <View>
-                                    <Text style={styles.txtSection}>Runtime</Text>
+                                    <Text style={styles.txtSection}>Runtime </Text>
                                     <Text style={styles.txtResults}>{this.state.Runtime} min</Text>
                                 </View>
                             </View>
@@ -163,12 +160,12 @@ class Details extends React.Component {
                 <TouchableOpacity style={{width:'70%', height:50, backgroundColor: canEditAndRemove ? '#60AFDD' : '#9A9D9B',
                     borderRadius:10, justifyContent:'center', alignItems:'center'}} disabled={!canEditAndRemove}
                                   onPress={() => this.state.UserId === null ? this.addMovie() : this.editMovie()}>
-                    <Text style={{color: 'white', fontWeight: 'bold', fontSize: 18}}>SAVE TO LIST</Text>
+                    <Text style={{color: 'white', fontWeight: 'bold', fontSize: 18}}>  SAVE TO LIST  </Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{width:'70%', height:50, backgroundColor: user === null ? '#9A9D9B' : '#EA392F', borderRadius:10,
                     justifyContent:'center', alignItems:'center', marginTop:10}} disabled={user === null ? true : false}
                                   onPress={() => this.confirmDelete()}>
-                    <Text style={{color: 'white', fontWeight: 'bold', fontSize: 18}}>REMOVE FROM LIST</Text>
+                    <Text style={{color: 'white', fontWeight: 'bold', fontSize: 18}}>REMOVE FROM LIST </Text>
                 </TouchableOpacity>
             </View>
         );
@@ -176,7 +173,7 @@ class Details extends React.Component {
 
     renderProviders = ({item}) => <Image source={{ uri: item.toString() }} style={{width: 30, height: 30, resizeMode: 'stretch'}}/>
 
-    getMovieDetails = () => {//1726//557//jolame  `${Constants.BASE_URL}Movies?movieId=557&userId=$jolame`
+    getMovieDetails = () => {
         let url = `${Constants.BASE_URL}Movies?movieId=${this.state.MovieId}&userId=${this.state.username}`;
         axios.get(url).then(response => {
             let d = response.data;
@@ -257,9 +254,6 @@ const styles = StyleSheet.create({
     scoreButton: {
         width:'100%', height:40, backgroundColor: '#FAFAFA', borderRadius:5, justifyContent:'center', alignItems:'center', alignSelf:'center'
     },
-    scrollView: {
-        backgroundColor: Colors.lighter,
-    },
     titleOptions: {
         color: 'white',
     },
@@ -267,15 +261,10 @@ const styles = StyleSheet.create({
         color: 'white', fontWeight: 'bold', fontSize: 18
     },
     resultScore: {
-        color: 'white',
-        fontWeight: 'bold',
-        fontSize: 30,
+        color: 'white', fontWeight: 'bold', fontSize: 30
     },
     title: {
-        color: 'white',
-        fontWeight: 'bold',
-        fontSize: 30,
-        textAlign: 'center',
+        color: 'white', fontWeight: 'bold', fontSize: 30, textAlign: 'center'
     },
     mainView: {
         height: '100%', width: '100%', backgroundColor: '#212121'
@@ -320,13 +309,11 @@ const styles = StyleSheet.create({
         display:'flex', flexDirection:'row', justifyContent:'space-between', marginTop:25
     },
     synopsis: {
-        color: 'white',
-        textAlign: 'justify',
+        color: 'white', textAlign: 'justify'
     },
     txtResults: {
-        color: 'white',
-        textAlign: 'center',
-    },
+        color: 'white', textAlign: 'center'
+    }
 });
 
 export default Details;
