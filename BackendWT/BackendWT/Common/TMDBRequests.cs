@@ -1,14 +1,12 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Web;
 
 namespace BackendWT.Common
 {
     public class TMDBRequests
     {
+
         private const string API_KEY = "bd1e11d67c79371f88dd6275035b637c";
         private const string BASE_URL = "https://api.themoviedb.org/3/";
         public const string BASE_IMG_URL = "https://image.tmdb.org/t/p/w500";
@@ -76,5 +74,6 @@ namespace BackendWT.Common
                 }
             }
         }
+
     }
 }

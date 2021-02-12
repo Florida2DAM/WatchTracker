@@ -3,12 +3,12 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace BackendWT.Models
 {
     public class MoviesRepository
     {
+
         internal Movie GetMovieDetails(int movieId, string userId)
         {
             string baseImgUrl = TMDBRequests.BASE_IMG_URL;
@@ -38,7 +38,7 @@ namespace BackendWT.Models
                 movie = new Movie((int)jsonDetails["id"], posterPath, (string)jsonDetails["title"], (double)jsonDetails["vote_average"], (string)jsonDetails["release_date"],
                 (string)jsonDetails["overview"], (double)jsonDetails["popularity"], (int)jsonDetails["vote_count"], (int)jsonDetails["runtime"], providerLogos, null, DateTime.MinValue, -1, null);
             }
-            catch (System.ArgumentException)
+            catch (ArgumentException)
             {
                 return null;
             }
@@ -103,8 +103,11 @@ namespace BackendWT.Models
         }
 
         internal List<MoviePosterDTO> GetRecentMovies() => GetGeneral(1);
+
         internal List<MoviePosterDTO> GetTopRatedMovies() => GetGeneral(2);
+
         internal List<MoviePosterDTO> GetUpcomingMovies() => GetGeneral(3);
+
         private List<MoviePosterDTO> GetGeneral(byte option)
         {
             JObject jsonMovies = null;
@@ -176,5 +179,31 @@ namespace BackendWT.Models
                 context.SaveChanges();
             }
         }
+
+        internal List<String[]> GetMostListedMovies()
+        {
+            
+            List<String[]> listedMovies = new List<String[]>();
+            using (WatchTrackerContext context = new WatchTrackerContext())
+            {
+                var values = context.UserMovies
+                    .GroupBy(um => um.MovieId)
+                    .OrderByDescending(um => um.Count())
+                    .Select(g => new { MovieID = g.Key.ToString(), Count = g.Count() })
+                    .ToList();
+
+                int i = 0;
+                foreach (var value in values)
+                {
+                    if (i == 5)
+                        break;
+                    JObject jsonDetails = TMDBRequests.SearchMovieDetailsByMovieId(int.Parse(value.MovieID));
+                    listedMovies.Add(new String[] { (string)jsonDetails["title"], value.Count.ToString() });
+                    i++;
+                }
+            }
+            return listedMovies;
+        }
+
     }
 }

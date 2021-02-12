@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace BackendWT.Models
 {
     public class UserMovies
     {
+
         public int UserMoviesId { get; set; }
         [Required]
         public int MovieId { get; set; }
@@ -30,5 +28,6 @@ namespace BackendWT.Models
             UserVote = userVote;
             UserId = userId;
         }
+
     }
 }

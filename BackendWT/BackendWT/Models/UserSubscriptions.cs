@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace BackendWT.Models
 {
     public class UserSubscriptions
     {
+
         public UserSubscriptions(int userSubscriptionsId, string providerName, DateTime paymentDate, string billingPeriod, double price, string userId, int providerId)
         {
             UserSubscriptionsId = userSubscriptionsId;
@@ -34,10 +32,12 @@ namespace BackendWT.Models
         public int ProviderId { get; set; }
         public User User { get; set; }
         public Provider Provider { get; set; }
+
     }
 
     public class UserSubscriptionsDTO : UserSubscriptions
     {
+
         public UserSubscriptionsDTO(int userSubscriptionsId, string providerName, DateTime paymentDate, string billingPeriod, double price, string userId, int providerId, byte[] providerLogo) : 
             base (userSubscriptionsId, providerName, paymentDate, billingPeriod, price, userId, providerId)
         {
@@ -45,5 +45,6 @@ namespace BackendWT.Models
         }
 
         public byte[] ProviderLogo { get; set; }
+
     }
 }

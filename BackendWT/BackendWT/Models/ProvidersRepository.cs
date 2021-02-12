@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace BackendWT.Models
 {
     public class ProvidersRepository
     {
+
         internal List<Provider> GetProviders()
         {
             List<Provider> providers;
@@ -63,5 +62,6 @@ namespace BackendWT.Models
                 return false;
             }
         }
+
     }
 }

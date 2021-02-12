@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace BackendWT.Models
 {
     public class UsersSubscriptionsRepository
     {
+
         internal List<UserSubscriptionsDTO> GetUserSubscriptions(string userId)
         {
             List<UserSubscriptions> userSubscriptions;
@@ -62,10 +62,6 @@ namespace BackendWT.Models
             }
         }
 
-
-
-
-
         internal bool UpdateUserSubscription(int id, DateTime paymentDate, string billingPeriod, double price)
         {
             using (WatchTrackerContext context = new WatchTrackerContext())
@@ -83,5 +79,6 @@ namespace BackendWT.Models
                 return false;
             }
         }
+
     }
 }

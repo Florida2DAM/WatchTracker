@@ -118,8 +118,8 @@ namespace BackendWT.Migrations
                 columns: new[] { "UserId", "Active", "Birthday", "Email", "Image", "Name", "Password", "RegisterDate", "Surname" },
                 values: new object[,]
                 {
-                    { "admin", true, new DateTime(2021, 2, 11, 4, 12, 44, 929, DateTimeKind.Local).AddTicks(3298), "admin@gmail.es", null, "Admin", "827ccb0eea8a706c4c34a16891f84e7b", new DateTime(2021, 2, 11, 4, 12, 44, 931, DateTimeKind.Local).AddTicks(3298), "AdminSurname" },
-                    { "test", true, new DateTime(2021, 2, 11, 4, 12, 44, 932, DateTimeKind.Local).AddTicks(3296), "test@gmail.com", null, "Test", "827ccb0eea8a706c4c34a16891f84e7b", new DateTime(2021, 2, 11, 4, 12, 44, 932, DateTimeKind.Local).AddTicks(3296), "TestSurname" }
+                    { "admin", true, new DateTime(2021, 2, 11, 0, 0, 0, 0, DateTimeKind.Local), "admin@gmail.es", null, "Admin", "827ccb0eea8a706c4c34a16891f84e7b", new DateTime(2021, 2, 11, 0, 0, 0, 0, DateTimeKind.Local), "AdminSurname" },
+                    { "test", true, new DateTime(2021, 2, 11, 0, 0, 0, 0, DateTimeKind.Local), "test@gmail.com", null, "Test", "827ccb0eea8a706c4c34a16891f84e7b", new DateTime(2021, 2, 11, 0, 0, 0, 0, DateTimeKind.Local), "TestSurname" }
                 });
 
             migrationBuilder.InsertData(
@@ -127,9 +127,9 @@ namespace BackendWT.Migrations
                 columns: new[] { "UserMoviesId", "MovieId", "UserDate", "UserId", "UserStatus", "UserVote" },
                 values: new object[,]
                 {
-                    { 3, 557, new DateTime(2021, 2, 11, 4, 12, 44, 932, DateTimeKind.Local).AddTicks(3296), "admin", "Watching", 8 },
-                    { 1, 1726, new DateTime(2021, 2, 11, 4, 12, 44, 932, DateTimeKind.Local).AddTicks(3296), "test", "Watched", 9 },
-                    { 2, 557, new DateTime(2021, 2, 11, 4, 12, 44, 932, DateTimeKind.Local).AddTicks(3296), "test", "Watching", 10 }
+                    { 3, 557, new DateTime(2021, 2, 11, 0, 0, 0, 0, DateTimeKind.Local), "admin", "Watching", 8 },
+                    { 1, 1726, new DateTime(2021, 2, 11, 0, 0, 0, 0, DateTimeKind.Local), "test", "Watched", 9 },
+                    { 2, 557, new DateTime(2021, 2, 11, 0, 0, 0, 0, DateTimeKind.Local), "test", "Watching", 10 }
                 });
 
             migrationBuilder.InsertData(
@@ -137,8 +137,8 @@ namespace BackendWT.Migrations
                 columns: new[] { "UserSubscriptionsId", "BillingPeriod", "PaymentDate", "Price", "ProviderId", "ProviderName", "UserId" },
                 values: new object[,]
                 {
-                    { 1, "Monthly", new DateTime(2021, 3, 11, 4, 12, 44, 933, DateTimeKind.Local).AddTicks(3301), 8.0, 1, "Netflix", "test" },
-                    { 2, "Monthly", new DateTime(2021, 3, 11, 4, 12, 44, 933, DateTimeKind.Local).AddTicks(3301), 10.0, 6, "Crunchyroll", "test" }
+                    { 1, "Monthly", new DateTime(2021, 3, 11, 0, 0, 0, 0, DateTimeKind.Local), 8.0, 1, "Netflix", "test" },
+                    { 2, "Monthly", new DateTime(2021, 3, 11, 0, 0, 0, 0, DateTimeKind.Local), 10.0, 6, "Crunchyroll", "test" }
                 });
 
             migrationBuilder.CreateIndex(

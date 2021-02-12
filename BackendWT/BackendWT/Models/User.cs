@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.ComponentModel.DataAnnotations;
 
 namespace BackendWT.Models
@@ -23,7 +20,6 @@ namespace BackendWT.Models
         public byte[] Image { get; set; }
         public DateTime RegisterDate { get; set; }
         public bool Active { get; set; }
-        //public List<UserMovies> UserMovies { get; set; }
 
         public User(string userId, string password, string email, string name, string surname, DateTime birthday, byte[] image,
             DateTime registerDate, bool active)

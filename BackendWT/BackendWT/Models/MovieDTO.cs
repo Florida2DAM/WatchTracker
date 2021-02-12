@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace BackendWT.Models
+﻿namespace BackendWT.Models
 {
     public class MovieDTO
     {
+
         public MovieDTO(int movieId, string poster, string title, double voteAverage, string overview)
         {
             MovieId = movieId;
@@ -21,5 +17,6 @@ namespace BackendWT.Models
         public string Title { get; set; }
         public double VoteAverage { get; set; }
         public string Overview { get; set; }
+
     }
 }

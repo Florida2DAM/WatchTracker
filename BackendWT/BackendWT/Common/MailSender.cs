@@ -1,15 +1,12 @@
 ﻿using BackendWT.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Web;
 
 namespace BackendWT.Common
 {
     public class MailSender
     {
+
         private User user;
         private string password;
         public MailSender(User user, string password)
@@ -43,5 +40,6 @@ namespace BackendWT.Common
                 smtp.Send(message);
             }
         }
+
     }
 }
