@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackendWT.Migrations
 {
     [DbContext(typeof(WatchTrackerContext))]
-    [Migration("20210211161919_m1")]
+    [Migration("20210212133710_m1")]
     partial class m1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -153,22 +153,22 @@ namespace BackendWT.Migrations
                         {
                             UserId = "admin",
                             Active = true,
-                            Birthday = new DateTime(2021, 2, 11, 0, 0, 0, 0, DateTimeKind.Local),
+                            Birthday = new DateTime(2021, 2, 12, 0, 0, 0, 0, DateTimeKind.Local),
                             Email = "admin@gmail.es",
                             Name = "Admin",
                             Password = "827ccb0eea8a706c4c34a16891f84e7b",
-                            RegisterDate = new DateTime(2021, 2, 11, 0, 0, 0, 0, DateTimeKind.Local),
+                            RegisterDate = new DateTime(2021, 2, 12, 0, 0, 0, 0, DateTimeKind.Local),
                             Surname = "AdminSurname"
                         },
                         new
                         {
                             UserId = "test",
                             Active = true,
-                            Birthday = new DateTime(2021, 2, 11, 0, 0, 0, 0, DateTimeKind.Local),
+                            Birthday = new DateTime(2021, 2, 12, 0, 0, 0, 0, DateTimeKind.Local),
                             Email = "test@gmail.com",
                             Name = "Test",
                             Password = "827ccb0eea8a706c4c34a16891f84e7b",
-                            RegisterDate = new DateTime(2021, 2, 11, 0, 0, 0, 0, DateTimeKind.Local),
+                            RegisterDate = new DateTime(2021, 2, 12, 0, 0, 0, 0, DateTimeKind.Local),
                             Surname = "TestSurname"
                         });
                 });
@@ -210,7 +210,7 @@ namespace BackendWT.Migrations
                         {
                             UserMoviesId = 1,
                             MovieId = 1726,
-                            UserDate = new DateTime(2021, 2, 11, 0, 0, 0, 0, DateTimeKind.Local),
+                            UserDate = new DateTime(2021, 2, 12, 0, 0, 0, 0, DateTimeKind.Local),
                             UserId = "test",
                             UserStatus = "Watched",
                             UserVote = 9
@@ -219,7 +219,7 @@ namespace BackendWT.Migrations
                         {
                             UserMoviesId = 2,
                             MovieId = 557,
-                            UserDate = new DateTime(2021, 2, 11, 0, 0, 0, 0, DateTimeKind.Local),
+                            UserDate = new DateTime(2021, 2, 12, 0, 0, 0, 0, DateTimeKind.Local),
                             UserId = "test",
                             UserStatus = "Watching",
                             UserVote = 10
@@ -228,7 +228,7 @@ namespace BackendWT.Migrations
                         {
                             UserMoviesId = 3,
                             MovieId = 557,
-                            UserDate = new DateTime(2021, 2, 11, 0, 0, 0, 0, DateTimeKind.Local),
+                            UserDate = new DateTime(2021, 2, 12, 0, 0, 0, 0, DateTimeKind.Local),
                             UserId = "admin",
                             UserStatus = "Watching",
                             UserVote = 8
@@ -275,7 +275,7 @@ namespace BackendWT.Migrations
                         {
                             UserSubscriptionsId = 1,
                             BillingPeriod = "Monthly",
-                            PaymentDate = new DateTime(2021, 3, 11, 0, 0, 0, 0, DateTimeKind.Local),
+                            PaymentDate = new DateTime(2021, 3, 12, 0, 0, 0, 0, DateTimeKind.Local),
                             Price = 8.0,
                             ProviderId = 1,
                             ProviderName = "Netflix",
@@ -285,7 +285,7 @@ namespace BackendWT.Migrations
                         {
                             UserSubscriptionsId = 2,
                             BillingPeriod = "Monthly",
-                            PaymentDate = new DateTime(2021, 3, 11, 0, 0, 0, 0, DateTimeKind.Local),
+                            PaymentDate = new DateTime(2021, 3, 12, 0, 0, 0, 0, DateTimeKind.Local),
                             Price = 10.0,
                             ProviderId = 6,
                             ProviderName = "Crunchyroll",

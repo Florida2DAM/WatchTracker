@@ -260,9 +260,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20210211161919_m1.cs" />
-    <Compile Include="Migrations\20210211161919_m1.designer.cs">
-      <DependentUpon>20210211161919_m1.cs</DependentUpon>
+    <Compile Include="Migrations\20210212133710_m1.cs" />
+    <Compile Include="Migrations\20210212133710_m1.designer.cs">
+      <DependentUpon>20210212133710_m1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\WatchTrackerContextModelSnapshot.cs" />
     <Compile Include="Models\Movie.cs" />
@@ -323,7 +323,6 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -347,6 +346,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
