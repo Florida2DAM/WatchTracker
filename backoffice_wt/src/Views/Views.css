@@ -1,0 +1,134 @@
+.myTable thead tr {
+    background-color: #4B4E59;
+    color: white;
+    text-align: left;
+}
+
+.myTable th, .myTable td {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    word-wrap:break-word;
+}
+
+.myTable th {
+    text-align: center;
+    color: white;
+}
+
+.myTable td {
+    text-align: left;
+}
+
+.myTable tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.myTable tbody tr:nth-of-type(odd) {
+    background-color: #a4a6ab;
+}
+
+.myTable tr:hover {
+    color: #0388E5;
+}
+
+table {
+    border-spacing: 0px;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.normalCell {
+    width: 20%;
+}
+
+.shortCell {
+    width: 5%;
+}
+
+.longCell {
+    width: 35%;
+}
+
+th {
+    font-size: 14px;
+}
+
+
+.mainContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.secondContainer {
+    display: flex;
+    flex-direction: column;
+    margin: 25px;
+}
+
+.searchContent {
+    display: flex;
+    margin: 10px;
+}
+
+.searchContent {
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 50%;
+    height: 40px;
+    font-size: 18px;
+}
+
+.searchContent input[type=text] {
+    max-width: 250px;
+    min-width: 100px;
+    height: 30px;
+    margin-left: 10px;
+}
+
+.searchContent input[type=date] {
+    min-width: 130px;
+    height: 30px;
+    margin-left: 10px;
+}
+
+@media only screen and (max-width: 1400px) {
+    .deleteButton {
+        width: 85%;
+    }
+
+    .myChart {
+        width: 75%;
+        height: 40%;
+    }
+}
+
+@media only screen and (min-width: 1401px) {
+    .deleteButton {
+        width: 55%;
+    }
+
+    .myChart {
+        width: 900px;
+    }
+}
+
+.createBtn {
+    background-color: #24B24A;
+    border: none;
+    color: white;
+    padding: 5px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.blockBtn {
+    width: 30%;
+    border: none;
+    border-radius: 0px;
+    outline: 0;
+    text-decoration: none;
+    text-align: center;
+}

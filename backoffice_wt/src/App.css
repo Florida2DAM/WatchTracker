@@ -1,0 +1,60 @@
+.App {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100vh;
+  min-width: 1024px;
+  display: flex;
+}
+
+.menu {
+  box-sizing: border-box;
+  background-color: #4B4E59;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.display {
+  box-sizing: border-box;
+  background-color: #BBC3CB;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  flex-wrap: nowrap;
+}
+
+.menu h2 {
+  text-align: center;
+  color: white;
+}
+
+.menu li:first-child {
+  border-top: 0.5px #3D414A solid;
+}
+
+.menu li {
+  border-bottom: 0.5px #3D414A solid;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-left: -30px;
+  margin-right: 15px;
+}
+
+.menu a {
+  text-decoration: none;
+}
+
+.menu-default {
+  color : white;
+}
+
+.menu-default:hover {
+  color: #0388E5;
+}
+
+.menu-active {
+  color: #0388E5;
+}
