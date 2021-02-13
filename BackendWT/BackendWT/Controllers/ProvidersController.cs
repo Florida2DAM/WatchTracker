@@ -5,7 +5,7 @@ using BackendWT.Models;
 
 namespace BackendWT.Controllers
 {
-    [EnableCors(origins: "http://localhost:3000", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ProvidersController : ApiController
     {
 

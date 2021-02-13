@@ -6,7 +6,7 @@ using System.Web.Http.Cors;
 
 namespace BackendWT.Controllers
 {
-    [EnableCors(origins: "http://localhost:3000", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class UsersSubscriptionsController : ApiController
     {
 
