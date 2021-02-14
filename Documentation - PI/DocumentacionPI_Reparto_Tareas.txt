@@ -1,6 +1,8 @@
 Carla Aparicio Albaladejo
+-Descripción en inglés
 - Realizacion del HCM
 - Metodologia SCRUM
+- Diario de sesiones
 
 Noelia Conches Ponce
 - Analisis DAFO
