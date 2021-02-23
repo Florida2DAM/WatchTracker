@@ -90,6 +90,9 @@ The app is distributed under Creative Commons Non Commercial license. To see mor
 * [Backoffice](http://23.22.212.18:12641/)
 * [Backend](http://23.22.212.18:12640/)
 
+## Video Demo
+* [Video](https://youtu.be/VPQ5rbetQMM)
+
 ## Mentions
 
 * Movie Database: [The Movie Database (TMDB)](https://www.themoviedb.org/?language=es-ES)
